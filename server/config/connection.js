@@ -38,4 +38,80 @@ async function select(query) {
   }
 }
 
-module.exports = { select }
+async function insert(query, values) {
+  console.log("\n\INSERT, creating connection...");
+  const connection = await pool.getConnection();
+
+  try {
+    console.log("INSERT, starting transaction...");
+    await connection.beginTransaction();
+
+    console.log("INSERT, running query...");
+    const [result] = await connection.query(query, values);
+
+    console.log("INSERT, committing transaction...");
+    await connection.commit();
+    
+    console.log("INSERT, transaction committed.");
+    return result;
+  } catch (error) {
+    console.error("INSERT, an error occurred:", error);
+    throw error;
+  } finally {
+    connection.release();
+    console.log("INSERT, transaction released.\n\n");
+  }
+}
+
+async function update(query, values) {
+  console.log("\n\UPDATE, creating connection...");
+  const connection = await pool.getConnection();
+
+  try {
+    console.log("UPDATE, starting transaction...");
+    await connection.beginTransaction();
+
+    console.log("UPDATE, running query...");
+    const [result] = await connection.query(query, values);
+
+    console.log("UPDATE, committing transaction...");
+    await connection.commit();
+    
+    console.log("UPDATE, transaction committed.");
+    return result;
+  } catch (error) {
+    console.error("UPDATE, an error occurred:", error);
+    throw error;
+  } finally {
+    connection.release();
+    console.log("UPDATE, transaction released.\n\n");
+  }
+}
+
+async function remove(query, values) {
+  console.log("\n\DELETE, creating connection...");
+  const connection = await pool.getConnection();
+
+  try {
+    console.log("DELETE, starting transaction...");
+    await connection.beginTransaction();
+
+    console.log("DELETE, running query...");
+    const [result] = await connection.query(query, values);
+
+    console.log("DELETE, committing transaction...");
+    await connection.commit();
+    
+    console.log("DELETE, transaction committed.");
+    return result;
+  } catch (error) {
+    console.error("DELETE, an error occurred:", error);
+    throw error;
+  } finally {
+    connection.release();
+    console.log("DELETE, transaction released.\n\n");
+  }
+}
+
+
+module.exports = { select, insert, update, remove }
