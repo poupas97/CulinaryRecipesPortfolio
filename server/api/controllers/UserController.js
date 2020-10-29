@@ -1,8 +1,9 @@
+const { select, selectSinge, insert, update, remove } = require('../../config/connection');
+const { getHashPassword } = require('../../tools/password');
+
 const TABLE = 'users';
 
 module.exports = () => {
-  const { select, selectSinge, insert, update, remove } = require('../../config/connection');
-
   const listUsers = async (req, res, next) => {
     return res.status(200).json(await select(TABLE));
   };
@@ -13,13 +14,17 @@ module.exports = () => {
   };
 
   const createUser = async (req, res, next) => {
-    const { body } = req;
-    return res.status(200).json(await insert(TABLE, body));
+    const { body: { username, password } } = req;
+    const hash = await getHashPassword(password)
+    const user = { username, password: hash }
+    return res.status(200).json(await insert(TABLE, user));
   };
 
   const updateUser = async (req, res, next) => {
-    const { body, params: { id } } = req;
-    return res.status(200).json(await update(TABLE, body, id));
+    const { body: { username, password }, params: { id } } = req;
+    const hash = await getHashPassword(password)
+    const user = { username, password: hash }
+    return res.status(200).json(await update(TABLE, user, id));
   };
 
   const deleteUser = async (req, res, next) => {
