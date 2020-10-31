@@ -14,10 +14,10 @@ module.exports = () => {
   app.use(AuthController.authenticateToken);
 
   // ENDPOINTS
-  consign({cwd: 'api'})
+  consign({ cwd: 'api' })
     .then('controllers')
     .then('routes')
-    .into(app)
+    .into(app);
 
   return app;
 };
