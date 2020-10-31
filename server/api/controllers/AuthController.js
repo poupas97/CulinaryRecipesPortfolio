@@ -1,17 +1,17 @@
 const { generateToken, verifyToken } = require('../../tools/token');
 const { compareHashPassword } = require('../../tools/password');
-const UserModel = require('../models/UserModel');
+const UserConnection = require('../connections/UserConnection');
 
 const login = async (req, res, next) => {
   const { body: { username, password } } = req;
 
-  const user = await UserModel.singleUserByUsername(username);
+  const user = await UserConnection.singleUserByUsername(username);
   if(!user) return res.status(500).json();
   if(!(await compareHashPassword(password, user.password))) return res.status(500).json();
 
   const accessToken = generateToken({ username, password })
   const refreshToken = generateToken({ username, password }, true)
-  await UserModel.updateUser({ accessToken, refreshToken }, user.id);
+  await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
   
   return res.status(200).json({ accessToken, refreshToken });
 };
@@ -36,7 +36,7 @@ const authenticateToken = (req, res, next) => {
 const refresh = async (req, res, next) => {
   const { body: { username, password, refreshToken: tokenReceived } } = req;
 
-  const user = await UserModel.singleUserByUsername(username);
+  const user = await UserConnection.singleUserByUsername(username);
   if(!user) return res.status(500).json();
   if(!(await compareHashPassword(password, user.password))) return res.status(500).json();
 
@@ -45,7 +45,7 @@ const refresh = async (req, res, next) => {
 
   const accessToken = generateToken({ username, password })
   const refreshToken = generateToken({ username, password }, true)
-  await UserModel.updateUser({ accessToken, refreshToken }, user.id);
+  await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
 
   return res.status(200).json({ accessToken, refreshToken });
 };
@@ -53,10 +53,10 @@ const refresh = async (req, res, next) => {
 const logout = async (req, res, next) => {
   const { body: { username } } = req;
 
-  const user = await UserModel.singleUserByUsername(username);
+  const user = await UserConnection.singleUserByUsername(username);
   if(!user) return res.status(500).json();
 
-  await UserModel.updateUser({ accessToken : "", refreshToken: "" }, user.id);
+  await UserConnection.updateUser({ accessToken : "", refreshToken: "" }, user.id);
 
   return res.status(200).json();
 };
