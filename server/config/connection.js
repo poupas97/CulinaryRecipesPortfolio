@@ -75,7 +75,7 @@ async function selectSinge(table, where) {
 }
 
 async function insert(table, value) {
-  console.log('\n\INSERT, creating connection');
+  console.log('\n\nINSERT, creating connection');
   const connection = await pool.getConnection();
 
   try {
@@ -98,7 +98,7 @@ async function insert(table, value) {
     await connection.commit();
 
     console.log('INSERT, transaction committed');
-    return result;
+    return { id: result.insertId };
   } catch (error) {
     console.error('INSERT, an error occurred: ', error);
     throw error;
@@ -109,7 +109,7 @@ async function insert(table, value) {
 }
 
 async function update(table, value, id) {
-  console.log('\n\UPDATE, creating connection');
+  console.log('\n\nUPDATE, creating connection');
   const connection = await pool.getConnection();
 
   try {
@@ -131,7 +131,7 @@ async function update(table, value, id) {
     await connection.commit();
 
     console.log('UPDATE, transaction committed');
-    return result;
+    return { updated: !!result.changedRows };
   } catch (error) {
     console.error('UPDATE, an error occurred: ', error);
     throw error;
@@ -142,7 +142,7 @@ async function update(table, value, id) {
 }
 
 async function remove(table, id) {
-  console.log('\n\DELETE, creating connection');
+  console.log('\n\nDELETE, creating connection');
   const connection = await pool.getConnection();
 
   try {
@@ -158,7 +158,7 @@ async function remove(table, id) {
     await connection.commit();
 
     console.log('DELETE, transaction committed');
-    return result;
+    return { updated: !!result.affectedRows };
   } catch (error) {
     console.error('DELETE, an error occurred: ', error);
     throw error;

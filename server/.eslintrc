@@ -4,11 +4,7 @@
       "plugin:node/recommended"
   ],
   "parserOptions": {
-      // Only ESLint 6.2.0 and later support ES2020.
       "ecmaVersion": 2020
-  },
-  "engines": {
-    "node": ">=8.0.0"
   },
   "rules": {
       "node/exports-style": ["error", "module.exports"],
@@ -23,7 +19,7 @@
       "semi-spacing": ["error", {"before": false, "after": true}],
       "quotes": ["error", "single"],
       "indent": ["error", 2, { "SwitchCase": 1}],
-      "max-len": ["error", { "code": 110 }],
+      "max-len": ["error", { "code": 115 }],
       "no-trailing-spaces": ["error", { "ignoreComments": true }],
       "arrow-parens": ["error", "as-needed"],
       "import/order": ["off"],
