@@ -1,37 +1,33 @@
-const { select, selectSinge, insert, update, remove } = require('../../config/connection');
 const { getHashPassword } = require('../../tools/password');
+const UserModel = require('../models/UserModel');
 
 const TABLE = 'users';
 
-module.exports = () => {
-  const listUsers = async (req, res, next) => {
-    // console.log(req.userAuthenticated)
-    return res.status(200).json(await select(TABLE));
-  };
+const listUsers = async (req, res, next) => {
+  // console.log(req.userAuthenticated)
+  return res.status(200).json(await UserModel.listUsers());
+};
 
-  const singleUser = async (req, res, next) => {
-    const { params: { id } } = req;
-    return res.status(200).json(await selectSinge(TABLE, id));
-  };
+const singleUser = async (req, res, next) => {
+  const { params: { id } } = req;
+  return res.status(200).json(await UserModel.singleUser(id));
+};
 
-  const createUser = async (req, res, next) => {
-    const { body: { username, password } } = req;
-    const hash = await getHashPassword(password)
-    const user = { username, password: hash }
-    return res.status(200).json(await insert(TABLE, user));
-  };
+const createUser = async (req, res, next) => {
+  const { body: { username, password } } = req;
+  const hash = await getHashPassword(password)
+  return res.status(200).json(await UserModel.createUser({ username, password: hash }));
+};
 
-  const updateUser = async (req, res, next) => {
-    const { body: { username, password }, params: { id } } = req;
-    const hash = await getHashPassword(password)
-    const user = { username, password: hash }
-    return res.status(200).json(await update(TABLE, user, id));
-  };
+const updateUser = async (req, res, next) => {
+  const { body: { username, password }, params: { id } } = req;
+  const hash = await getHashPassword(password)
+  return res.status(200).json(await UserModel.updateUser({ username, password: hash }, id));
+};
 
-  const deleteUser = async (req, res, next) => {
-    const { params: { id } } = req;
-    return res.status(200).json(await remove(TABLE, id));
-  };
+const deleteUser = async (req, res, next) => {
+  const { params: { id } } = req;
+  return res.status(200).json(await UserModel.deleteUser(id));
+};
 
-  return { listUsers, singleUser, createUser, updateUser, deleteUser };
-}
+module.exports = () => ({ listUsers, singleUser, createUser, updateUser, deleteUser });
