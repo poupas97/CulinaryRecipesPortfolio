@@ -11,7 +11,7 @@ module.exports = () => {
 
   // MIDDLEWARES
   app.use(bodyParser.json());
-  app.use(AuthController.authenticateToke);
+  app.use(AuthController.authenticateToken);
 
   // ENDPOINTS
   consign({cwd: 'api'})
