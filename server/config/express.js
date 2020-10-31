@@ -1,16 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const config = require('config');
 const consign = require('consign');
+const AuthController = require('../api/controllers/AuthController')();
 
 module.exports = () => {
   const app = express();
 
   // APP VARS
-  app.set('port', process.env.PORT || config.get('server.port'));
+  app.set('port', process.env.PORT);
 
   // MIDDLEWARES
   app.use(bodyParser.json());
+  app.use(AuthController.authenticateToke);
 
   // ENDPOINTS
   consign({cwd: 'api'})

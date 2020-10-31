@@ -5,6 +5,7 @@ const TABLE = 'users';
 
 module.exports = () => {
   const listUsers = async (req, res, next) => {
+    // console.log(req.userAuthenticated)
     return res.status(200).json(await select(TABLE));
   };
 
