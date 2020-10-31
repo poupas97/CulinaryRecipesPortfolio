@@ -6,8 +6,14 @@ const listUsers = async () => {
   return await select(TABLE);
 };
 
-const singleUser = async (id) => {
-  return await selectSinge(TABLE, [{ prop: 'id', operator: '=', value: id } ]);
+const singleUserById = async (id) => {
+  const [user] = await selectSinge(TABLE, [{ prop: 'id', operator: '=', value: id } ]);
+  return user;
+};
+
+const singleUserByUsername = async (username) => {
+  const [user] = await selectSinge(TABLE, [{ prop: 'username', operator: '=', value: username } ]);
+  return user;
 };
 
 const createUser = async (user) => {
@@ -22,4 +28,4 @@ const deleteUser = async (id) => {
   return await remove(TABLE, id);
 };
 
-module.exports = ({  listUsers, singleUser, createUser, updateUser, deleteUser });
+module.exports = ({  listUsers, singleUserById, singleUserByUsername, createUser, updateUser, deleteUser });

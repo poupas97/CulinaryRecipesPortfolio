@@ -40,7 +40,7 @@ async function select(table) {
   }
 }
 
-async function selectSinge(table, id) {
+async function selectSinge(table, where) {
   console.log("\n\nSELECT SINGLE, creating connection");
   const connection = await pool.getConnection();
 
@@ -49,10 +49,15 @@ async function selectSinge(table, id) {
     await connection.beginTransaction();
 
     console.log("SELECT SINGLE, running query");
-    const query = `SELECT * from ${table} WHERE id = ?`;
+    const elements = where.reduce((acc, { prop, operator, value}) => ({
+      ...acc, 
+      collumns: [...(acc.collumns || []), `${prop} ${operator} ? `], 
+      values: [...(acc.values || []), value],
+    }), {});
+    const query = `SELECT * from ${table} WHERE ${elements.collumns.join(' AND ')}`;
     
     // const [rows, fileds] = await connection.query(query);
-    const [result] = await connection.query(query, [id]);
+    const [result] = await connection.query(query, elements.values);
 
     console.log("SELECT SINGLE, committing transaction");
     await connection.commit();

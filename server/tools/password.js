@@ -5,10 +5,8 @@ const getHashPassword = async (text) => {
   return await bcrypt.hash(text, salt)
 }
 
-const compareHashPassword = async (hashInicial, hashToTest) => {
-  const salt = await bcrypt.genSalt(10)
-  const hash = await bcrypt.hash(hashInicial, salt)
-  return await bcrypt.compare(hashToTest, hash)
+const compareHashPassword = async (text, hashToTest) => {
+  return await bcrypt.compare(text, hashToTest)
 }
 
 module.exports = { getHashPassword, compareHashPassword };

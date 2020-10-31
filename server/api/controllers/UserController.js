@@ -1,16 +1,14 @@
 const { getHashPassword } = require('../../tools/password');
 const UserModel = require('../models/UserModel');
 
-const TABLE = 'users';
-
 const listUsers = async (req, res, next) => {
   // console.log(req.userAuthenticated)
   return res.status(200).json(await UserModel.listUsers());
 };
 
-const singleUser = async (req, res, next) => {
+const singleUserById = async (req, res, next) => {
   const { params: { id } } = req;
-  return res.status(200).json(await UserModel.singleUser(id));
+  return res.status(200).json(await UserModel.singleUserById(id));
 };
 
 const createUser = async (req, res, next) => {
@@ -30,4 +28,4 @@ const deleteUser = async (req, res, next) => {
   return res.status(200).json(await UserModel.deleteUser(id));
 };
 
-module.exports = () => ({ listUsers, singleUser, createUser, updateUser, deleteUser });
+module.exports = () => ({ listUsers, singleUserById, createUser, updateUser, deleteUser });
