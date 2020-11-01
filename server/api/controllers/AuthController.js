@@ -3,17 +3,19 @@ const { compareHashPassword } = require('../../tools/password');
 const UserConnection = require('../../connections/UserConnection');
 const { Methods } = require('../routes/constants');
 const { errorDtoSimple } = require('../../dto/ErrorDTO');
+const { userDtoComplex } = require('../../dto/UserDTO');
 
 const login = async (req, res) => {
   try {
     const { body: { username, password } } = req;
 
-    const user = await UserConnection.singleUserByUsername(username);
+    const user = userDtoComplex(await UserConnection.singleUserByUsername(username));
+
     if (!user) return res.status(500).json();
     if (!(await compareHashPassword(password, user.password))) return res.status(500).json();
 
-    const accessToken = generateToken({ username, password });
-    const refreshToken = generateToken({ username, password }, true);
+    const accessToken = generateToken(user);
+    const refreshToken = generateToken(user, true);
     await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
 
     return res.status(200).json({ accessToken, refreshToken });
@@ -57,15 +59,15 @@ const refresh = async (req, res) => {
   try {
     const { body: { username, password, refreshToken: tokenReceived } } = req;
 
-    const user = await UserConnection.singleUserByUsername(username);
+    const user = userDtoComplex(await UserConnection.singleUserByUsername(username));
     if (!user) return res.status(500).json();
     if (!(await compareHashPassword(password, user.password))) return res.status(500).json();
 
     const userAuthenticated = verifyToken(tokenReceived, true);
     if (!userAuthenticated) return res.sendStatus(403);
 
-    const accessToken = generateToken({ username, password });
-    const refreshToken = generateToken({ username, password }, true);
+    const accessToken = generateToken(user);
+    const refreshToken = generateToken(user, true);
     await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
 
     return res.status(200).json({ accessToken, refreshToken });
@@ -76,14 +78,11 @@ const refresh = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    const { body: { username } } = req;
+    const { userAuthenticated } = req;
 
-    const user = await UserConnection.singleUserByUsername(username);
-    if (!user) return res.status(500).json();
+    const result = await UserConnection.updateUser({ accessToken: '', refreshToken: '' }, userAuthenticated.id);
 
-    await UserConnection.updateUser({ accessToken: '', refreshToken: '' }, user.id);
-
-    return res.status(200).json();
+    return res.status(200).json({ logout: result.updated });
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
