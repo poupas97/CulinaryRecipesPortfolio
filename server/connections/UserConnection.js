@@ -1,4 +1,4 @@
-const { select, selectSinge, insert, update, remove } = require('../../config/connection');
+const { select, selectSinge, insert, update, remove } = require('../config/connection');
 
 const TABLE = 'users';
 
