@@ -158,7 +158,7 @@ async function remove(table, id) {
     await connection.commit();
 
     console.log('DELETE, transaction committed');
-    return { updated: !!result.affectedRows };
+    return { deleted: !!result.affectedRows };
   } catch (error) {
     console.error('DELETE, an error occurred: ', error);
     throw error;

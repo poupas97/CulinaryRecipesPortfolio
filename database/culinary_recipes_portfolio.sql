@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Out-2020 às 00:43
+-- Tempo de geração: 01-Nov-2020 às 17:44
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -42,7 +42,8 @@ CREATE TABLE `favorits` (
 CREATE TABLE `ingredients` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(200) DEFAULT NULL
+  `description` varchar(200) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -54,7 +55,8 @@ CREATE TABLE `ingredients` (
 CREATE TABLE `recipes` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(1000) DEFAULT NULL
+  `description` varchar(1000) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -79,15 +81,23 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(300) NOT NULL,
-  `name` varchar(50) DEFAULT NULL
+  `name` varchar(50) DEFAULT NULL,
+  `accessToken` varchar(300) NOT NULL,
+  `refreshToken` varchar(400) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `name`) VALUES
-(1, 'admin', 'admin', 'Admin');
+INSERT INTO `users` (`id`, `username`, `password`, `name`, `accessToken`, `refreshToken`, `active`) VALUES
+(39, 'admin', '$2b$10$OwE92x7252nXwgyBIOzrAu20wD1VAD21huex.OdMbnDzX/e7otjjG', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjU1NzkxfQ.rvGtAs1zIRAoTs7mTM2bpfF2T_Whp064wOZwmKTWd7g', 1),
+(40, 'test', '$2b$10$ql5s6vvOUSRi9np8aVbX2eYaymxuvk5KoaBEVl2RFxdKeARsw4Id.', NULL, '', '', 1),
+(41, 'test2', '$2b$10$BgDo7V.e3kN4EKSJfLmcJOpvM3ohPLKwvJnv2fwAGXy7.r0S8G.fy', NULL, '', '', 1),
+(43, 'test3', '$2b$10$j4L.SjyINFAUemD5hNNW9.UoRIR.2wazRlWHLibFoOFl8iKFJI5UC', NULL, '', '', 1),
+(44, 'test4', '$2b$10$TvnB7OkTzs2IRni7oJHzpegaP9N2nmYuTV.vMvXjtiEegwJb6IhS.', NULL, '', '', 1),
+(46, 'test5', '$2b$10$kzWxEYub9i.wW.CV1L7OP.bmSRLx0l.kJuq6OlvDjd933EqkIvu4C', NULL, '', '', 0);
 
 --
 -- Índices para tabelas despejadas
@@ -105,13 +115,15 @@ ALTER TABLE `favorits`
 -- Índices para tabela `ingredients`
 --
 ALTER TABLE `ingredients`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Índices para tabela `recipes`
 --
 ALTER TABLE `recipes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Índices para tabela `recipes_ingredients`
@@ -142,7 +154,7 @@ ALTER TABLE `favorits`
 -- AUTO_INCREMENT de tabela `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `recipes`
@@ -160,7 +172,7 @@ ALTER TABLE `recipes_ingredients`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Restrições para despejos de tabelas
