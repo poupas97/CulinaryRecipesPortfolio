@@ -131,7 +131,7 @@ async function update(table, value, id) {
     await connection.commit();
 
     console.log('UPDATE, transaction committed');
-    return { updated: !!result.changedRows };
+    return { updated: !!result.affectedRows };
   } catch (error) {
     console.error('UPDATE, an error occurred: ', error);
     throw error;

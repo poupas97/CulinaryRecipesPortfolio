@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const consign = require('consign');
-const AuthController = require('../controllers/AuthController')();
+const AuthController = require('../api/controllers/AuthController')();
 
 module.exports = () => {
   const app = express();

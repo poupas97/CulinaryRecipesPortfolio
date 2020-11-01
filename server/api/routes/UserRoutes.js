@@ -6,4 +6,5 @@ module.exports = app => {
   app.route('/api/users').post(controller.createUser);
   app.route('/api/users/:id').put(controller.updateUser);
   app.route('/api/users/:id').delete(controller.deleteUser);
+  app.route('/api/users/available/:id').delete(controller.availableUser);
 };

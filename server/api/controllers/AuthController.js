@@ -1,8 +1,8 @@
-const { generateToken, verifyToken } = require('../tools/token');
-const { compareHashPassword } = require('../tools/password');
-const UserConnection = require('../connections/UserConnection');
+const { generateToken, verifyToken } = require('../../tools/token');
+const { compareHashPassword } = require('../../tools/password');
+const UserConnection = require('../../connections/UserConnection');
 const { Methods } = require('../routes/constants');
-const { errorDtoSimple } = require('../dto/ErrorDTO');
+const { errorDtoSimple } = require('../../dto/ErrorDTO');
 
 const login = async (req, res) => {
   try {
@@ -32,7 +32,8 @@ const authenticateToken = async (req, res, next) => {
   try {
     const { headers: { authorization }, method, url } = req;
 
-    if (needsAuthentication(method, url)) {
+    if (!needsAuthentication(method, url)) next();
+    else {
       let token;
       if (authorization) [, token] = authorization.split(' ');
       if (!token) return res.sendStatus(401);
@@ -45,8 +46,6 @@ const authenticateToken = async (req, res, next) => {
 
       // eslint-disable-next-line no-param-reassign
       req.userAuthenticated = userAuthenticated;
-      next();
-    } else {
       next();
     }
   } catch (error) {

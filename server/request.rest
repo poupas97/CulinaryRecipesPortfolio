@@ -56,3 +56,12 @@ Content-Type: application/json
 ### DELETE USER
 DELETE http://localhost:8000/api/users/45
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDE4NDMwOCwiZXhwIjoxNjA1OTg0MzA4fQ.-AujMi-D69zP4MdHqIIqui29E_tMhEDrXVxjisbUUE4
+
+### AVAILABLE USER
+DELETE http://localhost:8000/api/users/available/46
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0NjAyNCwiZXhwIjoxNjA0MjQ3ODI0fQ.-I8JDabNcDFPuS428JYnrJnvC9mDyjPT8BcEYIvhYjc
+Content-Type: application/json
+
+{
+  "active": false
+}
