@@ -1,0 +1,32 @@
+### LIST ALL RECIPES
+GET http://localhost:8000/api/recipes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzU2OTg3fQ.PZot67T5GgSI6RDun6GTbryQMecrmjpEd2Qh_HU1zJk
+
+### LIST ONE RECIPE
+GET http://localhost:8000/api/recipes/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzU2OTg3fQ.PZot67T5GgSI6RDun6GTbryQMecrmjpEd2Qh_HU1zJk
+
+### CREATE RECIPE
+POST http://localhost:8000/api/recipes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzU2OTg3fQ.PZot67T5GgSI6RDun6GTbryQMecrmjpEd2Qh_HU1zJk
+Content-Type: application/json
+
+{
+  "name": "test", 
+  "description": "test test"
+}
+
+### UPDATE RECIPE
+PUT http://localhost:8000/api/recipes/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzU2OTg3fQ.PZot67T5GgSI6RDun6GTbryQMecrmjpEd2Qh_HU1zJk
+Content-Type: application/json
+
+{
+  "name": "test modify", 
+  "description": "modify",
+  "active": 1
+}
+
+### DELETE RECIPE
+DELETE http://localhost:8000/api/recipes/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzU2OTg3fQ.PZot67T5GgSI6RDun6GTbryQMecrmjpEd2Qh_HU1zJk
