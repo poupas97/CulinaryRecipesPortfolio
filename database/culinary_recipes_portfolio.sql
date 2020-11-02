@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Nov-2020 às 17:44
+-- Tempo de geração: 02-Nov-2020 às 23:32
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -92,7 +92,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `accessToken`, `refreshToken`, `active`) VALUES
-(39, 'admin', '$2b$10$OwE92x7252nXwgyBIOzrAu20wD1VAD21huex.OdMbnDzX/e7otjjG', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjU1NzkxfQ.rvGtAs1zIRAoTs7mTM2bpfF2T_Whp064wOZwmKTWd7g', 1),
+(39, 'admin', '$2b$10$OwE92x7252nXwgyBIOzrAu20wD1VAD21huex.OdMbnDzX/e7otjjG', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzU2OTg3fQ.PZot67T5GgSI6RDun6GTbryQMecrmjpEd2Qh_HU1zJk', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDM1NTE4NywiZXhwIjoxNjA0MzYyMzg3fQ._MvXLELrJRNx6xdU5LV0BY1MhNDtsQJKpYp3x9fUGHE', 1),
 (40, 'test', '$2b$10$ql5s6vvOUSRi9np8aVbX2eYaymxuvk5KoaBEVl2RFxdKeARsw4Id.', NULL, '', '', 1),
 (41, 'test2', '$2b$10$BgDo7V.e3kN4EKSJfLmcJOpvM3ohPLKwvJnv2fwAGXy7.r0S8G.fy', NULL, '', '', 1),
 (43, 'test3', '$2b$10$j4L.SjyINFAUemD5hNNW9.UoRIR.2wazRlWHLibFoOFl8iKFJI5UC', NULL, '', '', 1),
@@ -160,7 +160,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT de tabela `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `recipes_ingredients`
