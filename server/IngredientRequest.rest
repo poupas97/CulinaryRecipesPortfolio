@@ -1,0 +1,32 @@
+### LIST ALL INGREDIENTS
+GET http://localhost:8000/api/ingredients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g
+
+### LIST ONE INGREDIENT
+GET http://localhost:8000/api/ingredients/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g
+
+### CREATE INGREDIENT
+POST http://localhost:8000/api/ingredients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g
+Content-Type: application/json
+
+{
+  "name": "test2", 
+  "description": "test test"
+}
+
+### UPDATE INGREDIENT
+PUT http://localhost:8000/api/ingredients/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g
+Content-Type: application/json
+
+{
+  "name": "test modify", 
+  "description": "modify",
+  "active": 1
+}
+
+### DELETE INGREDIENT
+DELETE http://localhost:8000/api/ingredients/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0ODU5MSwiZXhwIjoxNjA0MjUwMzkxfQ.ajZgH0SeYxVCV0Ixv7hrqJalph1N6eCO2h4wvi2Gf4g
