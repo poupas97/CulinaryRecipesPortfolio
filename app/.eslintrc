@@ -1,6 +1,5 @@
 {
   "extends": [
-    "airbnb",
     "prettier",
     "prettier/react"
   ],
@@ -15,8 +14,7 @@
   "plugins": [
     "import-helpers", 
     "react", 
-    "prettier", 
-    "cypress"
+    "prettier"
   ],
   "rules": {
     "semi": ["error", "always"],
@@ -39,7 +37,6 @@
         "groups": [
           "/^@testing-library/",
           "module",
-          "/^@lusiaves.*(?<!css)$/",
           ["parent", "sibling", "index"],
           "/css$/"
         ],
@@ -65,7 +62,6 @@
     "react/jsx-one-expression-per-line": ["error"],
     "react/jsx-indent-props": ["error"],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
-
     "click-events-have-key-events": "off",
     "jsx-a11y/interactive-supports-focus": "off",
     "jsx-a11y/click-events-have-key-events": "off",
@@ -102,9 +98,7 @@
   },
   "env": {
     "browser": true,
-    "es6": true,
-    "jest": true,
-    "cypress/globals": true
+    "es6": true
   },
   "globals": {
     "Atomics": "readonly",

@@ -4,8 +4,8 @@ const ErrorMapper = {
 };
 
 const errorDtoSimple = error => {
-  const { code } = error || {};
-  return { error: ErrorMapper[code] || code || error || true };
+  const { code, message } = error || {};
+  return { error: ErrorMapper[code] || message || true };
 };
 
 module.exports = ({ ErrorMapper, errorDtoSimple });
