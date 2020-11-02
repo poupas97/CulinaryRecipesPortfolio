@@ -1,0 +1,67 @@
+{
+  "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended"
+  ],
+  "parserOptions": {
+      "ecmaVersion": 2020
+  },
+  "rules": {
+      "node/exports-style": ["error", "module.exports"],
+      "node/file-extension-in-import": ["error", "always"],
+      "node/prefer-global/buffer": ["error", "always"],
+      "node/prefer-global/process": ["error", "always"],
+      "node/prefer-global/url-search-params": ["error", "always"],
+      "node/prefer-global/url": ["error", "always"],
+      "node/prefer-promises/dns": "error",
+      "node/prefer-promises/fs": "error",
+      "semi": ["error", "always"],
+      "semi-spacing": ["error", {"before": false, "after": true}],
+      "quotes": ["error", "single"],
+      "indent": ["error", 2, { "SwitchCase": 1}],
+      "max-len": ["error", { "code": 115 }],
+      "no-trailing-spaces": ["error", { "ignoreComments": true }],
+      "arrow-parens": ["error", "as-needed"],
+      "import/order": ["off"],
+      "sort-imports": ["error", {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "memberSyntaxSortOrder": ["none", "single", "multiple", "all"]
+      }],
+      "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
+      "eol-last": ["error", "always"],
+      "arrow-spacing": "error",
+      "operator-linebreak": [2, "before", { "overrides": { "?": "after" } }],
+      "no-multi-spaces": "error",
+      "comma-spacing": ["error", { "before": false, "after": true }],
+      "keyword-spacing": "error",
+      "space-infix-ops": "error",
+      "key-spacing": ["error", { "beforeColon": false }],
+      "space-before-blocks": "error",
+      "arrow-body-style": ["error", "as-needed"],
+      "space-in-parens": ["error", "never"],
+      "click-events-have-key-events": "off",
+      "comma-dangle": "error",
+      "dot-notation": "error",
+      "no-console": "error",
+      "object-curly-spacing": ["error", "always"],
+      "no-param-reassign": ["error", {
+          "props": true,
+          "ignorePropertyModificationsFor": ["draft", "state", "sum"]
+        }
+      ],
+      "no-plusplus": "off",
+      "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+      "no-unused-vars": ["error", {
+          "vars": "all",
+          "args": "after-used",
+          "ignoreRestSiblings": false
+        }
+      ],
+      "no-var": "error",
+      "prefer-const": "error",
+      "prefer-spread": "error",
+      "prefer-template": "error",
+      "sort-vars": "error"
+  }
+}
