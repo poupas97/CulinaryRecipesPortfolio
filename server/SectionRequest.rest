@@ -1,0 +1,31 @@
+### LIST ALL SECTIONS
+GET http://localhost:8000/api/sections
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDQzMzgyfQ.OzrUoRYRXRpQzPt3Zf8p9WTSwQFNFkbwWD_43v0XhcI
+
+### LIST ONE SECTION
+GET http://localhost:8000/api/sections/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDQzMzgyfQ.OzrUoRYRXRpQzPt3Zf8p9WTSwQFNFkbwWD_43v0XhcI
+
+### CREATE SECTION
+POST http://localhost:8000/api/sections
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDQzMzgyfQ.OzrUoRYRXRpQzPt3Zf8p9WTSwQFNFkbwWD_43v0XhcI
+Content-Type: application/json
+
+{
+  "name": "pastelatia", 
+  "description": "pastelatia descricao"
+}
+
+### UPDATE SECTION
+PUT http://localhost:8000/api/sections/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDQzMzgyfQ.OzrUoRYRXRpQzPt3Zf8p9WTSwQFNFkbwWD_43v0XhcI
+Content-Type: application/json
+
+{
+  "name": "pastelaria", 
+  "description": "pastelaria descricao"
+}
+
+### DELETE SECTION
+DELETE http://localhost:8000/api/sections/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDQzMzgyfQ.OzrUoRYRXRpQzPt3Zf8p9WTSwQFNFkbwWD_43v0XhcI
