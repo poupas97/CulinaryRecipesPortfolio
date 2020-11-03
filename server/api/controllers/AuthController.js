@@ -78,9 +78,9 @@ const refresh = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    const { userAuthenticated } = req;
+    const { userAuthenticated: { id } } = req;
 
-    const result = await UserConnection.updateUser({ accessToken: '', refreshToken: '' }, userAuthenticated.id);
+    const result = await UserConnection.updateUser({ accessToken: null, refreshToken: null }, id);
 
     return res.status(200).json({ logout: result.updated });
   } catch (error) {
