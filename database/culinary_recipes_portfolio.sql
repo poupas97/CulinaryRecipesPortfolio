@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Nov-2020 às 22:58
+-- Tempo de geração: 03-Nov-2020 às 23:09
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -88,9 +88,16 @@ CREATE TABLE `recipes_ingredients` (
 CREATE TABLE `sections` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `descricao` varchar(200) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `sections`
+--
+
+INSERT INTO `sections` (`id`, `name`, `description`, `active`) VALUES
+(1, 'pastelaria', 'pastelaria descricao', 0);
 
 -- --------------------------------------------------------
 
@@ -201,7 +208,7 @@ ALTER TABLE `recipes_ingredients`
 -- AUTO_INCREMENT de tabela `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `users`
