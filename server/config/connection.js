@@ -13,7 +13,7 @@ const settings = {
 
 const pool = mysql.createPool(settings);
 
-async function select(table) {
+async function select(table, where) {
   console.log('\n\nSELECT, creating connection');
   const connection = await pool.getConnection();
 
@@ -22,10 +22,22 @@ async function select(table) {
     await connection.beginTransaction();
 
     console.log('SELECT, running query');
-    const query = `SELECT * from ${table}`;
+    let result = [];
+    if (where) {
+      const elements = where.reduce((acc, { prop, operator, value }) => ({
+        ...acc,
+        collumns: [...(acc.collumns || []), `${prop} ${operator} ? `],
+        values: [...(acc.values || []), value]
+      }), {});
+      const query = `SELECT * from ${table} WHERE ${elements.collumns.join(' AND ')}`;
 
-    // const [rows, fileds] = await connection.query(query);
-    const [result] = await connection.query(query);
+      [result] = await connection.query(query, elements.values);
+    } else {
+      const query = `SELECT * from ${table}`;
+
+      // const [rows, fileds] = await connection.query(query);
+      [result] = await connection.query(query);
+    }
 
     console.log('SELECT, committing transaction');
     await connection.commit();
