@@ -12,12 +12,12 @@ const KEY_NAME = 'name';
 const KEY_DESCRIPTION = 'description';
 const KEY_ACTIVE = 'active';
 
-const typeToBd = user => {
+const typeToBd = type => {
   const typeToSend = {
-    [KEY_BD_ID]: user[KEY_ID],
-    [KEY_BD_NAME]: user[KEY_NAME],
-    [KEY_BD_DESCRIPTION]: user[KEY_DESCRIPTION],
-    [KEY_BD_ACTIVE]: user[KEY_ACTIVE]
+    [KEY_BD_ID]: type[KEY_ID],
+    [KEY_BD_NAME]: type[KEY_NAME],
+    [KEY_BD_DESCRIPTION]: type[KEY_DESCRIPTION],
+    [KEY_BD_ACTIVE]: type[KEY_ACTIVE]
   };
   Object.entries(typeToSend).forEach(([key, value]) => {
     if (value === undefined) delete typeToSend[key];
@@ -25,12 +25,12 @@ const typeToBd = user => {
   return typeToSend;
 };
 
-const bdToType = (user = {}) => {
+const bdToType = (type = {}) => {
   const typeToSend = {
-    [KEY_ID]: user[KEY_BD_ID],
-    [KEY_NAME]: user[KEY_BD_NAME],
-    [KEY_DESCRIPTION]: user[KEY_BD_DESCRIPTION],
-    [KEY_ACTIVE]: user[KEY_BD_ACTIVE]
+    [KEY_ID]: type[KEY_BD_ID],
+    [KEY_NAME]: type[KEY_BD_NAME],
+    [KEY_DESCRIPTION]: type[KEY_BD_DESCRIPTION],
+    [KEY_ACTIVE]: type[KEY_BD_ACTIVE]
   };
   Object.entries(typeToSend).forEach(([key, value]) => {
     if (value === undefined) delete typeToSend[key];
