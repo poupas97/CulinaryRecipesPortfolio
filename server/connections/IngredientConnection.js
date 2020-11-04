@@ -13,29 +13,29 @@ const KEY_DESCRIPTION = 'description';
 const KEY_ACTIVE = 'active';
 
 const ingredientToBd = ingredient => {
-  const typeToSend = {
+  const ingredientToSend = {
     [KEY_BD_ID]: ingredient[KEY_ID],
     [KEY_BD_NAME]: ingredient[KEY_NAME],
     [KEY_BD_DESCRIPTION]: ingredient[KEY_DESCRIPTION],
     [KEY_BD_ACTIVE]: ingredient[KEY_ACTIVE]
   };
-  Object.entries(typeToSend).forEach(([key, value]) => {
-    if (value === undefined) delete typeToSend[key];
+  Object.entries(ingredientToSend).forEach(([key, value]) => {
+    if (value === undefined) delete ingredientToSend[key];
   });
-  return typeToSend;
+  return ingredientToSend;
 };
 
 const bdToIngredient = (ingredient = {}) => {
-  const typeToSend = {
+  const ingredientToSend = {
     [KEY_ID]: ingredient[KEY_BD_ID],
     [KEY_NAME]: ingredient[KEY_BD_NAME],
     [KEY_DESCRIPTION]: ingredient[KEY_BD_DESCRIPTION],
     [KEY_ACTIVE]: ingredient[KEY_BD_ACTIVE]
   };
-  Object.entries(typeToSend).forEach(([key, value]) => {
-    if (value === undefined) delete typeToSend[key];
+  Object.entries(ingredientToSend).forEach(([key, value]) => {
+    if (value === undefined) delete ingredientToSend[key];
   });
-  return typeToSend;
+  return ingredientToSend;
 };
 
 const listIngredients = async () => {
