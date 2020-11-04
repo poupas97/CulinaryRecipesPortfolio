@@ -1,0 +1,31 @@
+### LIST ALL TYPES
+GET http://localhost:8000/api/types
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0ODA2OSwiZXhwIjoxNjA0NDUxNjY5fQ.h2gjjk6vhN3NdxWDWXc5zcQQxtlAWpJ5VcIrjbkumM0
+
+### LIST ONE TYPE
+GET http://localhost:8000/api/types/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0ODA2OSwiZXhwIjoxNjA0NDUxNjY5fQ.h2gjjk6vhN3NdxWDWXc5zcQQxtlAWpJ5VcIrjbkumM0
+
+### CREATE TYPE
+POST http://localhost:8000/api/types
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0ODA2OSwiZXhwIjoxNjA0NDUxNjY5fQ.h2gjjk6vhN3NdxWDWXc5zcQQxtlAWpJ5VcIrjbkumM0
+Content-Type: application/json
+
+{
+  "name": "cozinha chinesa", 
+  "description": "cozinha chinesa descricao"
+}
+
+### UPDATE TYPE
+PUT http://localhost:8000/api/types/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0ODA2OSwiZXhwIjoxNjA0NDUxNjY5fQ.h2gjjk6vhN3NdxWDWXc5zcQQxtlAWpJ5VcIrjbkumM0
+Content-Type: application/json
+
+{
+  "name": "cozinha indiana", 
+  "description": "cozinha indiana descricao"
+}
+
+### DELETE TYPE
+DELETE http://localhost:8000/api/types/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0ODA2OSwiZXhwIjoxNjA0NDUxNjY5fQ.h2gjjk6vhN3NdxWDWXc5zcQQxtlAWpJ5VcIrjbkumM0
