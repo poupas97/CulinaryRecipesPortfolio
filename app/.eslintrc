@@ -2,7 +2,8 @@
   "extends": [
     "prettier",
     "prettier/react",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "eslint:recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -15,7 +16,8 @@
   "plugins": [
     "import-helpers", 
     "react", 
-    "prettier"
+    "prettier",
+    "import"
   ],
   "rules": {
     "semi": ["error", "always"],
@@ -44,6 +46,7 @@
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],
+    "react/display-name": "off",
     "jsx-a11y/label-has-for": "off",
     "react/jsx-props-no-spreading": "off",
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
