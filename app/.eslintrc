@@ -67,7 +67,7 @@
     "jsx-a11y/interactive-supports-focus": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "dot-notation": "error",
-    "no-console": "error",
+    "no-console": "off",
     "object-curly-spacing": ["error", "always"],
     "no-param-reassign": ["error", {
         "props": true,
