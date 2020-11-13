@@ -8,7 +8,6 @@ export const TypeNotification = {
 const ACTIONS = generateActions('notifications');
 
 const initialState = {
-  loading: null,
   list: null,
 };
 

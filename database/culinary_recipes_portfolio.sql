@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Nov-2020 às 23:09
+-- Tempo de geração: 13-Nov-2020 às 23:53
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `culinary_recipes_portfolio`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `authors`
+--
+
+CREATE TABLE `authors` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -51,7 +64,8 @@ CREATE TABLE `ingredients` (
 --
 
 INSERT INTO `ingredients` (`id`, `name`, `description`, `active`) VALUES
-(5, 'ovos', 'ovos descricao', 1);
+(5, 'ovos', 'ovos descricao', 1),
+(8, 'chefe sa pessoa', 'chefe sa pessoa descricao', 1);
 
 -- --------------------------------------------------------
 
@@ -64,7 +78,9 @@ CREATE TABLE `recipes` (
   `name` varchar(50) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
-  `id_section` int(11) NOT NULL
+  `id_user` int(11) NOT NULL,
+  `id_type` int(11) NOT NULL,
+  `id_author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -82,10 +98,10 @@ CREATE TABLE `recipes_ingredients` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `sections`
+-- Estrutura da tabela `types`
 --
 
-CREATE TABLE `sections` (
+CREATE TABLE `types` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
@@ -93,10 +109,10 @@ CREATE TABLE `sections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `sections`
+-- Extraindo dados da tabela `types`
 --
 
-INSERT INTO `sections` (`id`, `name`, `description`, `active`) VALUES
+INSERT INTO `types` (`id`, `name`, `description`, `active`) VALUES
 (1, 'pastelaria', 'pastelaria descricao', 0);
 
 -- --------------------------------------------------------
@@ -110,8 +126,8 @@ CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(300) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `accessToken` varchar(300) NOT NULL,
-  `refreshToken` varchar(400) NOT NULL,
+  `access_token` varchar(300) DEFAULT NULL,
+  `refresh_token` varchar(400) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -119,17 +135,19 @@ CREATE TABLE `users` (
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `name`, `accessToken`, `refreshToken`, `active`) VALUES
-(39, 'admin', '$2b$10$OwE92x7252nXwgyBIOzrAu20wD1VAD21huex.OdMbnDzX/e7otjjG', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDQzMzgyfQ.OzrUoRYRXRpQzPt3Zf8p9WTSwQFNFkbwWD_43v0XhcI', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRPd0U5Mng3MjUyblh3Z3lCSU96ckF1MjB3RDFWQUQyMWh1ZXguT2RNYm5EelgvZTdvdGpqRyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQzOTc4MiwiZXhwIjoxNjA0NDUwNTgyfQ.6z0Wy_heKB0EzH9Jlkh6YC1-lhM2TtuMB9tcVfJvfd8', 1),
-(40, 'test', '$2b$10$ql5s6vvOUSRi9np8aVbX2eYaymxuvk5KoaBEVl2RFxdKeARsw4Id.', NULL, '', '', 1),
-(41, 'test2', '$2b$10$BgDo7V.e3kN4EKSJfLmcJOpvM3ohPLKwvJnv2fwAGXy7.r0S8G.fy', NULL, '', '', 1),
-(43, 'test3', '$2b$10$j4L.SjyINFAUemD5hNNW9.UoRIR.2wazRlWHLibFoOFl8iKFJI5UC', NULL, '', '', 1),
-(44, 'test4', '$2b$10$TvnB7OkTzs2IRni7oJHzpegaP9N2nmYuTV.vMvXjtiEegwJb6IhS.', NULL, '', '', 1),
-(46, 'test5', '$2b$10$kzWxEYub9i.wW.CV1L7OP.bmSRLx0l.kJuq6OlvDjd933EqkIvu4C', NULL, '', '', 0);
+INSERT INTO `users` (`id`, `username`, `password`, `name`, `access_token`, `refresh_token`, `active`) VALUES
+(54, 'admin', '$2b$10$AMF6TFiWio4Xx44/F7LSb.1TvXnQ/rKEWkLKs5ZG90tFORktPJ3xO', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJuYW1lIjpudWxsLCJpYXQiOjE2MDUzMDc5MzYsImV4cCI6MTYwNTMxMTUzNn0.gR0wtN_S_QvrfWrY95F3NOKd8LZ3hFwtahGpzeAE43s', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJuYW1lIjpudWxsLCJpYXQiOjE2MDUzMDc5MzYsImV4cCI6MTYwNTMxODczNn0.1yqac4-NMWmA8q-D0Uul5pZ29OK5LOrlFPg4WbXl4S4', 1),
+(56, 'ruben', '$2b$10$ni83nueHKvpI.GXaFFKjeuPrr7toJGHhLHHeKHv4c65b.19uG10Gu', NULL, NULL, NULL, 0);
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `authors`
+--
+ALTER TABLE `authors`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `favorits`
@@ -152,7 +170,9 @@ ALTER TABLE `ingredients`
 ALTER TABLE `recipes`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `id_section` (`id_section`);
+  ADD KEY `id_author` (`id_author`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_type` (`id_type`);
 
 --
 -- Índices para tabela `recipes_ingredients`
@@ -163,9 +183,9 @@ ALTER TABLE `recipes_ingredients`
   ADD KEY `id_ingredient` (`id_ingredient`);
 
 --
--- Índices para tabela `sections`
+-- Índices para tabela `types`
 --
-ALTER TABLE `sections`
+ALTER TABLE `types`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`);
 
@@ -181,6 +201,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de tabela `authors`
+--
+ALTER TABLE `authors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `favorits`
 --
 ALTER TABLE `favorits`
@@ -190,7 +216,7 @@ ALTER TABLE `favorits`
 -- AUTO_INCREMENT de tabela `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `recipes`
@@ -205,16 +231,16 @@ ALTER TABLE `recipes_ingredients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `sections`
+-- AUTO_INCREMENT de tabela `types`
 --
-ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- Restrições para despejos de tabelas
@@ -231,7 +257,10 @@ ALTER TABLE `favorits`
 -- Limitadores para a tabela `recipes`
 --
 ALTER TABLE `recipes`
-  ADD CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`id_section`) REFERENCES `sections` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`id_type`) REFERENCES `types` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `recipes_ibfk_2` FOREIGN KEY (`id_author`) REFERENCES `authors` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `recipes_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `recipes_ibfk_4` FOREIGN KEY (`id_type`) REFERENCES `types` (`id`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `recipes_ingredients`

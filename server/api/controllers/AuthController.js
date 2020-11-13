@@ -2,21 +2,25 @@ const { generateToken, verifyToken } = require('../../tools/token');
 const { compareHashPassword } = require('../../tools/password');
 const UserConnection = require('../../connections/UserConnection');
 const { Methods } = require('../routes/constants');
-const { errorDtoSimple } = require('../../dto/ErrorDTO');
-const { userDtoComplex } = require('../../dto/UserDTO');
+const { errorDtoSimple, ErrorMapper } = require('../../dto/ErrorDTO');
+const { userDtoComplex, userTokenToBd, userDtoSimple } = require('../../dto/UserDTO');
 
 const login = async (req, res) => {
   try {
     const { body: { username, password } } = req;
 
+    if (!username || !password)
+      return res.status(500).json(errorDtoSimple(ErrorMapper.NO_PARAMETERS));
+
     const user = userDtoComplex(await UserConnection.singleUserByUsername(username));
 
-    if (!user) return res.status(500).json();
-    if (!(await compareHashPassword(password, user.password))) return res.status(500).json();
+    if (!user) return res.status(500).json(errorDtoSimple(ErrorMapper.NO_USER));
+    if (!(await compareHashPassword(password, user.password)))
+      return res.status(500).json(errorDtoSimple(ErrorMapper.INVALID_PASSWORD));
 
-    const accessToken = generateToken(user);
-    const refreshToken = generateToken(user, true);
-    await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
+    const accessToken = generateToken(userDtoSimple(user));
+    const refreshToken = generateToken(userDtoSimple(user), true);
+    await UserConnection.updateUser(userTokenToBd({ accessToken, refreshToken }), user.id);
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (error) {
@@ -66,8 +70,8 @@ const refresh = async (req, res) => {
     const userAuthenticated = verifyToken(tokenReceived, true);
     if (!userAuthenticated) return res.sendStatus(403);
 
-    const accessToken = generateToken(user);
-    const refreshToken = generateToken(user, true);
+    const accessToken = generateToken(userDtoSimple(user));
+    const refreshToken = generateToken(userDtoSimple(user), true);
     await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
 
     return res.status(200).json({ accessToken, refreshToken });

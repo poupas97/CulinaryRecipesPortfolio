@@ -31,32 +31,35 @@ export const generateReducer = thisActions => (state = initialState, action) => 
 
     case thisActions.Error: {
       return { ...state,
+        loading: false,
         error: action.payload,
-        loading: false
       };
     }
 
     case thisActions.Save: {
       return { ...state,
+        loading: false,
+        error: null,
         list: null,
         saved: action.payload,
-        loading: false
       };
     }
 
     case thisActions.List: {
       return {
         ...state,
+        loading: false,
+        error: null,
         list: action.payload,
-        loading: false
       };
     }
 
     case thisActions.Item: {
       return {
         ...state,
+        loading: false,
+        error: null,
         item: action.payload,
-        loading: false
       };
     }
   }

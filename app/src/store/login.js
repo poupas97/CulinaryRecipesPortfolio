@@ -1,6 +1,8 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
-import { BASE_URL } from './constants';
+import { setToken } from '../tools';
+import { BASE_URL, HEADERS } from './constants';
 import { generateActions, generateReducer } from './factory';
 // import { createNotificationAction, TypeNotification } from './notifications';
 
@@ -8,18 +10,23 @@ const ACTIONS = generateActions('login');
 
 export const REDUCER = generateReducer(ACTIONS);
 
-export const loginAction = async (dispatch, people) => {
+export const loginAction = async (dispatch, user) => {
   try {
     dispatch({ type: ACTIONS.Loading });
-    console.log(1111, people);
-    const result = await axios.post(`${BASE_URL}login`, people);
-    console.log(result);
-    // dispatch({ type: ACTIONS.Save, payload: result.data });
+
+    const result = await axios.post(`${BASE_URL}/login`, user, { headers: HEADERS });
+
+    setToken(result.data);
+    const userDecode = jwtDecode(result.data.accessToken);
+    dispatch({ type: ACTIONS.Save, payload: userDecode });
     // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
   } catch (error) {
-    console.log(error);
-    // dispatch({ type: ACTIONS.Error, payload: { message: 'error', errors: error.response.data } });
+    dispatch({ type: ACTIONS.Error, payload: { message: error.message } });
   }
+};
+
+export const resetLoginAction = async dispatch => {
+  dispatch({ type: ACTIONS.Reset });
 };
 
 export default {};

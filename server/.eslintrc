@@ -41,7 +41,6 @@
       "arrow-body-style": ["error", "as-needed"],
       "space-in-parens": ["error", "never"],
       "click-events-have-key-events": "off",
-      "comma-dangle": "error",
       "dot-notation": "error",
       "no-console": "error",
       "object-curly-spacing": ["error", "always"],

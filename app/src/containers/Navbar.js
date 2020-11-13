@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PageContext } from '../contexts/Page';
-import ROUTES from '../pages';
+import ROUTES from '../pages/constants';
 
 const Navbar = () => {
   const { url } = useContext(PageContext);

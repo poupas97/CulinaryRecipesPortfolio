@@ -28,43 +28,47 @@ const Form = ({ inputs = [], onSubmit, onCancel, title, error, loading }) => {
     setNextItem({ ...nextItem, [e.target.id]: e.target.value });
   };
 
-  const renderContent = input => {
+  const renderContent = (input, index) => {
     let content;
 
     switch (input.type) {
       default: break;
 
       case FormInputType.TEXT:
-        content = <InputText prop={input.value} onChange={update} />;
+        content = <InputText key={`InputText-${index}`} prop={input.value} onChange={update} />;
         break;
 
       case FormInputType.EMAIL:
-        content = <InputEmail prop={input.value} onChange={update} />;
+        content = <InputEmail key={`InputEmail-${index}`} prop={input.value} onChange={update} />;
         break;
 
       case FormInputType.NUMBER:
-        content = <InputNumber prop={input.value} onChange={update} />;
+        content = <InputNumber key={`InputNumber-${index}`} prop={input.value} onChange={update} />;
         break;
 
       case FormInputType.DATE:
-        content = <InputDate prop={input.value} onChange={update} />;
+        content = <InputDate key={`InputDate-${index}`} prop={input.value} onChange={update} />;
         break;
 
       case FormInputType.SELECT:
-        content = <InputSelect prop={input.value} onChange={update} options={input.options} />;
+        content = <InputSelect
+          key={`InputSelect-${index}`}
+          prop={input.value}
+          onChange={update}
+          options={input.options} />;
         break;
 
       case FormInputType.TEXTAREA:
-        content = <InputTextArea prop={input.value} onChange={update} />;
+        content = <InputTextArea key={`InputTextArea-${index}`} prop={input.value} onChange={update} />;
         break;
 
       case FormInputType.CHIPPER:
-        content = <InputChipper prop={input.value} onChange={update} />;
+        content = <InputChipper key={`InputChipper-${index}`} prop={input.value} onChange={update} />;
         break;
     }
 
     return (
-      <div>
+      <div key={`FormItem-${index}`}>
         <Label text={input.text} />
         {content}
         <LabelError prop={input.value} error={error} />

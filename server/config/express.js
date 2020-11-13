@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const consign = require('consign');
+const cors = require('cors');
 const AuthController = require('../api/controllers/AuthController')();
 
 module.exports = () => {
@@ -10,6 +11,7 @@ module.exports = () => {
   app.set('port', process.env.PORT);
 
   // MIDDLEWARES
+  app.use(cors());
   app.use(bodyParser.json());
   app.use(AuthController.authenticateToken);
 
