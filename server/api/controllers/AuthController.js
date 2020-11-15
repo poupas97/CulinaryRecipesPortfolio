@@ -3,7 +3,7 @@ const { compareHashPassword } = require('../../tools/password');
 const UserConnection = require('../../connections/UserConnection');
 const { Methods } = require('../routes/constants');
 const { errorDtoSimple, ErrorMapper } = require('../../dto/ErrorDTO');
-const { userDtoComplex, userTokenToBd, userDtoSimple } = require('../../dto/UserDTO');
+const { userDtoComplex, userTokenToBd, userDtoSimple, userTokenFromBd } = require('../../dto/UserDTO');
 
 const login = async (req, res) => {
   try {
@@ -42,13 +42,13 @@ const authenticateToken = async (req, res, next) => {
     else {
       let token;
       if (authorization) [, token] = authorization.split(' ');
-      if (!token) return res.sendStatus(401);
+      if (!token) return res.status(401).json(errorDtoSimple(ErrorMapper.UNAUTHORIZED));
 
       const userAuthenticated = verifyToken(token);
-      if (!userAuthenticated) return res.sendStatus(403);
+      if (!userAuthenticated) return res.status(403);
 
-      const user = await UserConnection.singleUserByUsername(userAuthenticated.username);
-      if (user.accessToken !== token) return res.sendStatus(403);
+      const user = userTokenFromBd(await UserConnection.singleUserByUsername(userAuthenticated.username));
+      if (user.accessToken !== token) return res.status(403);
 
       // eslint-disable-next-line no-param-reassign
       req.userAuthenticated = userAuthenticated;

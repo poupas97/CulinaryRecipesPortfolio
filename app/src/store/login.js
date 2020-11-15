@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import get from 'lodash/get';
 
 import { setToken } from '../tools';
 import { BASE_URL, HEADERS } from './constants';
@@ -17,11 +18,11 @@ export const loginAction = async (dispatch, user) => {
     const result = await axios.post(`${BASE_URL}/login`, user, { headers: HEADERS });
 
     setToken(result.data);
-    const userDecode = jwtDecode(result.data.accessToken);
-    dispatch({ type: ACTIONS.Save, payload: userDecode });
+    const token = jwtDecode(result.data.accessToken);
+    dispatch({ type: ACTIONS.Save, payload: token });
     // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
-  } catch (error) {
-    dispatch({ type: ACTIONS.Error, payload: { message: error.message } });
+  } catch ({ response }) {
+    dispatch({ type: ACTIONS.Error, payload: get(response, 'data.error') });
   }
 };
 

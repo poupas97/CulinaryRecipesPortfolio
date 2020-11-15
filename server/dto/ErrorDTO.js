@@ -4,6 +4,7 @@ const ErrorMapper = {
   NO_USER: 'No user',
   INVALID_PASSWORD: 'Invalid password',
   NO_PARAMETERS: 'No parameters',
+  UNAUTHORIZED: 'Unauthorized',
 };
 
 const errorDtoSimple = errorReceived => {

@@ -16,4 +16,10 @@ const userTokenToBd = user => {
   return { access_token: accessToken, refresh_token: refreshToken };
 };
 
-module.exports = ({ userDtoSimple, userDtoComplex, userTokenToBd });
+const userTokenFromBd = user => {
+  if (!user) return null;
+  const { access_token, refresh_token } = user || {};
+  return { accessToken: access_token, refreshToken: refresh_token };
+};
+
+module.exports = ({ userDtoSimple, userDtoComplex, userTokenToBd, userTokenFromBd });

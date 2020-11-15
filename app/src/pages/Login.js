@@ -11,13 +11,13 @@ import { HOME_ROUTE } from './Home';
 
 export const LOGIN_ROUTE = '/login';
 
-const Login = ({ loading, error, login, reset, user }) => {
+const Login = ({ loading, error, login, reset, token }) => {
 
   useEffect(() => {
     reset();
   }, [reset]);
 
-  if (user) return <Redirect to={HOME_ROUTE} />;
+  if (token) return <Redirect to={HOME_ROUTE} />;
 
   const inputs = [
     { text: 'Username', value: 'username', type: FormInputType.TEXT },
@@ -40,13 +40,13 @@ Login.propTypes = {
   error: string,
   login: func,
   reset: func,
-  user: object
+  token: object
 };
 
 const mapStateToProps = state => ({
   loading: state.LOGIN.loading,
   error: state.LOGIN.error,
-  user: state.LOGIN.saved,
+  token: state.LOGIN.saved,
 });
 
 const mapActionsToProps = dispatch => ({
