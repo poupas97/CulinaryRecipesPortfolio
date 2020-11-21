@@ -19,7 +19,7 @@ const Navbar = ({ logout }) => {
     logout();
     setRenderLogin(true);
   };
-  console.log(22222222, renderLogin);
+
   if (renderLogin)
     return <Redirect to={LOGIN_ROUTE} />;
 
