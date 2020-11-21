@@ -16,8 +16,8 @@ const Protected = ({ route, component, user, getUser }) => {
   console.log(111, decodedToken, user);
 
   useEffect(() => {
-    if (!decodedToken && !user) setRenderLogin(true);
-    else if (decodedToken && !user) getUser(decodedToken);
+    if (!decodedToken) setRenderLogin(true);
+    else if (!user) getUser(decodedToken);
     else setRender(true);
   }, [decodedToken, user]);
 

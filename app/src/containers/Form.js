@@ -83,7 +83,7 @@ const Form = ({ inputs = [], onSubmit, onCancel, title, error, loading }) => {
       <h2>{title ? title : null}</h2>
       {inputs.map(renderContent)}
       <br />
-      {error && <span>{error.message}</span>}
+      {error && <span>{error}</span>}
       {!!onCancel && <button onClick={onCancel}>Cancel</button>}
       <button onClick={() => onSubmit(nextItem)}>Submit</button>
     </div>
