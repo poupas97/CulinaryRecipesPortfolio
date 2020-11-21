@@ -34,7 +34,7 @@ export const generateReducer = thisActions => (state = initialState, action) => 
     case thisActions.Error: {
       return { ...state,
         loading: false,
-        error: get(action.payload, 'response.data.error'),
+        error: get(action.payload, 'response.data.error') || get(action.payload, 'message'),
       };
     }
 

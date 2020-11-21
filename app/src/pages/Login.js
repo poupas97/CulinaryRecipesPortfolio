@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 
 import Form, { FormInputType } from '../containers/Form';
-import { withPage } from '../contexts/Page';
 import { loginAction, resetLoginAction } from '../store/login';
 import { HOME_ROUTE } from './Home';
 
@@ -56,5 +55,4 @@ const mapActionsToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapActionsToProps),
-  withPage(LOGIN_ROUTE)
 )(Login);

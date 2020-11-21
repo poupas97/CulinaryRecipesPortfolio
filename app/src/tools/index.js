@@ -9,7 +9,9 @@ export const getToken = () => {
 
 export const getDecodedToken = () => {
   const result = getToken();
-  return result ? jwtDecode(result): null;
+  return result ? jwtDecode(result.accessToken): null;
 };
 
 export const setToken = data => window.sessionStorage.setItem(TOKEN_KEY, JSON.stringify(data));
+
+export const removeToken = () => window.sessionStorage.removeItem(TOKEN_KEY);

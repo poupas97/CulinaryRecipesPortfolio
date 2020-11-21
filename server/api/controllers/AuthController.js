@@ -72,7 +72,7 @@ const refresh = async (req, res) => {
 
     const accessToken = generateToken(userDtoSimple(user));
     const refreshToken = generateToken(userDtoSimple(user), true);
-    await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
+    await UserConnection.updateUser(userTokenToBd({ accessToken, refreshToken }), user.id);
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (error) {
@@ -84,7 +84,7 @@ const logout = async (req, res) => {
   try {
     const { userAuthenticated: { id } } = req;
 
-    const result = await UserConnection.updateUser({ accessToken: null, refreshToken: null }, id);
+    const result = await UserConnection.updateUser(userTokenToBd({ accessToken: null, refreshToken: null }), id);
 
     return res.status(200).json({ logout: result.updated });
   } catch (error) {
