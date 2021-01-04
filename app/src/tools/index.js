@@ -34,6 +34,6 @@ export const resolveLink = (link, data) => {
     }
     return it;
   }).join('/');
-
+  console.log('aqui', result);
   return result;
 };

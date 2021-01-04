@@ -6,6 +6,10 @@ const ACTIONS = generateActions('recipes');
 
 export const REDUCER = generateReducer(ACTIONS);
 
+export const resetRecipesAction = async dispatch => {
+  dispatch({ type: ACTIONS.Reset });
+};
+
 export const getRecipesAction = async dispatch => {
   try {
     dispatch({ type: ACTIONS.Loading });
@@ -19,8 +23,10 @@ export const getRecipesAction = async dispatch => {
   }
 };
 
-export const resetRecipesAction = async dispatch => {
-  dispatch({ type: ACTIONS.Reset });
+export const getRecipeAction = async (dispatch, id) => {
+  dispatch({ type: ACTIONS.Loading });
+  const data = await ApiGet(`/recipes/${id}`);
+  dispatch({ type: ACTIONS.Item, payload: data });
 };
 
 export default {};
