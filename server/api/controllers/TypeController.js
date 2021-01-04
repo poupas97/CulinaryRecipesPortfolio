@@ -1,63 +1,63 @@
-const SectionConnection = require('../../connections/SectionConnection');
+const TypeConnection = require('../../connections/TypeConnection');
 const { ErrorMapper, errorDtoSimple } = require('../../dto/ErrorDTO');
 
-const listSections = async (req, res) => {
+const listTypes = async (req, res) => {
   try {
-    const result = await SectionConnection.listSections();
+    const result = await TypeConnection.listTypes();
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const singleSectionById = async (req, res) => {
+const singleTypeById = async (req, res) => {
   try {
     const { params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await SectionConnection.singleSectionById(id);
+    const result = await TypeConnection.singleTypeById(id);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const createSection = async (req, res) => {
+const createType = async (req, res) => {
   try {
     const { body: { name, description } } = req;
-    const result = await SectionConnection.createSection({ name, description });
+    const result = await TypeConnection.createType({ name, description });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const updateSection = async (req, res) => {
+const updateType = async (req, res) => {
   try {
     const { body: { name, description, active }, params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await SectionConnection.updateSection({ name, description, active }, id);
+    const result = await TypeConnection.updateType({ name, description, active }, id);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const deleteSection = async (req, res) => {
+const deleteType = async (req, res) => {
   try {
     const { params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await SectionConnection.deleteSection(id);
+    const result = await TypeConnection.deleteType(id);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-module.exports = () => ({ listSections, singleSectionById, createSection, updateSection,
-  deleteSection });
+module.exports = () => ({ listTypes, singleTypeById, createType, updateType,
+  deleteType });
