@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 const actions = ['RESET', 'LOADING', 'ERROR', 'SAVE', 'LIST', 'ITEM', 'REMOVE'];
 
 const initialState = {
@@ -31,32 +33,35 @@ export const generateReducer = thisActions => (state = initialState, action) => 
 
     case thisActions.Error: {
       return { ...state,
-        error: action.payload,
-        loading: false
+        loading: false,
+        error: get(action.payload, 'response.data.error') || get(action.payload, 'message'),
       };
     }
 
     case thisActions.Save: {
       return { ...state,
+        loading: false,
+        error: null,
         list: null,
         saved: action.payload,
-        loading: false
       };
     }
 
     case thisActions.List: {
       return {
         ...state,
+        loading: false,
+        error: null,
         list: action.payload,
-        loading: false
       };
     }
 
     case thisActions.Item: {
       return {
         ...state,
+        loading: false,
+        error: null,
         item: action.payload,
-        loading: false
       };
     }
   }

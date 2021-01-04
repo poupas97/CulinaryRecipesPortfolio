@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04-Nov-2020 às 00:55
+-- Tempo de geração: 13-Nov-2020 às 23:53
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -64,7 +64,8 @@ CREATE TABLE `ingredients` (
 --
 
 INSERT INTO `ingredients` (`id`, `name`, `description`, `active`) VALUES
-(5, 'ovos', 'ovos descricao', 1);
+(5, 'ovos', 'ovos descricao', 1),
+(8, 'chefe sa pessoa', 'chefe sa pessoa descricao', 1);
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `access_token`, `refresh_token`, `active`) VALUES
-(54, 'admin', '$2b$10$AMF6TFiWio4Xx44/F7LSb.1TvXnQ/rKEWkLKs5ZG90tFORktPJ3xO', NULL, NULL, NULL, 1),
+(54, 'admin', '$2b$10$AMF6TFiWio4Xx44/F7LSb.1TvXnQ/rKEWkLKs5ZG90tFORktPJ3xO', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJuYW1lIjpudWxsLCJpYXQiOjE2MDUzMDc5MzYsImV4cCI6MTYwNTMxMTUzNn0.gR0wtN_S_QvrfWrY95F3NOKd8LZ3hFwtahGpzeAE43s', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJuYW1lIjpudWxsLCJpYXQiOjE2MDUzMDc5MzYsImV4cCI6MTYwNTMxODczNn0.1yqac4-NMWmA8q-D0Uul5pZ29OK5LOrlFPg4WbXl4S4', 1),
 (56, 'ruben', '$2b$10$ni83nueHKvpI.GXaFFKjeuPrr7toJGHhLHHeKHv4c65b.19uG10Gu', NULL, NULL, NULL, 0);
 
 --
@@ -203,7 +204,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `favorits`
@@ -215,7 +216,7 @@ ALTER TABLE `favorits`
 -- AUTO_INCREMENT de tabela `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `recipes`
@@ -233,7 +234,7 @@ ALTER TABLE `recipes_ingredients`
 -- AUTO_INCREMENT de tabela `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `users`

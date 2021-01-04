@@ -3,5 +3,5 @@ module.exports = app => {
 
   app.route('/api/login').post(controller.login);
   app.route('/api/refresh').post(controller.refresh);
-  app.route('/api/logout').post(controller.logout);
+  app.route('/api/logout').get(controller.logout);
 };

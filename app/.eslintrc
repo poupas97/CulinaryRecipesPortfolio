@@ -2,7 +2,8 @@
   "extends": [
     "prettier",
     "prettier/react",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "eslint:recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -15,7 +16,8 @@
   "plugins": [
     "import-helpers", 
     "react", 
-    "prettier"
+    "prettier",
+    "import"
   ],
   "rules": {
     "semi": ["error", "always"],
@@ -44,6 +46,7 @@
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],
+    "react/display-name": "off",
     "jsx-a11y/label-has-for": "off",
     "react/jsx-props-no-spreading": "off",
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
@@ -55,20 +58,16 @@
     "comma-spacing": ["error", { "before": false, "after": true }],
     "keyword-spacing": "error",
     "react/jsx-tag-spacing": "error",
-    "space-infix-ops": "error",
     "key-spacing": ["error", { "beforeColon": false }],
     "space-before-blocks": "error",
     "arrow-body-style": ["error", "as-needed"],
     "space-in-parens": ["error", "never"],
-    "react/jsx-one-expression-per-line": ["error"],
-    "react/jsx-indent-props": ["error"],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
     "click-events-have-key-events": "off",
     "jsx-a11y/interactive-supports-focus": "off",
     "jsx-a11y/click-events-have-key-events": "off",
-    "comma-dangle": "error",
     "dot-notation": "error",
-    "no-console": "error",
+    "no-console": "off",
     "object-curly-spacing": ["error", "always"],
     "no-param-reassign": ["error", {
         "props": true,
