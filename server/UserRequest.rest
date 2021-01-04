@@ -1,37 +1,38 @@
 ### LIST ALL USERS
 GET http://localhost:8000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDIzOTc1NCwiZXhwIjoxNjA0MjQxNTU0fQ.XUW16CPXLfzZDpeElWqEYmo0fybywdDhHBals4VXehQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0NzMyMiwiZXhwIjoxNjA0NDUwOTIyfQ.I8OaixSAnqtXQjjbSoAdOharxxboJ3L77Q9Iidyx9MU
 
 ### LIST ONE USER
-GET http://localhost:8000/api/users/40
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDIzOTc1NCwiZXhwIjoxNjA0MjQxNTU0fQ.XUW16CPXLfzZDeElWqEYmo0fybywdDhHBals4VXehQ
+GET http://localhost:8000/api/users/55
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0NzMyMiwiZXhwIjoxNjA0NDUwOTIyfQ.I8OaixSAnqtXQjjbSoAdOharxxboJ3L77Q9Iidyx9MU
 
 ### CREATE USER
 POST http://localhost:8000/api/users
 Content-Type: application/json
 
 {
-  "username": "test5", 
-  "password": "test5"
+  "username": "ruben", 
+  "password": "ruben"
 }
 
 ### UPDATE USER
-PUT http://localhost:8000/api/users/45
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDE4NDMwOCwiZXhwIjoxNjA1OTg0MzA4fQ.-AujMi-D69zP4MdHqIIqui29E_tMhEDrXVxjisbUUE4
+PUT http://localhost:8000/api/users/55
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0NzMyMiwiZXhwIjoxNjA0NDUwOTIyfQ.I8OaixSAnqtXQjjbSoAdOharxxboJ3L77Q9Iidyx9MU
 Content-Type: application/json
 
 {
-  "username": "test5 test5", 
-  "password": "test5"
+  "username": "ruben_carreira", 
+  "password": "ruben carreira",
+  "name": "ruben carreira"
 }
 
 ### DELETE USER
-DELETE http://localhost:8000/api/users/45
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDE4NDMwOCwiZXhwIjoxNjA1OTg0MzA4fQ.-AujMi-D69zP4MdHqIIqui29E_tMhEDrXVxjisbUUE4
+DELETE http://localhost:8000/api/users/55
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0NzMyMiwiZXhwIjoxNjA0NDUwOTIyfQ.I8OaixSAnqtXQjjbSoAdOharxxboJ3L77Q9Iidyx9MU
 
 ### AVAILABLE USER
-DELETE http://localhost:8000/api/users/available/46
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImlhdCI6MTYwNDI0NjAyNCwiZXhwIjoxNjA0MjQ3ODI0fQ.-I8JDabNcDFPuS428JYnrJnvC9mDyjPT8BcEYIvhYjc
+DELETE http://localhost:8000/api/users/available/56
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRBTUY2VEZpV2lvNFh4NDQvRjdMU2IuMVR2WG5RL3JLRVdrTEtzNVpHOTB0Rk9Sa3RQSjN4TyIsIm5hbWUiOm51bGwsImlhdCI6MTYwNDQ0NzMyMiwiZXhwIjoxNjA0NDUwOTIyfQ.I8OaixSAnqtXQjjbSoAdOharxxboJ3L77Q9Iidyx9MU
 Content-Type: application/json
 
 {
