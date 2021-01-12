@@ -1,5 +1,6 @@
 import Home, { HOME_ROUTE } from './Home';
 import IngredientsDetails, { INGREDIENTS_DETAILS_ROUTE } from './Ingredient/IngredientsDetails';
+import IngredientsEdit, { INGREDIENTS_EDIT_ROUTE } from './Ingredient/IngredientsEdit';
 import IngredientsList, { INGREDIENTS_LIST_ROUTE } from './Ingredient/IngredientsList';
 import RecipesCreate, { RECIPES_CREATE_ROUTE } from './Recipe/RecipesCreate';
 import RecipesDetails, { RECIPES_DETAILS_ROUTE } from './Recipe/RecipesDetails';
@@ -22,6 +23,7 @@ const ROUTES = {
   RECIPES_EDIT: { component: RecipesEdit, path: RECIPES_EDIT_ROUTE },
   INGREDIENTS_LIST: { component: IngredientsList, path: INGREDIENTS_LIST_ROUTE, title: 'Ingredients' },
   INGREDIENTS_DETAILS: { component: IngredientsDetails, path: INGREDIENTS_DETAILS_ROUTE },
+  INGREDIENTS_EDIT: { component: IngredientsEdit, path: INGREDIENTS_EDIT_ROUTE },
 };
 
 export default ROUTES;

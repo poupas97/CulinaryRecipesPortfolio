@@ -14,7 +14,10 @@ export const RECIPE_TYPES_LIST_ROUTE = '/recipe-types';
 
 const RecipeTypesList = ({ recipeTypes, listRecipeTypes, loading, reset }) => {
 
-  useEffect(() => () => reset(), [reset]);
+  useEffect(() => {
+    reset();
+    return () => reset();
+  }, []);
 
   useEffect(() => {
     if (!recipeTypes) listRecipeTypes();

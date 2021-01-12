@@ -7,12 +7,16 @@ import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
 import { listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
 import { INGREDIENTS_DETAILS_ROUTE } from './IngredientsDetails';
+import { INGREDIENTS_EDIT_ROUTE } from './IngredientsEdit';
 
 export const INGREDIENTS_LIST_ROUTE = '/ingredients';
 
 const IngredientsList = ({ ingredients, listIngredients, loading, reset }) => {
 
-  useEffect(() => () => reset(), [reset]);
+  useEffect(() => {
+    reset();
+    return () => reset();
+  }, []);
 
   useEffect(() => {
     if (!ingredients) listIngredients();
@@ -23,7 +27,7 @@ const IngredientsList = ({ ingredients, listIngredients, loading, reset }) => {
     { text: 'Description', value: 'description' },
     { text: 'Options', type: ColumnType.CONTEXT, values: [
       { text: 'details', link: INGREDIENTS_DETAILS_ROUTE },
-      // { text: 'edit', link: RECIPES_EDIT_ROUTE },
+      { text: 'edit', link: INGREDIENTS_EDIT_ROUTE },
     ] },
   ];
 
