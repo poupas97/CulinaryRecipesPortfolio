@@ -32,7 +32,7 @@ export const getRecipeTypesAction = async (dispatch, id) => {
   dispatch({ type: ACTIONS.Item, payload: data });
 };
 
-export const saveRecipeTypesAction = async (dispatch, recipeType) => {
+export const saveRecipeTypeAction = async (dispatch, recipeType) => {
   try {
     dispatch({ type: ACTIONS.Loading });
 
