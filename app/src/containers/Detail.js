@@ -7,7 +7,7 @@ import Label from '../components/Label';
 import { getValue } from '../tools';
 import List from './List';
 
-const Detail = ({ labels, item = {}, title, onBack, loading }) => {
+const Detail = ({ labels, item = {}, title, loading }) => {
   const history = useHistory();
 
   return (
@@ -25,7 +25,7 @@ const Detail = ({ labels, item = {}, title, onBack, loading }) => {
           data={get(item, it.list)}
         />
       </>))}
-      {!!onBack && <button onClick={() => history.goBack()}>Back</button>}
+      <button onClick={() => history.goBack()}>Back</button>
     </div>
   );
 };
@@ -34,7 +34,6 @@ Detail.propTypes = {
   labels: array,
   item: object,
   title: string,
-  onBack: bool,
   loading: bool
 };
 

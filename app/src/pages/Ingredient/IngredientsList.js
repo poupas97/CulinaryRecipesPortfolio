@@ -6,9 +6,7 @@ import { compose } from 'redux';
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
 import { listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
-// import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
-// import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
-// import { RECIPES_EDIT_ROUTE } from './RecipesEdit';
+import { INGREDIENTS_DETAILS_ROUTE } from './IngredientsDetails';
 
 export const INGREDIENTS_LIST_ROUTE = '/ingredients';
 
@@ -24,7 +22,7 @@ const IngredientsList = ({ ingredients, listIngredients, loading, reset }) => {
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
     { text: 'Options', type: ColumnType.CONTEXT, values: [
-      // { text: 'details', link: RECIPES_DETAILS_ROUTE },
+      { text: 'details', link: INGREDIENTS_DETAILS_ROUTE },
       // { text: 'edit', link: RECIPES_EDIT_ROUTE },
     ] },
   ];
