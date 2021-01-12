@@ -26,9 +26,9 @@ const Navbar = ({ logout }) => {
   return (
     <div className="navbar">
       <div className="routes">
-        {Object.entries(ROUTES).filter(([, value]) => !!value.title).map(([key, value]) =>
-          <Link key={key} className={key === url ? 'active' : null} to={key}>
-            {value.title}
+        {Object.values(ROUTES).filter(it => !!it.title).map(it =>
+          <Link key={it.path} className={it.path === url ? 'active' : null} to={it.path}>
+            {it.title}
           </Link>)
         }
       </div>

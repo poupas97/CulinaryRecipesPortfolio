@@ -11,8 +11,8 @@ function App() {
     <Router>
       <Switch>
         <Route key={LOGIN_ROUTE} exact path={LOGIN_ROUTE} component={Login} />
-        {Object.entries(ROUTES).map(([route, value]) =>
-          <Protected key={route} exact path={route} component={value.page} />)}
+        {Object.values(ROUTES).map(it =>
+          <Protected key={it.route} exact path={it.path} component={it.component} />)}
         <Protected key='/not-found' component={NotFound} />
       </Switch>
     </Router>

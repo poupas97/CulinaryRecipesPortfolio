@@ -42,5 +42,18 @@ const Put = async (url, body) => {
   return data || null;
 };
 
-export default { Get, Post, Put };
+const PostNoAuth = async (url, body) => {
+  const result = await fetch(baseUrl + url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await result.json();
+  return data || null;
+};
+
+export default { Get, Post, PostNoAuth, Put };
 
