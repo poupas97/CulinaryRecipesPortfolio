@@ -26,13 +26,13 @@ const singleRecipeById = async (req, res) => {
 
 const createRecipe = async (req, res) => {
   try {
-    const { body: { name, description, ingredientsList } } = req;
+    const { body, userAuthenticated: { id: idUser } } = req;
 
-    const result = await RecipeConnection.createRecipe({ name, description });
+    const result = await RecipeConnection.createRecipe({ ...body, idUser });
 
     // const resultNewRelations = 
-    await RecipeIngredientConnection.createRecipeIngredient(
-      ingredientsList.map(it => ({ id_recipe: result.id, id_ingredient: it.id })));
+    // await RecipeIngredientConnection.createRecipeIngredient(
+    //   ingredientsList.map(it => ({ id_recipe: result.id, id_ingredient: it.id })));
 
     return res.status(200).json(result);
   } catch (error) {

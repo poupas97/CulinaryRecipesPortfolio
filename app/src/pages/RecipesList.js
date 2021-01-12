@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import List, { ColumnType } from '../containers/List';
 import { withPage } from '../contexts/Page';
 import { getRecipesAction, resetRecipesAction } from '../store/recipes';
+import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
 import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
 
 export const RECIPES_LIST_ROUTE = '/recipes';
@@ -29,6 +30,7 @@ const RecipesList = ({ recipes, getRecipes, loading, reset }) => {
       headers={headers}
       rows={recipes}
       loading={loading}
+      canAdd={RECIPES_CREATE_ROUTE}
     />
   );
 };

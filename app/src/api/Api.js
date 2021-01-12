@@ -17,11 +17,13 @@ const Get = async url => {
 };
 
 const Post = async (url, body) => {
+  const token = getToken();
   const result = await fetch(baseUrl + url, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token.accessToken}`,
     },
     body: JSON.stringify(body)
   });
@@ -30,11 +32,13 @@ const Post = async (url, body) => {
 };
 
 const Put = async (url, body) => {
+  const token = getToken();
   const result = await fetch(baseUrl + url, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token.accessToken}`,
     },
     body: JSON.stringify(body)
   });
