@@ -42,7 +42,7 @@ RecipesDetails.propTypes = {
 
 const mapStateToProps = state => ({
   loading: state.RECIPES.loading,
-  adoption: state.RECIPES.item,
+  recipe: state.RECIPES.item,
 });
 
 const mapDispatchToProps = dispatch => ({
