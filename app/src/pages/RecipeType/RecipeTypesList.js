@@ -3,12 +3,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import List from '../containers/List';
-import { withPage } from '../contexts/Page';
-import { listRecipeTypesAction, resetRecipeTypesAction } from '../store/recipeTypes';
+import List, { ColumnType } from '../../containers/List';
+import { withPage } from '../../contexts/Page';
+import { listRecipeTypesAction, resetRecipeTypesAction } from '../../store/recipeTypes';
 import { RECIPE_TYPES_CREATE_ROUTE } from './RecipeTypesCreate';
-// import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
-// import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
+import { RECIPE_TYPES_DETAILS_ROUTE } from './RecipeTypesDetails';
 
 export const RECIPE_TYPES_LIST_ROUTE = '/recipe-types';
 
@@ -23,8 +22,9 @@ const RecipeTypesList = ({ recipeTypes, listRecipeTypes, loading, reset }) => {
   const headers = [
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
-    // { text: 'Options', type: ColumnType.CONTEXT, values: 
-    // [{ text: 'details', link: RECIPES_DETAILS_ROUTE }] },
+    { text: 'Options', type: ColumnType.CONTEXT, values: [
+      { text: 'details', link: RECIPE_TYPES_DETAILS_ROUTE }
+    ] },
   ];
 
   return (

@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import List, { ColumnType } from '../containers/List';
-import { withPage } from '../contexts/Page';
-import { listRecipesAction, resetRecipesAction } from '../store/recipes';
+import List, { ColumnType } from '../../containers/List';
+import { withPage } from '../../contexts/Page';
+import { listRecipesAction, resetRecipesAction } from '../../store/recipes';
 import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
 import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
 

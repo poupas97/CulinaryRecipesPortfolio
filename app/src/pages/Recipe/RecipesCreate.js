@@ -3,17 +3,17 @@ import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import Form, { FormInputType } from '../containers/Form';
-import { withPage } from '../contexts/Page';
-import { resetRecipeTypesAction, saveRecipeTypeAction } from '../store/recipeTypes';
-import { RECIPE_TYPES_LIST_ROUTE } from './RecipeTypesList';
+import Form, { FormInputType } from '../../containers/Form';
+import { withPage } from '../../contexts/Page';
+import { resetRecipesAction, saveRecipeAction } from '../../store/recipes';
+import { RECIPES_LIST_ROUTE } from './RecipesList';
 
-export const RECIPE_TYPES_CREATE_ROUTE = '/recipe-types/create';
+export const RECIPES_CREATE_ROUTE = '/recipes/create';
 
-const RecipeTypesCreate = ({ history, createRecipeType, saved, error, loading }) => {
+const RecipesCreate = ({ history, createRecipe, saved, error, loading }) => {
 
   const goBack = useCallback(() => {
-    history.push(RECIPE_TYPES_LIST_ROUTE);
+    history.push(RECIPES_LIST_ROUTE);
   }, [history]);
 
   useEffect(() => {
@@ -28,8 +28,8 @@ const RecipeTypesCreate = ({ history, createRecipeType, saved, error, loading })
   return (
     <Form
       inputs={inputs}
-      onSubmit={createRecipeType}
-      title="Create a Recipe Type"
+      onSubmit={createRecipe}
+      title="Create a Recipe"
       onCancel={goBack}
       error={error}
       loading={loading}
@@ -37,25 +37,25 @@ const RecipeTypesCreate = ({ history, createRecipeType, saved, error, loading })
   );
 };
 
-RecipeTypesCreate.propTypes = {
+RecipesCreate.propTypes = {
   history: object, // eslint-disable-line key-spacing
-  createRecipeType: func,
+  createRecipe: func,
   saved: bool,
   error: bool,
   loading: bool,
 };
 
 const mapStateToProps = state => ({
-  loading: state.RECIPE_TYPES.loading,
-  saved: state.RECIPE_TYPES.saved,
+  loading: state.RECIPES.loading,
+  saved: state.RECIPES.saved,
 });
 
 const mapDispatchToProps = dispatch => ({
-  reset: () => resetRecipeTypesAction(dispatch),
-  createRecipeType: recipeType => saveRecipeTypeAction(dispatch, recipeType),
+  reset: () => resetRecipesAction(dispatch),
+  createRecipe: recipe => saveRecipeAction(dispatch, recipe),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(RECIPE_TYPES_CREATE_ROUTE),
-)(RecipeTypesCreate);
+  withPage(RECIPES_CREATE_ROUTE),
+)(RecipesCreate);

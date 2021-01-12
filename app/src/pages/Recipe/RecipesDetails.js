@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import Detail from '../containers/Detail';
-import { withPage } from '../contexts/Page';
-import { getRecipeAction, resetRecipesAction } from '../store/recipes';
+import Detail from '../../containers/Detail';
+import { withPage } from '../../contexts/Page';
+import { getRecipeAction, resetRecipesAction } from '../../store/recipes';
 
 export const RECIPES_DETAILS_ROUTE = '/recipes/:id/details';
 
