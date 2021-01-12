@@ -4,6 +4,7 @@ import RecipesDetails, { RECIPES_DETAILS_ROUTE } from './Recipe/RecipesDetails';
 import RecipesList, { RECIPES_LIST_ROUTE } from './Recipe/RecipesList';
 import RecipeTypesCreate, { RECIPE_TYPES_CREATE_ROUTE } from './RecipeType/RecipeTypesCreate';
 import RecipeTypesDetails, { RECIPE_TYPES_DETAILS_ROUTE } from './RecipeType/RecipeTypesDetails';
+import RecipeTypesEdit, { RECIPE_TYPES_EDIT_ROUTE } from './RecipeType/RecipeTypesEdit';
 import RecipeTypesList, { RECIPE_TYPES_LIST_ROUTE } from './RecipeType/RecipeTypesList';
 
 const ROUTES = {
@@ -14,6 +15,7 @@ const ROUTES = {
   RECIPE_TYPES_LIST: { component: RecipeTypesList, path: RECIPE_TYPES_LIST_ROUTE, title: 'Recipe Types' },
   RECIPE_TYPES_CREATE: { component: RecipeTypesCreate, path: RECIPE_TYPES_CREATE_ROUTE },
   RECIPE_TYPES_DETAILS: { component: RecipeTypesDetails, path: RECIPE_TYPES_DETAILS_ROUTE },
+  RECIPE_TYPES_EDIT: { component: RecipeTypesEdit, path: RECIPE_TYPES_EDIT_ROUTE },
 };
 
 export default ROUTES;

@@ -8,6 +8,7 @@ import { withPage } from '../../contexts/Page';
 import { listRecipeTypesAction, resetRecipeTypesAction } from '../../store/recipeTypes';
 import { RECIPE_TYPES_CREATE_ROUTE } from './RecipeTypesCreate';
 import { RECIPE_TYPES_DETAILS_ROUTE } from './RecipeTypesDetails';
+import { RECIPE_TYPES_EDIT_ROUTE } from './RecipeTypesEdit';
 
 export const RECIPE_TYPES_LIST_ROUTE = '/recipe-types';
 
@@ -23,7 +24,8 @@ const RecipeTypesList = ({ recipeTypes, listRecipeTypes, loading, reset }) => {
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
     { text: 'Options', type: ColumnType.CONTEXT, values: [
-      { text: 'details', link: RECIPE_TYPES_DETAILS_ROUTE }
+      { text: 'details', link: RECIPE_TYPES_DETAILS_ROUTE },
+      { text: 'edit', link: RECIPE_TYPES_EDIT_ROUTE },
     ] },
   ];
 
