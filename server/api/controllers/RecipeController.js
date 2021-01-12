@@ -1,5 +1,5 @@
 const RecipeConnection = require('../../connections/RecipeConnection');
-const RecipeIngredientConnection = require('../../connections/RecipeIngredientConnection');
+// const RecipeIngredientConnection = require('../../connections/RecipeIngredientConnection');
 const { ErrorMapper, errorDtoSimple } = require('../../dto/ErrorDTO');
 
 const listRecipes = async (req, res) => {
@@ -30,6 +30,7 @@ const createRecipe = async (req, res) => {
 
     const result = await RecipeConnection.createRecipe({ ...body, idUser });
 
+    // TODO: ingredientsList
     // const resultNewRelations = 
     // await RecipeIngredientConnection.createRecipeIngredient(
     //   ingredientsList.map(it => ({ id_recipe: result.id, id_ingredient: it.id })));
@@ -42,26 +43,27 @@ const createRecipe = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
   try {
-    const { body: { name, description, active, ingredientsList }, params: { id } } = req;
+    const { body: { name, description, active/*, ingredientsList */ }, params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const currentIngredientsList = await RecipeIngredientConnection.listIngredientsByRecipe(id);
+    // TODO: ingredientsList
+    // const currentIngredientsList = await RecipeIngredientConnection.listIngredientsByRecipe(id);
 
-    const relationsToDelete = currentIngredientsList.filter(currentIngredient =>
-      !ingredientsList.find(receivedIngredient => receivedIngredient.id === currentIngredient.id_ingredient));
+    // const relationsToDelete = currentIngredientsList.filter(currentIngredient =>
+    //   !ingredientsList.find(receivedIngredient => receivedIngredient.id === currentIngredient.id_ingredient));
 
     // const resultDeleteRelations = 
-    await RecipeIngredientConnection.deleteRecipeIngredient(
-      relationsToDelete.map(it => it.id));
+    // await RecipeIngredientConnection.deleteRecipeIngredient(
+    //   relationsToDelete.map(it => it.id));
 
-    const relationsToCreate = ingredientsList.filter(receivedIngredient =>
-      !currentIngredientsList.find(currentIngredient =>
-        currentIngredient.id_ingredient === receivedIngredient.id));
+    // const relationsToCreate = ingredientsList.filter(receivedIngredient =>
+    //   !currentIngredientsList.find(currentIngredient =>
+    //     currentIngredient.id_ingredient === receivedIngredient.id));
 
     // const resultNewRelations = 
-    await RecipeIngredientConnection.createRecipeIngredient(
-      relationsToCreate.map(it => ({ id_recipe: id, id_ingredient: it.id })));
+    // await RecipeIngredientConnection.createRecipeIngredient(
+    //   relationsToCreate.map(it => ({ id_recipe: id, id_ingredient: it.id })));
 
     const result = await RecipeConnection.updateRecipe({ name, description, active }, id);
 

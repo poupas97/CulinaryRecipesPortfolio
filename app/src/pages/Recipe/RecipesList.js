@@ -8,6 +8,7 @@ import { withPage } from '../../contexts/Page';
 import { listRecipesAction, resetRecipesAction } from '../../store/recipes';
 import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
 import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
+import { RECIPES_EDIT_ROUTE } from './RecipesEdit';
 
 export const RECIPES_LIST_ROUTE = '/recipes';
 
@@ -22,7 +23,10 @@ const RecipesList = ({ recipes, listRecipes, loading, reset }) => {
   const headers = [
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
-    { text: 'Options', type: ColumnType.CONTEXT, values: [{ text: 'details', link: RECIPES_DETAILS_ROUTE }] },
+    { text: 'Options', type: ColumnType.CONTEXT, values: [
+      { text: 'details', link: RECIPES_DETAILS_ROUTE },
+      { text: 'edit', link: RECIPES_EDIT_ROUTE },
+    ] },
   ];
 
   return (

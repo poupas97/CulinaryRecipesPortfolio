@@ -8,7 +8,7 @@ import { withPage } from '../../contexts/Page';
 import { getRecipeTypesAction, resetRecipeTypesAction, saveRecipeTypeAction } from '../../store/recipeTypes';
 import { RECIPE_TYPES_LIST_ROUTE } from './RecipeTypesList';
 
-export const RECIPE_TYPES_EDIT_ROUTE = '/sensors/:id/edit';
+export const RECIPE_TYPES_EDIT_ROUTE = '/recipe-types/:id/edit';
 
 const RecipeTypesEdit = ({
   history, getRecipeType, recipeType, updateRecipeType, saved, loading, match: { params: { id } } }) => {
@@ -35,7 +35,7 @@ const RecipeTypesEdit = ({
       data={recipeType}
       inputs={inputs}
       onSubmit={updateRecipeType}
-      title="Update a Sensor"
+      title="Update a Recipe Type"
       onCancel={goBack}
       loading={loading}
     />
