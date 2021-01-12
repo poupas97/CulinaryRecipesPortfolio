@@ -1,5 +1,5 @@
 import { array, bool, func, object, string } from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import InputChipper from '../components/InputChipper';
 import InputDate from '../components/InputDate';
@@ -21,8 +21,12 @@ export const FormInputType = {
   CHIPPER: 'chipper',
 };
 
-const Form = ({ inputs = [], onSubmit, onCancel, title, error, loading }) => {
-  const [nextItem, setNextItem] = useState({});
+const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) => {
+  const [nextItem, setNextItem] = useState();
+
+  useEffect(() => {
+    setNextItem(data || {});
+  }, [data]);
 
   const update = e => {
     setNextItem({ ...nextItem, [e.target.id]: e.target.value });
@@ -35,7 +39,7 @@ const Form = ({ inputs = [], onSubmit, onCancel, title, error, loading }) => {
       default: break;
 
       case FormInputType.TEXT:
-        content = <InputText key={`InputText-${index}`} prop={input.value} onChange={update} />;
+        content = <InputText key={`InputText-${index}`} prop={input.value} onChange={update} data={data} />;
         break;
 
       case FormInputType.EMAIL:
@@ -91,6 +95,7 @@ const Form = ({ inputs = [], onSubmit, onCancel, title, error, loading }) => {
 };
 
 Form.propTypes = {
+  data: object,
   inputs: array,
   onSubmit: func,
   onCancel: func,

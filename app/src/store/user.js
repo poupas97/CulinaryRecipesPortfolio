@@ -1,4 +1,4 @@
-import { ApiGet } from '../api/Api';
+import Api from '../api/Api';
 import { getDecodedToken } from '../tools';
 import { generateActions, generateReducer } from './factory';
 // import { createNotificationAction, TypeNotification } from './notifications';
@@ -12,7 +12,7 @@ export const getUserAction = async dispatch => {
     dispatch({ type: ACTIONS.Loading });
     const token = getDecodedToken();
 
-    const data = await ApiGet(`/users/${token.id}`);
+    const data = await Api.Get(`/users/${token.id}`);
 
     dispatch({ type: ACTIONS.Item, payload: data });
     // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);

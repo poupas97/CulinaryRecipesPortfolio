@@ -2,22 +2,26 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'ingredients';
 
-const KEY_BD_ID = 'id';
-const KEY_BD_NAME = 'name';
-const KEY_BD_DESCRIPTION = 'description';
-const KEY_BD_ACTIVE = 'active';
+const BdKeys = {
+  ID: 'id',
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ACTIVE: 'active',
+};
 
-const KEY_ID = 'id';
-const KEY_NAME = 'name';
-const KEY_DESCRIPTION = 'description';
-const KEY_ACTIVE = 'active';
+const ObjectKeys = {
+  ID: 'id',
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ACTIVE: 'active',
+};
 
 const ingredientToBd = ingredient => {
   const ingredientToSend = {
-    [KEY_BD_ID]: ingredient[KEY_ID],
-    [KEY_BD_NAME]: ingredient[KEY_NAME],
-    [KEY_BD_DESCRIPTION]: ingredient[KEY_DESCRIPTION],
-    [KEY_BD_ACTIVE]: ingredient[KEY_ACTIVE]
+    [BdKeys.ID]: ingredient[ObjectKeys.ID],
+    [BdKeys.NAME]: ingredient[ObjectKeys.NAME],
+    [BdKeys.DESCRIPTION]: ingredient[ObjectKeys.DESCRIPTION],
+    [BdKeys.ACTIVE]: ingredient[ObjectKeys.ACTIVE]
   };
   Object.entries(ingredientToSend).forEach(([key, value]) => {
     if (value === undefined) delete ingredientToSend[key];
@@ -27,10 +31,10 @@ const ingredientToBd = ingredient => {
 
 const bdToIngredient = (ingredient = {}) => {
   const ingredientToSend = {
-    [KEY_ID]: ingredient[KEY_BD_ID],
-    [KEY_NAME]: ingredient[KEY_BD_NAME],
-    [KEY_DESCRIPTION]: ingredient[KEY_BD_DESCRIPTION],
-    [KEY_ACTIVE]: ingredient[KEY_BD_ACTIVE]
+    [ObjectKeys.ID]: ingredient[BdKeys.ID],
+    [ObjectKeys.NAME]: ingredient[BdKeys.NAME],
+    [ObjectKeys.DESCRIPTION]: ingredient[BdKeys.DESCRIPTION],
+    [ObjectKeys.ACTIVE]: ingredient[BdKeys.ACTIVE]
   };
   Object.entries(ingredientToSend).forEach(([key, value]) => {
     if (value === undefined) delete ingredientToSend[key];

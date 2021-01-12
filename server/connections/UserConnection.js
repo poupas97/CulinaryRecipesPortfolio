@@ -1,32 +1,38 @@
+const get = require('lodash/get');
+
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
 
 const TABLE = 'users';
 
-const KEY_BD_ID = 'id';
-const KEY_BD_USERNAME = 'username';
-const KEY_BD_PASSWORD	= 'password';
-const KEY_BD_NAME = 'name';
-const KEY_BD_ACCESS_TOKEN = 'access_token';
-const KEY_BD_REFRESH_TOKEN = 'refresh_token';
-const KEY_BD_ACTIVE = 'active';
+const BdKeys = {
+  ID: 'id',
+  USERNAME: 'username',
+  PASSWORD: 'password',
+  NAME: 'name',
+  ACCESS_TOKEN: 'access_token',
+  REFRESH_TOKEN: 'refresh_token',
+  ACTIVE: 'active',
+};
 
-const KEY_ID = 'id';
-const KEY_USERNAME = 'username';
-const KEY_PASSWORD	= 'password';
-const KEY_NAME = 'name';
-const KEY_ACCESS_TOKEN = 'accessToken';
-const KEY_REFRESH_TOKEN = 'refreshToken';
-const KEY_ACTIVE = 'active';
+const ObjectKeys = {
+  ID: 'id',
+  USERNAME: 'username',
+  PASSWORD: 'password',
+  NAME: 'name',
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken',
+  ACTIVE: 'active',
+};
 
 const userToBd = user => {
   const userToSend = {
-    [KEY_BD_ID]: user[KEY_ID],
-    [KEY_BD_USERNAME]: user[KEY_USERNAME],
-    [KEY_BD_PASSWORD]: user[KEY_PASSWORD],
-    [KEY_BD_NAME]: user[KEY_NAME],
-    [KEY_BD_ACCESS_TOKEN]: user[KEY_ACCESS_TOKEN],
-    [KEY_BD_REFRESH_TOKEN]: user[KEY_REFRESH_TOKEN],
-    [KEY_BD_ACTIVE]: user[KEY_ACTIVE]
+    [BdKeys.ID]: get(user, ObjectKeys.ID),
+    [BdKeys.USERNAME]: get(user, ObjectKeys.USERNAME),
+    [BdKeys.PASSWORD]: get(user, ObjectKeys.PASSWORD),
+    [BdKeys.NAME]: get(user, ObjectKeys.NAME),
+    [BdKeys.ACCESS_TOKEN]: get(user, ObjectKeys.ACCESS_TOKEN),
+    [BdKeys.REFRESH_TOKEN]: get(user, ObjectKeys.REFRESH_TOKEN),
+    [BdKeys.ACTIVE]: get(user, ObjectKeys.ACTIVE)
   };
   Object.entries(userToSend).forEach(([key, value]) => {
     if (value === undefined) delete userToSend[key];
@@ -36,13 +42,13 @@ const userToBd = user => {
 
 const bdToUser = (user = {}) => {
   const userToSend = {
-    [KEY_ID]: user[KEY_BD_ID],
-    [KEY_USERNAME]: user[KEY_BD_USERNAME],
-    [KEY_PASSWORD]: user[KEY_BD_PASSWORD],
-    [KEY_NAME]: user[KEY_BD_NAME],
-    [KEY_ACCESS_TOKEN]: user[KEY_BD_ACCESS_TOKEN],
-    [KEY_REFRESH_TOKEN]: user[KEY_BD_REFRESH_TOKEN],
-    [KEY_ACTIVE]: user[KEY_BD_ACTIVE]
+    [ObjectKeys.ID]: get(user, BdKeys.ID),
+    [ObjectKeys.USERNAME]: get(user, BdKeys.USERNAME),
+    [ObjectKeys.PASSWORD]: get(user, BdKeys.PASSWORD),
+    [ObjectKeys.NAME]: get(user, BdKeys.NAME),
+    [ObjectKeys.ACCESS_TOKEN]: get(user, BdKeys.ACCESS_TOKEN),
+    [ObjectKeys.REFRESH_TOKEN]: get(user, BdKeys.REFRESH_TOKEN),
+    [ObjectKeys.ACTIVE]: get(user, BdKeys.ACTIVE)
   };
   Object.entries(userToSend).forEach(([key, value]) => {
     if (value === undefined) delete userToSend[key];
@@ -56,12 +62,12 @@ const listUsers = async () => {
 };
 
 const singleUserById = async id => {
-  const [user] = await selectSinge(TABLE, [{ prop: KEY_BD_ID, operator: '=', value: id } ]);
+  const [user] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
   return bdToUser(user);
 };
 
 const singleUserByUsername = async username => {
-  const [user] = await selectSinge(TABLE, [{ prop: KEY_BD_USERNAME, operator: '=', value: username } ]);
+  const [user] = await selectSinge(TABLE, [{ prop: BdKeys.USERNAME, operator: '=', value: username } ]);
   if (!user) return null;
   return bdToUser(user);
 };

@@ -1,18 +1,46 @@
-import axios from 'axios';
-
 import { getToken } from '../tools';
 
-const instance = axios.create({
-  baseURL: 'http://localhost:8000/api',
-  timeout: 30000,
-  headers: { 'Content-Type': 'application/json', }
-});
+const baseUrl = 'http://localhost:8000/api';
 
-export const ApiGet = async url => {
+const Get = async url => {
   const token = getToken();
-  instance.defaults.headers.common.Authorization = `Bearer ${token.accessToken}`;
-  const result = await instance.get(url);
-  return result ? result.data : null;
+  const result = await fetch(`${baseUrl}${url}/`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token.accessToken}`,
+    }
+  });
+  const data = await result.json();
+  return data || null;
 };
 
-export default instance;
+const Post = async (url, body) => {
+  const result = await fetch(baseUrl + url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await result.json();
+  return data || null;
+};
+
+const Put = async (url, body) => {
+  const result = await fetch(baseUrl + url, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await result.json();
+  return data || null;
+};
+
+export default { Get, Post, Put };
+

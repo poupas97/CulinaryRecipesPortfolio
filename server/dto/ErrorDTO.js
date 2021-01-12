@@ -5,6 +5,8 @@ const ErrorMapper = {
   INVALID_PASSWORD: 'Invalid password',
   NO_PARAMETERS: 'No parameters',
   UNAUTHORIZED: 'Unauthorized',
+  ER_NO_SUCH_TABLE: 'Invalid Table',
+  ECONNREFUSED: 'Connection Refused'
 };
 
 const errorDtoSimple = errorReceived => {

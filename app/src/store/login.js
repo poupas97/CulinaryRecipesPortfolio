@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-import { ApiGet } from '../api/Api';
+import Api from '../api/Api';
 import { removeToken, setToken } from '../tools';
 import { BASE_URL, HEADERS } from './constants';
 import { generateActions, generateReducer } from './factory';
@@ -34,7 +34,7 @@ export const logoutAction = async dispatch => {
   try {
     dispatch({ type: ACTIONS.Loading });
 
-    await ApiGet('/logout');
+    await Api.Get('/logout');
 
     removeToken();
 

@@ -3,7 +3,7 @@ const { compareHashPassword } = require('../../tools/password');
 const UserConnection = require('../../connections/UserConnection');
 const { Methods } = require('../routes/constants');
 const { errorDtoSimple, ErrorMapper } = require('../../dto/ErrorDTO');
-const { userDtoComplex, userTokenToBd, userDtoSimple, userTokenFromBd } = require('../../dto/UserDTO');
+const { userDtoComplex, userDtoSimple } = require('../../dto/UserDTO');
 
 const login = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
     const accessToken = generateToken(userDtoSimple(user));
     const refreshToken = generateToken(userDtoSimple(user), true);
-    await UserConnection.updateUser(userTokenToBd({ accessToken, refreshToken }), user.id);
+    await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (error) {
@@ -47,7 +47,7 @@ const authenticateToken = async (req, res, next) => {
       const userAuthenticated = verifyToken(token);
       if (!userAuthenticated) return res.status(403);
 
-      const user = userTokenFromBd(await UserConnection.singleUserByUsername(userAuthenticated.username));
+      const user = await UserConnection.singleUserByUsername(userAuthenticated.username);
       if (user.accessToken !== token) return res.status(403);
 
       // eslint-disable-next-line no-param-reassign
@@ -72,7 +72,7 @@ const refresh = async (req, res) => {
 
     const accessToken = generateToken(userDtoSimple(user));
     const refreshToken = generateToken(userDtoSimple(user), true);
-    await UserConnection.updateUser(userTokenToBd({ accessToken, refreshToken }), user.id);
+    await UserConnection.updateUser({ accessToken, refreshToken }, user.id);
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (error) {
@@ -84,7 +84,7 @@ const logout = async (req, res) => {
   try {
     const { userAuthenticated: { id } } = req;
 
-    const result = await UserConnection.updateUser(userTokenToBd({ accessToken: null, refreshToken: null }), id);
+    const result = await UserConnection.updateUser({ accessToken: null, refreshToken: null }, id);
 
     return res.status(200).json({ logout: result.updated });
   } catch (error) {

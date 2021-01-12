@@ -1,4 +1,4 @@
-import { ApiGet } from '../api/Api';
+import Api from '../api/Api';
 import { generateActions, generateReducer } from './factory';
 // import { createNotificationAction, TypeNotification } from './notifications';
 
@@ -14,7 +14,7 @@ export const getRecipesAction = async dispatch => {
   try {
     dispatch({ type: ACTIONS.Loading });
 
-    const data = await ApiGet('/recipes');
+    const data = await Api.Get('/recipes');
 
     dispatch({ type: ACTIONS.List, payload: data });
     // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
@@ -25,7 +25,7 @@ export const getRecipesAction = async dispatch => {
 
 export const getRecipeAction = async (dispatch, id) => {
   dispatch({ type: ACTIONS.Loading });
-  const data = await ApiGet(`/recipes/${id}`);
+  const data = await Api.Get(`/recipes/${id}`);
   dispatch({ type: ACTIONS.Item, payload: data });
 };
 

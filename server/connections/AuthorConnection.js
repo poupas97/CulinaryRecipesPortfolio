@@ -2,22 +2,26 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'authors';
 
-const KEY_BD_ID = 'id';
-const KEY_BD_NAME = 'name';
-const KEY_BD_DESCRIPTION = 'description';
-const KEY_BD_ACTIVE = 'active';
+const BdKeys = {
+  ID: 'id',
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ACTIVE: 'active',
+};
 
-const KEY_ID = 'id';
-const KEY_NAME = 'name';
-const KEY_DESCRIPTION = 'description';
-const KEY_ACTIVE = 'active';
+const ObjectKeys = {
+  ID: 'id',
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ACTIVE: 'active',
+};
 
 const authorToBd = author => {
   const authorToSend = {
-    [KEY_BD_ID]: author[KEY_ID],
-    [KEY_BD_NAME]: author[KEY_NAME],
-    [KEY_BD_DESCRIPTION]: author[KEY_DESCRIPTION],
-    [KEY_BD_ACTIVE]: author[KEY_ACTIVE]
+    [BdKeys.ID]: author[ObjectKeys.ID],
+    [BdKeys.NAME]: author[ObjectKeys.NAME],
+    [BdKeys.DESCRIPTION]: author[ObjectKeys.DESCRIPTION],
+    [BdKeys.ACTIVE]: author[ObjectKeys.ACTIVE]
   };
   Object.entries(authorToSend).forEach(([key, value]) => {
     if (value === undefined) delete authorToSend[key];
@@ -27,10 +31,10 @@ const authorToBd = author => {
 
 const bdToAuthor = (author = {}) => {
   const authorToSend = {
-    [KEY_ID]: author[KEY_BD_ID],
-    [KEY_NAME]: author[KEY_BD_NAME],
-    [KEY_DESCRIPTION]: author[KEY_BD_DESCRIPTION],
-    [KEY_ACTIVE]: author[KEY_BD_ACTIVE]
+    [ObjectKeys.ID]: author[BdKeys.ID],
+    [ObjectKeys.NAME]: author[BdKeys.NAME],
+    [ObjectKeys.DESCRIPTION]: author[BdKeys.DESCRIPTION],
+    [ObjectKeys.ACTIVE]: author[BdKeys.ACTIVE]
   };
   Object.entries(authorToSend).forEach(([key, value]) => {
     if (value === undefined) delete authorToSend[key];
@@ -44,7 +48,7 @@ const listAuthors = async () => {
 };
 
 const singleAuthorById = async id => {
-  const [author] = await selectSinge(TABLE, [{ prop: 'id', operator: '=', value: id } ]);
+  const [author] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
   return bdToAuthor(author);
 };
 

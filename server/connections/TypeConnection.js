@@ -2,22 +2,26 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'types';
 
-const KEY_BD_ID = 'id';
-const KEY_BD_NAME = 'name';
-const KEY_BD_DESCRIPTION = 'description';
-const KEY_BD_ACTIVE = 'active';
+const BdKeys = {
+  ID: 'id',
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ACTIVE: 'active',
+};
 
-const KEY_ID = 'id';
-const KEY_NAME = 'name';
-const KEY_DESCRIPTION = 'description';
-const KEY_ACTIVE = 'active';
+const ObjectKeys = {
+  ID: 'id',
+  NAME: 'name',
+  DESCRIPTION: 'description',
+  ACTIVE: 'active',
+};
 
 const typeToBd = type => {
   const typeToSend = {
-    [KEY_BD_ID]: type[KEY_ID],
-    [KEY_BD_NAME]: type[KEY_NAME],
-    [KEY_BD_DESCRIPTION]: type[KEY_DESCRIPTION],
-    [KEY_BD_ACTIVE]: type[KEY_ACTIVE]
+    [BdKeys.ID]: type[ObjectKeys.ID],
+    [BdKeys.NAME]: type[ObjectKeys.NAME],
+    [BdKeys.DESCRIPTION]: type[ObjectKeys.DESCRIPTION],
+    [BdKeys.ACTIVE]: type[ObjectKeys.ACTIVE]
   };
   Object.entries(typeToSend).forEach(([key, value]) => {
     if (value === undefined) delete typeToSend[key];
@@ -27,10 +31,10 @@ const typeToBd = type => {
 
 const bdToType = (type = {}) => {
   const typeToSend = {
-    [KEY_ID]: type[KEY_BD_ID],
-    [KEY_NAME]: type[KEY_BD_NAME],
-    [KEY_DESCRIPTION]: type[KEY_BD_DESCRIPTION],
-    [KEY_ACTIVE]: type[KEY_BD_ACTIVE]
+    [ObjectKeys.ID]: type[BdKeys.ID],
+    [ObjectKeys.NAME]: type[BdKeys.NAME],
+    [ObjectKeys.DESCRIPTION]: type[BdKeys.DESCRIPTION],
+    [ObjectKeys.ACTIVE]: type[BdKeys.ACTIVE]
   };
   Object.entries(typeToSend).forEach(([key, value]) => {
     if (value === undefined) delete typeToSend[key];
@@ -44,7 +48,7 @@ const listTypes = async () => {
 };
 
 const singleTypeById = async id => {
-  const [type] = await selectSinge(TABLE, [{ prop: KEY_BD_ID, operator: '=', value: id } ]);
+  const [type] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
   return bdToType(type);
 };
 
