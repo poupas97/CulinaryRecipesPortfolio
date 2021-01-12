@@ -15,8 +15,8 @@ export const loginAction = async (dispatch, user) => {
 
     const result = await Api.PostNoAuth('/login', user);
 
-    setToken(result.data);
-    const token = jwtDecode(result.data.accessToken);
+    setToken(result);
+    const token = jwtDecode(result.accessToken);
     dispatch({ type: ACTIONS.Save, payload: token });
     // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
   } catch (error) {

@@ -5,19 +5,19 @@ import Api from '../api/Api';
 import { generateActions, generateReducer } from './factory';
 // import { createNotificationAction, TypeNotification } from './notifications';
 
-const ACTIONS = generateActions('recipes');
+const ACTIONS = generateActions('recipe-types');
 
 export const REDUCER = generateReducer(ACTIONS);
 
-export const resetRecipesAction = async dispatch => {
+export const resetRecipeTypesAction = async dispatch => {
   dispatch({ type: ACTIONS.Reset });
 };
 
-export const listRecipesAction = async dispatch => {
+export const listRecipeTypesAction = async dispatch => {
   try {
     dispatch({ type: ACTIONS.Loading });
 
-    const data = await Api.Get('/recipes');
+    const data = await Api.Get('/recipeTypes');
 
     dispatch({ type: ACTIONS.List, payload: data });
     // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
@@ -26,22 +26,22 @@ export const listRecipesAction = async dispatch => {
   }
 };
 
-export const getRecipeAction = async (dispatch, id) => {
+export const getRecipeTypesAction = async (dispatch, id) => {
   dispatch({ type: ACTIONS.Loading });
-  const data = await Api.Get(`/recipes/${id}`);
+  const data = await Api.Get(`/recipeTypes/${id}`);
   dispatch({ type: ACTIONS.Item, payload: data });
 };
 
-export const saveRecipeAction = async (dispatch, recipe) => {
+export const saveRecipeTypesAction = async (dispatch, recipeType) => {
   try {
     dispatch({ type: ACTIONS.Loading });
 
     let saved;
-    if (has(recipe, 'id')) {
-      const { updated } = await Api.Put(`/recipes/${get(recipe, 'id')}/`, recipe);
+    if (has(recipeType, 'id')) {
+      const { updated } = await Api.Put(`/recipeTypes/${get(recipeType, 'id')}/`, recipeType);
       saved = updated;
     } else {
-      const { id } = await Api.Post('/recipes/', recipe);
+      const { id } = await Api.Post('/recipeTypes/', recipeType);
       saved = !!id;
     }
 

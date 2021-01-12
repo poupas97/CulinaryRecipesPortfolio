@@ -1,6 +1,6 @@
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
 
-const TABLE = 'types';
+const TABLE = 'recipe_types';
 
 const BdKeys = {
   ID: 'id',
@@ -42,20 +42,26 @@ const bdToType = (type = {}) => {
   return typeToSend;
 };
 
-const listTypes = async () => {
+const listRecipeTypes = async () => {
   const types = await select(TABLE);
   return types.map(bdToType);
 };
 
-const singleTypeById = async id => {
+const singleRecipeTypeById = async id => {
   const [type] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
   return bdToType(type);
 };
 
-const createType = async type => await insert(TABLE, typeToBd(type));
+const createRecipeType = async type => await insert(TABLE, typeToBd(type));
 
-const updateType = async (type, id) => await update(TABLE, typeToBd(type), id);
+const updateRecipeType = async (type, id) => await update(TABLE, typeToBd(type), id);
 
-const deleteType = async id => await remove(TABLE, id);
+const deleteRecipeType = async id => await remove(TABLE, id);
 
-module.exports = ({ listTypes, singleTypeById, createType, updateType, deleteType });
+module.exports = ({
+  listRecipeTypes,
+  singleRecipeTypeById,
+  createRecipeType,
+  updateRecipeType,
+  deleteRecipeType,
+});

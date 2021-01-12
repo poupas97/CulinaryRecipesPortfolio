@@ -5,19 +5,19 @@ import { compose } from 'redux';
 
 import List, { ColumnType } from '../containers/List';
 import { withPage } from '../contexts/Page';
-import { getRecipesAction, resetRecipesAction } from '../store/recipes';
+import { listRecipesAction, resetRecipesAction } from '../store/recipes';
 import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
 import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
 
 export const RECIPES_LIST_ROUTE = '/recipes';
 
-const RecipesList = ({ recipes, getRecipes, loading, reset }) => {
+const RecipesList = ({ recipes, listRecipes, loading, reset }) => {
 
   useEffect(() => () => reset(), [reset]);
-  console.log(recipes);
+
   useEffect(() => {
-    if (!recipes) getRecipes();
-  }, [recipes, getRecipes]);
+    if (!recipes) listRecipes();
+  }, [recipes, listRecipes]);
 
   const headers = [
     { text: 'Name', value: 'name' },
@@ -37,7 +37,7 @@ const RecipesList = ({ recipes, getRecipes, loading, reset }) => {
 
 RecipesList.propTypes = {
   recipes: array,
-  getRecipes: func,
+  listRecipes: func,
   loading: bool,
   reset: func,
 };
@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = dispatch => ({
-  getRecipes: () => getRecipesAction(dispatch),
+  listRecipes: () => listRecipesAction(dispatch),
   reset: () => resetRecipesAction(dispatch),
 });
 

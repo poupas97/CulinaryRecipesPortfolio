@@ -16,7 +16,7 @@ const capitalize = value =>
 
 export const generateActions = prefix =>
   actions.reduce((acc, current) =>
-    ({ ...acc, [capitalize(current)]: `${String(prefix).toUpperCase()}_${current}` })
+    ({ ...acc, [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}` })
   , {});
 
 export const generateReducer = thisActions => (state = initialState, action) => {

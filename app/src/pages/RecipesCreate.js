@@ -52,7 +52,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetRecipesAction(dispatch),
-  createRecipe: sensor => saveRecipeAction(dispatch, sensor),
+  createRecipe: recipe => saveRecipeAction(dispatch, recipe),
 });
 
 export default compose(

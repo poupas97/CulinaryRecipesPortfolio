@@ -1,63 +1,63 @@
-const TypeConnection = require('../../connections/TypeConnection');
+const RecipeTypesConnection = require('../../connections/RecipeTypesConnection');
 const { ErrorMapper, errorDtoSimple } = require('../../dto/ErrorDTO');
 
-const listTypes = async (req, res) => {
+const listRecipeTypes = async (req, res) => {
   try {
-    const result = await TypeConnection.listTypes();
+    const result = await RecipeTypesConnection.listRecipeTypes();
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const singleTypeById = async (req, res) => {
+const singleRecipeTypeById = async (req, res) => {
   try {
     const { params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await TypeConnection.singleTypeById(id);
+    const result = await RecipeTypesConnection.singleRecipeTypeById(id);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const createType = async (req, res) => {
+const createRecipeType = async (req, res) => {
   try {
     const { body: { name, description } } = req;
-    const result = await TypeConnection.createType({ name, description });
+    const result = await RecipeTypesConnection.createRecipeType({ name, description });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const updateType = async (req, res) => {
+const updateRecipeType = async (req, res) => {
   try {
     const { body: { name, description, active }, params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await TypeConnection.updateType({ name, description, active }, id);
+    const result = await RecipeTypesConnection.updateRecipeType({ name, description, active }, id);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-const deleteType = async (req, res) => {
+const deleteRecipeType = async (req, res) => {
   try {
     const { params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await TypeConnection.deleteType(id);
+    const result = await RecipeTypesConnection.deleteRecipeType(id);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
   }
 };
 
-module.exports = () => ({ listTypes, singleTypeById, createType, updateType,
-  deleteType });
+module.exports = () => ({ listRecipeTypes, singleRecipeTypeById, createRecipeType, updateRecipeType,
+  deleteRecipeType });
