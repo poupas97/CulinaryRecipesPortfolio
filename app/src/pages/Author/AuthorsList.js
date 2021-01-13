@@ -7,6 +7,7 @@ import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
 import { listAuthorsAction, resetAuthorsAction } from '../../store/authors';
 import { AUTHORS_DETAILS_ROUTE } from './AuthorsDetails';
+import { AUTHORS_EDIT_ROUTE } from './AuthorsEdit';
 
 export const AUTHORS_LIST_ROUTE = '/authors';
 
@@ -26,7 +27,7 @@ const AuthorsList = ({ authors, listAuthors, loading, reset }) => {
     { text: 'Description', value: 'description' },
     { text: 'Options', type: ColumnType.CONTEXT, values: [
       { text: 'details', link: AUTHORS_DETAILS_ROUTE },
-      // { text: 'edit', link: INGREDIENTS_EDIT_ROUTE },
+      { text: 'edit', link: AUTHORS_EDIT_ROUTE },
     ] },
   ];
 
