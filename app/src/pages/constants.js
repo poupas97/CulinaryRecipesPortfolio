@@ -1,4 +1,5 @@
 import Home, { HOME_ROUTE } from './Home';
+import IngredientsCreate, { INGREDIENTS_CREATE_ROUTE } from './Ingredient/IngredientsCreate';
 import IngredientsDetails, { INGREDIENTS_DETAILS_ROUTE } from './Ingredient/IngredientsDetails';
 import IngredientsEdit, { INGREDIENTS_EDIT_ROUTE } from './Ingredient/IngredientsEdit';
 import IngredientsList, { INGREDIENTS_LIST_ROUTE } from './Ingredient/IngredientsList';
@@ -24,6 +25,7 @@ const ROUTES = {
   INGREDIENTS_LIST: { component: IngredientsList, path: INGREDIENTS_LIST_ROUTE, title: 'Ingredients' },
   INGREDIENTS_DETAILS: { component: IngredientsDetails, path: INGREDIENTS_DETAILS_ROUTE },
   INGREDIENTS_EDIT: { component: IngredientsEdit, path: INGREDIENTS_EDIT_ROUTE },
+  INGREDIENTS_CREATE: { component: IngredientsCreate, path: INGREDIENTS_CREATE_ROUTE },
 };
 
 export default ROUTES;
