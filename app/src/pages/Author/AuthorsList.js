@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
 import { listAuthorsAction, resetAuthorsAction } from '../../store/authors';
+import { AUTHORS_DETAILS_ROUTE } from './AuthorsDetails';
 
 export const AUTHORS_LIST_ROUTE = '/authors';
 
@@ -24,7 +25,7 @@ const AuthorsList = ({ authors, listAuthors, loading, reset }) => {
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
     { text: 'Options', type: ColumnType.CONTEXT, values: [
-      // { text: 'details', link: INGREDIENTS_DETAILS_ROUTE },
+      { text: 'details', link: AUTHORS_DETAILS_ROUTE },
       // { text: 'edit', link: INGREDIENTS_EDIT_ROUTE },
     ] },
   ];
