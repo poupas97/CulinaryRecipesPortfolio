@@ -19,6 +19,24 @@ export const generateActions = prefix =>
     ({ ...acc, [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}` })
   , {});
 
+const generateActionsName = prefix =>
+  actions.reduce((acc, current) =>
+    ({ ...acc, [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}` })
+  , {});
+
+const generateActionsDispatch = prefix =>
+  actions.reduce((acc, current) =>
+    ({ ...acc,
+      [capitalize(current)]: (dispatch, payload, error, meta) =>
+        dispatch({ type: `${String(prefix).toUpperCase()}_${current}`, payload, error, meta })
+    })
+  , {});
+
+export const generatePowerActions = prefix => [
+  generateActionsDispatch(prefix),
+  generateActionsName(prefix)
+];
+
 export const generateReducer = thisActions => (state = initialState, action) => {
   switch (action.type) {
     default: return state;

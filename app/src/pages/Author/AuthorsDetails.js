@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Detail from '../../containers/Detail';
 import { withPage } from '../../contexts/Page';
-import { getAuthorAction, resetAuthorsAction } from '../../store/authors';
+import { authorsSelectors, getAuthorAction, resetAuthorsAction } from '../../store/authors';
 
 export const AUTHORS_DETAILS_ROUTE = '/authors/:id/details';
 
@@ -40,10 +40,13 @@ AuthorsDetails.propTypes = {
   match: object
 };
 
-const mapStateToProps = state => ({
-  loading: state.AUTHORS.loading,
-  author: state.AUTHORS.item,
-});
+const mapStateToProps = state => {
+  const { item, loading } = authorsSelectors(state);
+  return ({
+    author: item,
+    loading,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetAuthorsAction(dispatch),

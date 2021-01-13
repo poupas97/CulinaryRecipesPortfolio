@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
-import { listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
+import { ingredientsSelectors, listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
 import { INGREDIENTS_CREATE_ROUTE } from './IngredientsCreate';
 import { INGREDIENTS_DETAILS_ROUTE } from './IngredientsDetails';
 import { INGREDIENTS_EDIT_ROUTE } from './IngredientsEdit';
@@ -49,10 +49,13 @@ IngredientsList.propTypes = {
   reset: func,
 };
 
-const mapStateToProps = state => ({
-  ingredients: state.INGREDIENTS.list,
-  loading: state.INGREDIENTS.loading,
-});
+const mapStateToProps = state => {
+  const data = ingredientsSelectors(state);
+  return ({
+    ingredients: data.list,
+    loading: data.loading,
+  });
+};
 
 const mapActionsToProps = dispatch => ({
   listIngredients: () => listIngredientsAction(dispatch),

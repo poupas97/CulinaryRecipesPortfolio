@@ -1,13 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import { REDUCER as AUTHORS } from './authors';
-import { REDUCER as INGREDIENTS } from './ingredients';
-import { REDUCER as LOGIN } from './login';
+import { AUTHORS } from './authors';
+import { INGREDIENTS } from './ingredients';
+import { LOGIN } from './login';
 import { REDUCER as NOTIFICATIONS } from './notifications';
-import { REDUCER as RECIPES } from './recipes';
-import { REDUCER as RECIPE_TYPES } from './recipeTypes';
-import { REDUCER as USER } from './user';
+import { RECIPES } from './recipes';
+import { RECIPE_TYPES } from './recipeTypes';
+import { USERS } from './user';
 
 const middleware = [thunk];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -15,7 +15,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducers = combineReducers({
   LOGIN,
   NOTIFICATIONS,
-  USER, RECIPES,
+  USERS,
+  RECIPES,
   RECIPE_TYPES,
   INGREDIENTS,
   AUTHORS,

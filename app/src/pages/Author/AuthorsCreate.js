@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { resetAuthorsAction, saveAuthorAction } from '../../store/authors';
+import { authorsSelectors, resetAuthorsAction, saveAuthorAction } from '../../store/authors';
 import { AUTHORS_LIST_ROUTE } from './AuthorsList';
 
 export const AUTHORS_CREATE_ROUTE = '/authors/create';
@@ -45,10 +45,13 @@ AuthorsCreate.propTypes = {
   loading: bool,
 };
 
-const mapStateToProps = state => ({
-  loading: state.AUTHORS.loading,
-  saved: state.AUTHORS.saved,
-});
+const mapStateToProps = state => {
+  const { loading, saved } = authorsSelectors(state);
+  return ({
+    loading,
+    saved,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetAuthorsAction(dispatch),

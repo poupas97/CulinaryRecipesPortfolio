@@ -2,39 +2,45 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 
 import Api from '../api/Api';
-import { generateActions, generateReducer } from './factory';
-// import { createNotificationAction, TypeNotification } from './notifications';
+import { generatePowerActions, generateReducer } from './factory';
 
-const ACTIONS = generateActions('recipes');
+const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('recipes');
 
-export const REDUCER = generateReducer(ACTIONS);
+export const RECIPES = generateReducer(ACTIONS_NAMES);
+
+export const recipesSelectors = state => state.RECIPES;
 
 export const resetRecipesAction = async dispatch => {
-  dispatch({ type: ACTIONS.Reset });
+  ACTIONS_DISPATCH.Reset(dispatch);
 };
 
 export const listRecipesAction = async dispatch => {
   try {
-    dispatch({ type: ACTIONS.Loading });
+    ACTIONS_DISPATCH.Loading(dispatch);
 
-    const data = await Api.Get('/recipes');
+    const payload = await Api.Get('/recipes');
 
-    dispatch({ type: ACTIONS.List, payload: data });
-    // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
+    ACTIONS_DISPATCH.List(dispatch, payload);
   } catch (error) {
-    dispatch({ type: ACTIONS.Error, payload: error });
+    ACTIONS_DISPATCH.Error(dispatch, error);
   }
 };
 
 export const getRecipeAction = async (dispatch, id) => {
-  dispatch({ type: ACTIONS.Loading });
-  const data = await Api.Get(`/recipes/${id}`);
-  dispatch({ type: ACTIONS.Item, payload: data });
+  try {
+    ACTIONS_DISPATCH.Loading(dispatch);
+
+    const payload = await Api.Get(`/recipes/${id}`);
+
+    ACTIONS_DISPATCH.Item(dispatch, payload);
+  } catch (error) {
+    ACTIONS_DISPATCH.Error(dispatch, error);
+  }
 };
 
 export const saveRecipeAction = async (dispatch, recipe) => {
   try {
-    dispatch({ type: ACTIONS.Loading });
+    ACTIONS_DISPATCH.Loading(dispatch);
 
     let saved;
     if (has(recipe, 'id')) {
@@ -45,9 +51,9 @@ export const saveRecipeAction = async (dispatch, recipe) => {
       saved = !!id;
     }
 
-    dispatch({ type: ACTIONS.Save, payload: saved });
+    ACTIONS_DISPATCH.Save(dispatch, saved);
   } catch (error) {
-    dispatch({ type: ACTIONS.Error, payload: error });
+    ACTIONS_DISPATCH.Error(dispatch, error);
   }
 };
 

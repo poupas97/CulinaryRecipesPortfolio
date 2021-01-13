@@ -2,39 +2,44 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 
 import Api from '../api/Api';
-import { generateActions, generateReducer } from './factory';
-// import { createNotificationAction, TypeNotification } from './notifications';
+import { generatePowerActions, generateReducer } from './factory';
 
-const ACTIONS = generateActions('ingredients');
+const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('ingredients');
 
-export const REDUCER = generateReducer(ACTIONS);
+export const INGREDIENTS = generateReducer(ACTIONS_NAMES);
+
+export const ingredientsSelectors = state => state.INGREDIENTS;
 
 export const resetIngredientsAction = async dispatch => {
-  dispatch({ type: ACTIONS.Reset });
+  ACTIONS_DISPATCH.Reset(dispatch);
 };
 
 export const listIngredientsAction = async dispatch => {
   try {
-    dispatch({ type: ACTIONS.Loading });
+    ACTIONS_DISPATCH.Loading(dispatch);
 
-    const data = await Api.Get('/ingredients');
+    const payload = await Api.Get('/ingredients');
 
-    dispatch({ type: ACTIONS.List, payload: data });
-    // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
+    ACTIONS_DISPATCH.List(dispatch, payload);
   } catch (error) {
-    dispatch({ type: ACTIONS.Error, payload: error });
+    ACTIONS_DISPATCH.Error(dispatch, error);
   }
 };
 
 export const getIngredientAction = async (dispatch, id) => {
-  dispatch({ type: ACTIONS.Loading });
-  const data = await Api.Get(`/ingredients/${id}`);
-  dispatch({ type: ACTIONS.Item, payload: data });
+  try {ACTIONS_DISPATCH.Loading(dispatch);
+
+    const payload = await Api.Get(`/ingredients/${id}`);
+
+    ACTIONS_DISPATCH.Item(dispatch, payload);
+  } catch (error) {
+    ACTIONS_DISPATCH.Error(dispatch, error);
+  }
 };
 
 export const saveIngredientAction = async (dispatch, ingredient) => {
   try {
-    dispatch({ type: ACTIONS.Loading });
+    ACTIONS_DISPATCH.Loading(dispatch);
 
     let saved;
     if (has(ingredient, 'id')) {
@@ -45,9 +50,9 @@ export const saveIngredientAction = async (dispatch, ingredient) => {
       saved = !!id;
     }
 
-    dispatch({ type: ACTIONS.Save, payload: saved });
+    ACTIONS_DISPATCH.Save(dispatch, saved);
   } catch (error) {
-    dispatch({ type: ACTIONS.Error, payload: error });
+    ACTIONS_DISPATCH.Error(dispatch, error);
   }
 };
 

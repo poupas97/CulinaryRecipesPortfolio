@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
-import { listRecipeTypesAction, resetRecipeTypesAction } from '../../store/recipeTypes';
+import { listRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction } from '../../store/recipeTypes';
 import { RECIPE_TYPES_CREATE_ROUTE } from './RecipeTypesCreate';
 import { RECIPE_TYPES_DETAILS_ROUTE } from './RecipeTypesDetails';
 import { RECIPE_TYPES_EDIT_ROUTE } from './RecipeTypesEdit';
@@ -49,10 +49,13 @@ RecipeTypesList.propTypes = {
   reset: func,
 };
 
-const mapStateToProps = state => ({
-  recipeTypes: state.RECIPE_TYPES.list,
-  loading: state.RECIPE_TYPES.loading,
-});
+const mapStateToProps = state => {
+  const data = recipeTypesSelectors(state);
+  return ({
+    recipeTypes: data.list,
+    loading: data.loading,
+  });
+};
 
 const mapActionsToProps = dispatch => ({
   listRecipeTypes: () => listRecipeTypesAction(dispatch),

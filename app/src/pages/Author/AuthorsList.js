@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
-import { listAuthorsAction, resetAuthorsAction } from '../../store/authors';
+import { authorsSelectors, listAuthorsAction, resetAuthorsAction } from '../../store/authors';
 import { AUTHORS_CREATE_ROUTE } from './AuthorsCreate';
 import { AUTHORS_DETAILS_ROUTE } from './AuthorsDetails';
 import { AUTHORS_EDIT_ROUTE } from './AuthorsEdit';
@@ -49,10 +49,13 @@ AuthorsList.propTypes = {
   reset: func,
 };
 
-const mapStateToProps = state => ({
-  authors: state.AUTHORS.list,
-  loading: state.AUTHORS.loading,
-});
+const mapStateToProps = state => {
+  const data = authorsSelectors(state);
+  return ({
+    authors: data.list,
+    loading: data.loading,
+  });
+};
 
 const mapActionsToProps = dispatch => ({
   listAuthors: () => listAuthorsAction(dispatch),

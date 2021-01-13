@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Detail from '../../containers/Detail';
 import { withPage } from '../../contexts/Page';
-import { getRecipeAction, resetRecipesAction } from '../../store/recipes';
+import { getRecipeAction, recipesSelectors, resetRecipesAction } from '../../store/recipes';
 
 export const RECIPES_DETAILS_ROUTE = '/recipes/:id/details';
 
@@ -40,10 +40,13 @@ RecipesDetails.propTypes = {
   match: object
 };
 
-const mapStateToProps = state => ({
-  loading: state.RECIPES.loading,
-  recipe: state.RECIPES.item,
-});
+const mapStateToProps = state => {
+  const { item, loading } = recipesSelectors(state);
+  return ({
+    recipe: item,
+    loading,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetRecipesAction(dispatch),

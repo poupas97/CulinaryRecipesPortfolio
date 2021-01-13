@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 import { compose } from 'redux';
 
-import { getUserAction } from '../store/user';
+import { getUserAction, usersSelectors } from '../store/user';
 import { getDecodedToken } from '../tools';
 import { LOGIN_ROUTE } from './Login';
 
@@ -37,9 +37,12 @@ Protected.propTypes = {
   exact: bool,
 };
 
-const mapStateToProps = state => ({
-  user: state.USER.item,
-});
+const mapStateToProps = state => {
+  const { item } = usersSelectors(state);
+  return ({
+    user: item,
+  });
+};
 
 const mapActionsToProps = dispatch => ({
   getUser: () => getUserAction(dispatch),

@@ -1,28 +1,28 @@
 import Api from '../api/Api';
 import { getDecodedToken } from '../tools';
-import { generateActions, generateReducer } from './factory';
-// import { createNotificationAction, TypeNotification } from './notifications';
+import { generatePowerActions, generateReducer } from './factory';
 
-const ACTIONS = generateActions('user');
+const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('users');
 
-export const REDUCER = generateReducer(ACTIONS);
+export const USERS = generateReducer(ACTIONS_NAMES);
+
+export const usersSelectors = state => state.USERS;
+
+export const resetUserAction = async dispatch => {
+  ACTIONS_DISPATCH.Reset(dispatch);
+};
 
 export const getUserAction = async dispatch => {
   try {
-    dispatch({ type: ACTIONS.Loading });
+    ACTIONS_DISPATCH.Loading(dispatch);
     const token = getDecodedToken();
 
-    const data = await Api.Get(`/users/${token.id}`);
+    const payload = await Api.Get(`/users/${token.id}`);
 
-    dispatch({ type: ACTIONS.Item, payload: data });
-    // createNotificationAction(dispatch, 'Login', TypeNotification.SUCCESS);
+    ACTIONS_DISPATCH.Item(dispatch, payload);
   } catch (error) {
-    dispatch({ type: ACTIONS.Error, payload: error });
+    ACTIONS_DISPATCH.Error(dispatch, error);
   }
-};
-
-export const resetUserAction = async dispatch => {
-  dispatch({ type: ACTIONS.Reset });
 };
 
 export default {};

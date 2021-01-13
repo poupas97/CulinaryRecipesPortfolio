@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { getAuthorAction, resetAuthorsAction, saveAuthorAction } from '../../store/authors';
+import { authorsSelectors, getAuthorAction, resetAuthorsAction, saveAuthorAction } from '../../store/authors';
 import { AUTHORS_LIST_ROUTE } from './AuthorsList';
 
 export const AUTHORS_EDIT_ROUTE = '/authors/:id/edit';
@@ -53,11 +53,14 @@ AuthorsEdit.propTypes = {
   match: object, // eslint-disable-line key-spacing
 };
 
-const mapStateToProps = state => ({
-  loading: state.AUTHORS.loading,
-  author: state.AUTHORS.item,
-  saved: state.AUTHORS.saved,
-});
+const mapStateToProps = state => {
+  const { item, loading, saved } = authorsSelectors(state);
+  return ({
+    author: item,
+    loading,
+    saved,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetAuthorsAction(dispatch),

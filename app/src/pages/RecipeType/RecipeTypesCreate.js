@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { resetRecipeTypesAction, saveRecipeTypeAction } from '../../store/recipeTypes';
+import { recipeTypesSelectors, resetRecipeTypesAction, saveRecipeTypeAction } from '../../store/recipeTypes';
 import { RECIPE_TYPES_LIST_ROUTE } from './RecipeTypesList';
 
 export const RECIPE_TYPES_CREATE_ROUTE = '/recipe-types/create';
@@ -45,10 +45,13 @@ RecipeTypesCreate.propTypes = {
   loading: bool,
 };
 
-const mapStateToProps = state => ({
-  loading: state.RECIPE_TYPES.loading,
-  saved: state.RECIPE_TYPES.saved,
-});
+const mapStateToProps = state => {
+  const { loading, saved } = recipeTypesSelectors(state);
+  return ({
+    loading,
+    saved,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetRecipeTypesAction(dispatch),

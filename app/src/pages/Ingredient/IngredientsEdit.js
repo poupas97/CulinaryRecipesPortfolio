@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { getIngredientAction, resetIngredientsAction, saveIngredientAction, } from '../../store/ingredients';
+import { getIngredientAction, ingredientsSelectors, resetIngredientsAction, saveIngredientAction, } from '../../store/ingredients';
 import { INGREDIENTS_LIST_ROUTE } from './IngredientsList';
 
 export const INGREDIENTS_EDIT_ROUTE = '/ingredients/:id/edit';
@@ -53,11 +53,14 @@ IngredientsEdit.propTypes = {
   match: object, // eslint-disable-line key-spacing
 };
 
-const mapStateToProps = state => ({
-  loading: state.INGREDIENTS.loading,
-  ingredient: state.INGREDIENTS.item,
-  saved: state.INGREDIENTS.saved,
-});
+const mapStateToProps = state => {
+  const { item, loading, saved } = ingredientsSelectors(state);
+  return ({
+    ingredient: item,
+    loading,
+    saved,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetIngredientsAction(dispatch),

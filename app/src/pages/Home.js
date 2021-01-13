@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { withPage } from '../contexts/Page';
+import { usersSelectors } from '../store/user';
 
 export const HOME_ROUTE = '/';
 
@@ -18,9 +19,12 @@ Home.propTypes = {
   user: object,
 };
 
-const mapStateToProps = state => ({
-  user: state.USER.item,
-});
+const mapStateToProps = state => {
+  const { item } = usersSelectors(state);
+  return ({
+    user: item,
+  });
+};
 
 export default compose(
   connect(mapStateToProps),

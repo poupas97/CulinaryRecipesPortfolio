@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import Detail from '../../containers/Detail';
 import { withPage } from '../../contexts/Page';
-import { getRecipeTypesAction, resetRecipeTypesAction } from '../../store/recipeTypes';
+import { getRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction } from '../../store/recipeTypes';
 
 export const RECIPE_TYPES_DETAILS_ROUTE = '/recipe-types/:id/details';
 
@@ -40,10 +40,13 @@ RecipeTypesDetails.propTypes = {
   match: object
 };
 
-const mapStateToProps = state => ({
-  loading: state.RECIPE_TYPES.loading,
-  recipeType: state.RECIPE_TYPES.item,
-});
+const mapStateToProps = state => {
+  const { item, loading } = recipeTypesSelectors(state);
+  return ({
+    recipeType: item,
+    loading,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   reset: () => resetRecipeTypesAction(dispatch),
