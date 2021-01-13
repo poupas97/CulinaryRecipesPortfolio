@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
 import { listAuthorsAction, resetAuthorsAction } from '../../store/authors';
+import { AUTHORS_CREATE_ROUTE } from './AuthorsCreate';
 import { AUTHORS_DETAILS_ROUTE } from './AuthorsDetails';
 import { AUTHORS_EDIT_ROUTE } from './AuthorsEdit';
 
@@ -36,7 +37,7 @@ const AuthorsList = ({ authors, listAuthors, loading, reset }) => {
       headers={headers}
       rows={authors}
       loading={loading}
-      // canAdd={INGREDIENTS_CREATE_ROUTE}
+      canAdd={AUTHORS_CREATE_ROUTE}
     />
   );
 };

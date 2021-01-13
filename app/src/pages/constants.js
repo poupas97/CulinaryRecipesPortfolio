@@ -15,6 +15,7 @@ import RecipeTypesList, { RECIPE_TYPES_LIST_ROUTE } from './RecipeType/RecipeTyp
 import IngredientsCreate, { INGREDIENTS_CREATE_ROUTE } from './Ingredient/IngredientsCreate';
 import AuthorsDetails, { AUTHORS_DETAILS_ROUTE } from './Author/AuthorsDetails';
 import AuthorsEdit, { AUTHORS_EDIT_ROUTE } from './Author/AuthorsEdit';
+import AuthorsCreate, { AUTHORS_CREATE_ROUTE } from './Author/AuthorsCreate';
 
 const ROUTES = {
   HOME: { component: Home, path: HOME_ROUTE, title: 'Home' },
@@ -33,6 +34,7 @@ const ROUTES = {
   AUTHORS_LIST: { component: AuthorsList, path: AUTHORS_LIST_ROUTE, title: 'Authors' },
   AUTHORS_DETAILS: { component: AuthorsDetails, path: AUTHORS_DETAILS_ROUTE },
   AUTHORS_EDIT: { component: AuthorsEdit, path: AUTHORS_EDIT_ROUTE },
+  AUTHORS_CREATE: { component: AuthorsCreate, path: AUTHORS_CREATE_ROUTE },
 };
 
 export default ROUTES;
