@@ -1,5 +1,6 @@
+/* eslint-disable import-helpers/order-imports */
 import Home, { HOME_ROUTE } from './Home';
-import IngredientsCreate, { INGREDIENTS_CREATE_ROUTE } from './Ingredient/IngredientsCreate';
+import AuthorsList, { AUTHORS_LIST_ROUTE } from './Author/AuthorsList';
 import IngredientsDetails, { INGREDIENTS_DETAILS_ROUTE } from './Ingredient/IngredientsDetails';
 import IngredientsEdit, { INGREDIENTS_EDIT_ROUTE } from './Ingredient/IngredientsEdit';
 import IngredientsList, { INGREDIENTS_LIST_ROUTE } from './Ingredient/IngredientsList';
@@ -11,6 +12,7 @@ import RecipeTypesCreate, { RECIPE_TYPES_CREATE_ROUTE } from './RecipeType/Recip
 import RecipeTypesDetails, { RECIPE_TYPES_DETAILS_ROUTE } from './RecipeType/RecipeTypesDetails';
 import RecipeTypesEdit, { RECIPE_TYPES_EDIT_ROUTE } from './RecipeType/RecipeTypesEdit';
 import RecipeTypesList, { RECIPE_TYPES_LIST_ROUTE } from './RecipeType/RecipeTypesList';
+import IngredientsCreate, { INGREDIENTS_CREATE_ROUTE } from './Ingredient/IngredientsCreate';
 
 const ROUTES = {
   HOME: { component: Home, path: HOME_ROUTE, title: 'Home' },
@@ -26,6 +28,7 @@ const ROUTES = {
   INGREDIENTS_DETAILS: { component: IngredientsDetails, path: INGREDIENTS_DETAILS_ROUTE },
   INGREDIENTS_EDIT: { component: IngredientsEdit, path: INGREDIENTS_EDIT_ROUTE },
   INGREDIENTS_CREATE: { component: IngredientsCreate, path: INGREDIENTS_CREATE_ROUTE },
+  AUTHORS_LIST: { component: AuthorsList, path: AUTHORS_LIST_ROUTE, title: 'Authors' },
 };
 
 export default ROUTES;
