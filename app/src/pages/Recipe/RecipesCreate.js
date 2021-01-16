@@ -7,7 +7,7 @@ import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
 import { authorsSelectors, listAuthorsAction, resetAuthorsAction } from '../../store/authors';
 import { ingredientsSelectors, listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
-import { recipesSelectors, resetRecipesAction, saveRecipeAction } from '../../store/recipes';
+import { recipesSelectors, saveRecipeAction } from '../../store/recipes';
 import { listRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction } from '../../store/recipeTypes';
 import { RECIPES_LIST_ROUTE } from './RecipesList';
 
@@ -98,7 +98,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  reset: () => resetRecipesAction(dispatch),
   createRecipe: recipe => saveRecipeAction(dispatch, recipe),
 
   listIngredients: () => listIngredientsAction(dispatch),

@@ -57,11 +57,14 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
         break;
 
       case FormInputType.SELECT:
-        content = <InputSelect
-          key={`InputSelect-${index}`}
-          prop={input.value}
-          onChange={update}
-          options={input.options} />;
+        content = (
+          <InputSelect
+            key={`InputSelect-${index}`}
+            prop={input.value}
+            onChange={update}
+            options={input.options}
+            data={data}
+          />);
         break;
 
       case FormInputType.TEXTAREA:
@@ -73,11 +76,14 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
         break;
 
       case FormInputType.MULTI_SELECT:
-        content = <InputMultiSelect
-          key={`InputMultiSelect-${index}`}
-          prop={input.value}
-          onChange={update}
-          options={input.options} />;
+        content = (
+          <InputMultiSelect
+            key={`InputMultiSelect-${index}`}
+            prop={input.value}
+            onChange={update}
+            options={input.options}
+            data={data}
+          />);
         break;
     }
 

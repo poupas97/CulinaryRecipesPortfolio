@@ -61,3 +61,10 @@ const formatDate = date => {
   return `${[year, month, day].join('-')} ${[hour, minute, second].join(':')}`;
 };
 
+export const getOption = it => {
+  if (!it) return null;
+  return ({
+    value: it,
+    label: it.name || it.description,
+  });
+};

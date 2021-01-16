@@ -3,6 +3,8 @@ import { array, func, string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
+import { getOption } from '../tools';
+
 const InputSelect = ({ prop, onChange = () => {}, options, data }) => {
   const [value, setValue] = useState(null);
 
@@ -13,17 +15,15 @@ const InputSelect = ({ prop, onChange = () => {}, options, data }) => {
   if (!prop) return null;
 
   const handleChange = selected => {
+    setValue(selected.value);
     onChange(prop, selected.value);
   };
 
   return (
     <Select
-      defaultValue={value}
+      value={getOption(value)}
       onChange={handleChange}
-      options={(options || []).map(it => ({
-        value: it,
-        label: it.name || it.description,
-      }))}
+      options={(options || []).map(getOption)}
     />
   );
 };

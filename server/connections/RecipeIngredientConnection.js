@@ -5,8 +5,10 @@ const TABLE = 'recipes_ingredients';
 
 const listRecipesIngredients = async () => await select(TABLE);
 
-const listIngredientsByRecipe = async id => {
+const listIngredientsByRecipe = async (id, onlyRelations = false) => {
   const relations = await select(TABLE, [{ prop: 'id_recipe', operator: '=', value: id }]);
+
+  if (onlyRelations) return relations;
 
   return await Promise.all(relations.map(async relation =>
     await IngredientConnection.singleIngredientById(relation.id_ingredient)));

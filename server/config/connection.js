@@ -137,7 +137,7 @@ async function update(table, value, id) {
       columns: [...(acc.columns || []), `${key} = ?`],
       values: [...(acc.values || []), value]
     }), {});
-    console.log(elements);
+
     const query = `UPDATE ${table} SET ${elements.columns.join(', ')} WHERE id = ?`;
 
     console.log(`UPDATE, query: ${query}`);

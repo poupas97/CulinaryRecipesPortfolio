@@ -51,29 +51,40 @@ const createRecipe = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
   try {
-    const { body: { name, description, active/*, ingredientsList */ }, params: { id } } = req;
+    const { body, params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
+    const oldRecipe = await RecipeConnection.singleRecipeById(id);
+    const newRecipe = { ...body };
+
+    if (oldRecipe.idAuthor != newRecipe.author.id) {
+      newRecipe.idAuthor = newRecipe.author.id;
+      delete newRecipe.author;
+    }
+
+    if (oldRecipe.idRecipeType != newRecipe.recipeType.id) {
+      newRecipe.idRecipeType = newRecipe.recipeType.id;
+      delete newRecipe.recipeType;
+    }
+
     // TODO: ingredientsList
-    // const currentIngredientsList = await RecipeIngredientConnection.listIngredientsByRecipe(id);
+    const ingredientsRelation = await RecipeIngredientConnection.listIngredientsByRecipe(id, true);
+    const newIngredients = newRecipe.ingredients || [];
 
-    // const relationsToDelete = currentIngredientsList.filter(currentIngredient =>
-    //   !ingredientsList.find(receivedIngredient => receivedIngredient.id === currentIngredient.id_ingredient));
-
+    const relationsToDelete = ingredientsRelation.filter(relation =>
+      !newIngredients.find(newIngredient => newIngredient.id === relation.id_ingredient));
     // const resultDeleteRelations = 
-    // await RecipeIngredientConnection.deleteRecipeIngredient(
-    //   relationsToDelete.map(it => it.id));
+    await RecipeIngredientConnection.deleteRecipeIngredient(
+      relationsToDelete.map(it => it.id));
 
-    // const relationsToCreate = ingredientsList.filter(receivedIngredient =>
-    //   !currentIngredientsList.find(currentIngredient =>
-    //     currentIngredient.id_ingredient === receivedIngredient.id));
-
+    const relationsToCreate = newIngredients.filter(newIngredient =>
+      !ingredientsRelation.find(relation => newIngredient.id === relation.id_ingredient));
     // const resultNewRelations = 
-    // await RecipeIngredientConnection.createRecipeIngredient(
-    //   relationsToCreate.map(it => ({ id_recipe: id, id_ingredient: it.id })));
+    await RecipeIngredientConnection.createRecipeIngredient(
+      relationsToCreate.map(it => ({ id_recipe: id, id_ingredient: it.id })));
 
-    const result = await RecipeConnection.updateRecipe({ name, description, active }, id);
+    const result = await RecipeConnection.updateRecipe(newRecipe, id);
 
     return res.status(200).json(result);
   } catch (error) {
