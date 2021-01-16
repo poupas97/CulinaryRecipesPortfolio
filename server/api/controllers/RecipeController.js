@@ -1,5 +1,5 @@
 const RecipeConnection = require('../../connections/RecipeConnection');
-// const RecipeIngredientConnection = require('../../connections/RecipeIngredientConnection');
+const RecipeIngredientConnection = require('../../connections/RecipeIngredientConnection');
 const { ErrorMapper, errorDtoSimple } = require('../../dto/ErrorDTO');
 
 const listRecipes = async (req, res) => {
@@ -28,12 +28,20 @@ const createRecipe = async (req, res) => {
   try {
     const { body, userAuthenticated: { id: idUser } } = req;
 
-    const result = await RecipeConnection.createRecipe({ ...body, idUser });
+    const newRecipe = { ...body };
 
-    // TODO: ingredientsList
+    const idRecipeType = newRecipe.recipeType.id;
+    delete newRecipe.recipeType;
+
+    const idAuthor = newRecipe.author.id;
+    delete newRecipe.author;
+
+    const result = await RecipeConnection.createRecipe({ ...newRecipe, idRecipeType, idAuthor, idUser });
+
+    // FIXME:
     // const resultNewRelations = 
-    // await RecipeIngredientConnection.createRecipeIngredient(
-    //   ingredientsList.map(it => ({ id_recipe: result.id, id_ingredient: it.id })));
+    await RecipeIngredientConnection.createRecipeIngredient(
+      newRecipe.ingredients.map(it => ({ id_recipe: result.id, id_ingredient: it.id })));
 
     return res.status(200).json(result);
   } catch (error) {

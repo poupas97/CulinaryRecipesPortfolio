@@ -1,11 +1,16 @@
 const { select, insert, remove } = require('../config/connection');
+const IngredientConnection = require('./IngredientConnection');
 
 const TABLE = 'recipes_ingredients';
 
 const listRecipesIngredients = async () => await select(TABLE);
 
-const listIngredientsByRecipe = async id =>
-  await select(TABLE, [{ prop: 'id_recipe', operator: '=', value: id }]);
+const listIngredientsByRecipe = async id => {
+  const relations = await select(TABLE, [{ prop: 'id_recipe', operator: '=', value: id }]);
+
+  return await Promise.all(relations.map(async relation =>
+    await IngredientConnection.singleIngredientById(relation.id_ingredient)));
+};
 
 const listRecipesByIngredient = async id =>
   await select(TABLE, [{ prop: 'id_ingredient', operator: '=', value: id }]);

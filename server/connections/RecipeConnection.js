@@ -1,4 +1,8 @@
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
+const AuthorConnection = require('./AuthorConnection');
+const RecipeIngredientConnection = require('./RecipeIngredientConnection');
+const RecipeTypeConnection = require('./RecipeTypeConnection');
+const UserConnection = require('./UserConnection');
 
 const TABLE = 'recipes';
 
@@ -8,7 +12,7 @@ const DbKeys = {
   DESCRIPTION: 'description',
   ACTIVE: 'active',
   ID_USER: 'id_user',
-  ID_TYPE: 'id_type',
+  ID_RECIPE_TYPE: 'id_recipe_type',
   ID_AUTHOR: 'id_author',
 };
 
@@ -18,50 +22,56 @@ const ObjectKeys = {
   DESCRIPTION: 'description',
   ACTIVE: 'active',
   ID_USER: 'idUser',
-  ID_TYPE: 'idType',
+  ID_RECIPE_TYPE: 'idRecipeType',
   ID_AUTHOR: 'idAuthor',
 };
 
 const recipeToDb = author => {
-  const authorToSend = {
+  const recipeToSend = {
     [DbKeys.ID]: author[ObjectKeys.ID],
     [DbKeys.NAME]: author[ObjectKeys.NAME],
     [DbKeys.DESCRIPTION]: author[ObjectKeys.DESCRIPTION],
     [DbKeys.ACTIVE]: author[ObjectKeys.ACTIVE],
     [DbKeys.ID_USER]: author[ObjectKeys.ID_USER],
-    [DbKeys.ID_TYPE]: author[ObjectKeys.ID_TYPE],
+    [DbKeys.ID_RECIPE_TYPE]: author[ObjectKeys.ID_RECIPE_TYPE],
     [DbKeys.ID_AUTHOR]: author[ObjectKeys.ID_AUTHOR],
   };
-  Object.entries(authorToSend).forEach(([key, value]) => {
-    if (value === undefined) delete authorToSend[key];
+  Object.entries(recipeToSend).forEach(([key, value]) => {
+    if (value === undefined) delete recipeToSend[key];
   });
-  return authorToSend;
+  return recipeToSend;
 };
 
 const dbToRecipe = (author = {}) => {
-  const authorToSend = {
+  const recipeToSend = {
     [ObjectKeys.ID]: author[DbKeys.ID],
     [ObjectKeys.NAME]: author[DbKeys.NAME],
     [ObjectKeys.DESCRIPTION]: author[DbKeys.DESCRIPTION],
     [ObjectKeys.ACTIVE]: author[DbKeys.ACTIVE],
     [ObjectKeys.ID_USER]: author[DbKeys.ID_USER],
-    [ObjectKeys.ID_TYPE]: author[DbKeys.ID_TYPE],
+    [ObjectKeys.ID_RECIPE_TYPE]: author[DbKeys.ID_RECIPE_TYPE],
     [ObjectKeys.ID_AUTHOR]: author[DbKeys.ID_AUTHOR],
   };
-  Object.entries(authorToSend).forEach(([key, value]) => {
-    if (value === undefined) delete authorToSend[key];
+  Object.entries(recipeToSend).forEach(([key, value]) => {
+    if (value === undefined) delete recipeToSend[key];
   });
-  return authorToSend;
+  return recipeToSend;
 };
 
 const listRecipes = async () => {
-  const authors = await select(TABLE);
-  return authors.map(dbToRecipe);
+  const recipes = await select(TABLE);
+  return recipes.map(dbToRecipe);
 };
 
 const singleRecipeById = async id => {
-  const [author] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
-  return dbToRecipe(author);
+  const [recipe] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+
+  const ingredients = await RecipeIngredientConnection.listIngredientsByRecipe(id);
+  const author = await AuthorConnection.singleAuthorById(recipe[DbKeys.ID_AUTHOR]);
+  const recipeType = await RecipeTypeConnection.singleRecipeTypeById(recipe[DbKeys.ID_RECIPE_TYPE]);
+  const user = await UserConnection.singleUserById(recipe[DbKeys.ID_USER]);
+
+  return { ...dbToRecipe(recipe), ingredients, author, recipeType, user };
 };
 
 const createRecipe = async recipe => await insert(TABLE, recipeToDb(recipe));
