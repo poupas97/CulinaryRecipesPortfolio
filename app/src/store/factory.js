@@ -1,13 +1,14 @@
 import get from 'lodash/get';
 
-const actions = ['RESET', 'LOADING', 'ERROR', 'SAVE', 'LIST', 'ITEM', 'REMOVE'];
+const actions = ['RESET', 'LOADING', 'ERROR', 'SAVE', 'LIST', 'ITEM', 'DELETE'];
 
 const initialState = {
   loading: null,
   error: null,
   saved: null,
+  deleted: null,
   list: null,
-  item: null
+  item: null,
 };
 
 const capitalize = value =>
@@ -85,6 +86,15 @@ export const generateReducer = thisActions => (state = initialState, action) => 
         loading: false,
         error: null,
         item: action.payload,
+      };
+    }
+
+    case thisActions.Delete: {
+      return { ...state,
+        loading: false,
+        error: null,
+        list: null,
+        deleted: action.payload,
       };
     }
   }

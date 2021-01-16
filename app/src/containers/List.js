@@ -13,7 +13,7 @@ export const ColumnType = {
 const List = ({ headers, rows, title, canAdd, loading }) => {
   const history = useHistory();
 
-  const renderContent = useCallback((row, { value, text, link }) => {
+  const renderContent = useCallback((row, { value, text, link, action }) => {
     let content = '';
 
     if (value || text) {
@@ -21,17 +21,20 @@ const List = ({ headers, rows, title, canAdd, loading }) => {
       if (link) {
         content = <Link to={resolveLink(link, row)}>{text || content}</Link>;
       }
+      if (action) {
+        content = <span onClick={() => action(row.id)}>{text || content}</span>;
+      }
     }
 
     return content;
   }, []);
 
-  const renderColumn = useCallback((row, { type, value, link, values }) => {
+  const renderColumn = useCallback((row, { type, value, link, values, action }) => {
     let content = '';
 
     switch (type) {
       default:
-        content = renderContent(row, { value, link });
+        content = renderContent(row, { value, link, action });
         break;
 
       case ColumnType.CONTEXT:

@@ -57,4 +57,16 @@ export const saveRecipeAction = async (dispatch, recipe) => {
   }
 };
 
+export const deleteRecipeAction = async (dispatch, id) => {
+  try {
+    ACTIONS_DISPATCH.Loading(dispatch);
+
+    const { deleted } = await Api.Delete(`/recipes/${id}/`);
+
+    ACTIONS_DISPATCH.Delete(dispatch, deleted);
+  } catch (error) {
+    ACTIONS_DISPATCH.Error(dispatch, error);
+  }
+};
+
 export default {};

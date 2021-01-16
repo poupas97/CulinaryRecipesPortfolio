@@ -46,6 +46,20 @@ const Put = async (url, body) => {
   return data || null;
 };
 
+const Delete = async url => {
+  const token = getToken();
+  const result = await fetch(baseUrl + url, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token.accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await result.json();
+  return data || null;
+};
+
 const PostNoAuth = async (url, body) => {
   const result = await fetch(baseUrl + url, {
     method: 'POST',
@@ -59,5 +73,5 @@ const PostNoAuth = async (url, body) => {
   return data || null;
 };
 
-export default { Get, Post, PostNoAuth, Put };
+export default { Get, Post, PostNoAuth, Put, Delete };
 
