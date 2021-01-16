@@ -3,7 +3,7 @@ import { array, func, string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-const InputSelect = ({ prop, onChange = () => {}, options, data }) => {
+const InputMultiSelect = ({ prop, onChange = () => {}, options, data }) => {
   const [value, setValue] = useState(null);
 
   useEffect(() => {
@@ -13,7 +13,8 @@ const InputSelect = ({ prop, onChange = () => {}, options, data }) => {
   if (!prop) return null;
 
   const handleChange = selected => {
-    onChange(prop, selected.value);
+    const nextValues = selected.map(it => it.value);
+    onChange(prop, nextValues);
   };
 
   return (
@@ -24,15 +25,16 @@ const InputSelect = ({ prop, onChange = () => {}, options, data }) => {
         value: it,
         label: it.name || it.description,
       }))}
+      isMulti
     />
   );
 };
 
-InputSelect.propTypes = {
+InputMultiSelect.propTypes = {
   prop: string,
   onChange: func,
   options: array,
   data: array,
 };
 
-export default InputSelect;
+export default InputMultiSelect;

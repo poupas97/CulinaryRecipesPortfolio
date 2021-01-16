@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import InputChipper from '../components/InputChipper';
 import InputDate from '../components/InputDate';
 import InputEmail from '../components/InputEmail';
+import InputMultiSelect from '../components/InputMultiSelect';
 import InputNumber from '../components/InputNumber';
 import InputSelect from '../components/InputSelect';
 import InputText from '../components/InputText';
@@ -19,6 +20,7 @@ export const FormInputType = {
   SELECT: 'select',
   TEXTAREA: 'textArea',
   CHIPPER: 'chipper',
+  MULTI_SELECT: 'multiSelect',
 };
 
 const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) => {
@@ -28,8 +30,8 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
     setNextItem(data || {});
   }, [data]);
 
-  const update = e => {
-    setNextItem({ ...nextItem, [e.target.id]: e.target.value });
+  const update = (prop, value) => {
+    setNextItem({ ...nextItem, [prop]: value });
   };
 
   const renderContent = (input, index) => {
@@ -68,6 +70,14 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
 
       case FormInputType.CHIPPER:
         content = <InputChipper key={`InputChipper-${index}`} prop={input.value} onChange={update} />;
+        break;
+
+      case FormInputType.MULTI_SELECT:
+        content = <InputMultiSelect
+          key={`InputMultiSelect-${index}`}
+          prop={input.value}
+          onChange={update}
+          options={input.options} />;
         break;
     }
 

@@ -12,7 +12,7 @@ const InputText = ({ prop, onChange = () => {}, data }) => {
   const handleOnChange = e => {
     const nextValue = e.target.value;
     setValue(nextValue);
-    onChange(e);
+    onChange(prop, nextValue);
   };
 
   if (!prop) return null;

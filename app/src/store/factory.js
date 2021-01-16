@@ -28,7 +28,12 @@ const generateActionsDispatch = prefix =>
   actions.reduce((acc, current) =>
     ({ ...acc,
       [capitalize(current)]: (dispatch, payload, error, meta) =>
-        dispatch({ type: `${String(prefix).toUpperCase()}_${current}`, payload, error, meta })
+        dispatch({
+          type: `${String(prefix).replace('-', '_').toUpperCase()}__${current}`,
+          payload,
+          error,
+          meta,
+        })
     })
   , {});
 
