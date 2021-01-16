@@ -20,6 +20,12 @@ const RecipesDetails = ({ recipe, getRecipe, match: { params: { id } }, loading,
   const labels = [
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
+    { text: 'Author', value: 'author.name' },
+    { text: 'Recipe Type', value: 'recipeType.name' },
+    { text: 'Ingredients', list: 'ingredients', headers: [
+      { text: 'Name', value: 'name' },
+      { text: 'Description', value: 'description' },
+    ] },
   ];
 
   return (

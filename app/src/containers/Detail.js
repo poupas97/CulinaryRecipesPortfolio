@@ -22,7 +22,7 @@ const Detail = ({ labels, item = {}, title, loading }) => {
         <List
           title={it.text}
           headers={it.headers}
-          data={get(item, it.list)}
+          rows={get(item, it.list)}
         />
       </>))}
       <button onClick={() => history.goBack()}>Back</button>
