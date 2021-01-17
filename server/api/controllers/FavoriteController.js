@@ -25,8 +25,9 @@ const singleFavoriteById = async (req, res) => {
 
 const createFavorite = async (req, res) => {
   try {
-    const { body: { name, description } } = req;
-    const result = await FavoriteConnection.createFavorite({ name, description });
+    const { body, userAuthenticated: { id: idUser } } = req;
+
+    const result = await FavoriteConnection.createFavorite({ ...body, idUser });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));

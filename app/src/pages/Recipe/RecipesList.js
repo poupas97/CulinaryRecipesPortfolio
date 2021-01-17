@@ -5,14 +5,15 @@ import { compose } from 'redux';
 
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
-import { deleteRecipeAction, listRecipesAction, recipesSelectors, resetRecipesAction } from '../../store/recipes';
+import { addFavoriteAction } from '../../store/favorites';
+import { listRecipesAction, recipesSelectors, removeRecipeAction, resetRecipesAction } from '../../store/recipes';
 import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
 import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
 import { RECIPES_EDIT_ROUTE } from './RecipesEdit';
 
 export const RECIPES_LIST_ROUTE = '/recipes';
 
-const RecipesList = ({ recipes, listRecipes, loading, reset, deleteRecipe }) => {
+const RecipesList = ({ recipes, listRecipes, loading, reset, removeRecipe, addFavorite }) => {
 
   useEffect(() => {
     reset();
@@ -29,7 +30,8 @@ const RecipesList = ({ recipes, listRecipes, loading, reset, deleteRecipe }) => 
     { text: 'Options', type: ColumnType.CONTEXT, values: [
       { text: 'details', link: RECIPES_DETAILS_ROUTE },
       { text: 'edit', link: RECIPES_EDIT_ROUTE },
-      { text: 'remove', action: deleteRecipe },
+      { text: 'remove', action: removeRecipe },
+      { text: 'favorite', action: addFavorite },
     ] },
   ];
 
@@ -48,7 +50,8 @@ RecipesList.propTypes = {
   listRecipes: func,
   loading: bool,
   reset: func,
-  deleteRecipe: func,
+  removeRecipe: func,
+  addFavorite: func,
 };
 
 const mapStateToProps = state => {
@@ -62,7 +65,9 @@ const mapStateToProps = state => {
 const mapActionsToProps = dispatch => ({
   reset: () => resetRecipesAction(dispatch),
   listRecipes: () => listRecipesAction(dispatch),
-  deleteRecipe: id => deleteRecipeAction(dispatch, id),
+  removeRecipe: id => removeRecipeAction(dispatch, id),
+
+  addFavorite: id => addFavoriteAction(dispatch, id),
 });
 
 export default compose(

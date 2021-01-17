@@ -2,7 +2,7 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'recipe_types';
 
-const BdKeys = {
+const DbKeys = {
   ID: 'id',
   NAME: 'name',
   DESCRIPTION: 'description',
@@ -16,12 +16,12 @@ const ObjectKeys = {
   ACTIVE: 'active',
 };
 
-const typeToBd = type => {
+const typeToDb = type => {
   const typeToSend = {
-    [BdKeys.ID]: type[ObjectKeys.ID],
-    [BdKeys.NAME]: type[ObjectKeys.NAME],
-    [BdKeys.DESCRIPTION]: type[ObjectKeys.DESCRIPTION],
-    [BdKeys.ACTIVE]: type[ObjectKeys.ACTIVE]
+    [DbKeys.ID]: type[ObjectKeys.ID],
+    [DbKeys.NAME]: type[ObjectKeys.NAME],
+    [DbKeys.DESCRIPTION]: type[ObjectKeys.DESCRIPTION],
+    [DbKeys.ACTIVE]: type[ObjectKeys.ACTIVE]
   };
   Object.entries(typeToSend).forEach(([key, value]) => {
     if (value === undefined) delete typeToSend[key];
@@ -29,12 +29,12 @@ const typeToBd = type => {
   return typeToSend;
 };
 
-const bdToType = (type = {}) => {
+const dbToType = (type = {}) => {
   const typeToSend = {
-    [ObjectKeys.ID]: type[BdKeys.ID],
-    [ObjectKeys.NAME]: type[BdKeys.NAME],
-    [ObjectKeys.DESCRIPTION]: type[BdKeys.DESCRIPTION],
-    [ObjectKeys.ACTIVE]: type[BdKeys.ACTIVE]
+    [ObjectKeys.ID]: type[DbKeys.ID],
+    [ObjectKeys.NAME]: type[DbKeys.NAME],
+    [ObjectKeys.DESCRIPTION]: type[DbKeys.DESCRIPTION],
+    [ObjectKeys.ACTIVE]: type[DbKeys.ACTIVE]
   };
   Object.entries(typeToSend).forEach(([key, value]) => {
     if (value === undefined) delete typeToSend[key];
@@ -44,17 +44,17 @@ const bdToType = (type = {}) => {
 
 const listRecipeTypes = async () => {
   const types = await select(TABLE);
-  return types.map(bdToType);
+  return types.map(dbToType);
 };
 
 const singleRecipeTypeById = async id => {
-  const [type] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
-  return bdToType(type);
+  const [type] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  return dbToType(type);
 };
 
-const createRecipeType = async type => await insert(TABLE, typeToBd(type));
+const createRecipeType = async type => await insert(TABLE, typeToDb(type));
 
-const updateRecipeType = async (type, id) => await update(TABLE, typeToBd(type), id);
+const updateRecipeType = async (type, id) => await update(TABLE, typeToDb(type), id);
 
 const deleteRecipeType = async id => await remove(TABLE, id);
 

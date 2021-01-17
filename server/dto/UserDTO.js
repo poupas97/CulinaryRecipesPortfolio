@@ -10,7 +10,7 @@ const userDtoComplex = user => {
   return { id, username, password, name };
 };
 
-// const userTokenToBd = user => {
+// const userTokenToDb = user => {
 //   if (!user) return null;
 //   const { accessToken, refreshToken } = user || {};
 //   return { access_token: accessToken, refresh_token: refreshToken };
@@ -22,4 +22,4 @@ const userDtoComplex = user => {
 //   return { accessToken: access_token, refreshToken: refresh_token };
 // };
 
-module.exports = ({ userDtoSimple, userDtoComplex, /*userTokenToBd, userTokenFromBd*/ });
+module.exports = ({ userDtoSimple, userDtoComplex, /*userTokenToDb, userTokenFromBd*/ });

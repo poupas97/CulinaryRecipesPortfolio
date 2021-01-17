@@ -2,7 +2,7 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'ingredients';
 
-const BdKeys = {
+const DbKeys = {
   ID: 'id',
   NAME: 'name',
   DESCRIPTION: 'description',
@@ -16,12 +16,12 @@ const ObjectKeys = {
   ACTIVE: 'active',
 };
 
-const ingredientToBd = ingredient => {
+const ingredientToDb = ingredient => {
   const ingredientToSend = {
-    [BdKeys.ID]: ingredient[ObjectKeys.ID],
-    [BdKeys.NAME]: ingredient[ObjectKeys.NAME],
-    [BdKeys.DESCRIPTION]: ingredient[ObjectKeys.DESCRIPTION],
-    [BdKeys.ACTIVE]: ingredient[ObjectKeys.ACTIVE]
+    [DbKeys.ID]: ingredient[ObjectKeys.ID],
+    [DbKeys.NAME]: ingredient[ObjectKeys.NAME],
+    [DbKeys.DESCRIPTION]: ingredient[ObjectKeys.DESCRIPTION],
+    [DbKeys.ACTIVE]: ingredient[ObjectKeys.ACTIVE]
   };
   Object.entries(ingredientToSend).forEach(([key, value]) => {
     if (value === undefined) delete ingredientToSend[key];
@@ -29,12 +29,12 @@ const ingredientToBd = ingredient => {
   return ingredientToSend;
 };
 
-const bdToIngredient = (ingredient = {}) => {
+const dbToIngredient = (ingredient = {}) => {
   const ingredientToSend = {
-    [ObjectKeys.ID]: ingredient[BdKeys.ID],
-    [ObjectKeys.NAME]: ingredient[BdKeys.NAME],
-    [ObjectKeys.DESCRIPTION]: ingredient[BdKeys.DESCRIPTION],
-    [ObjectKeys.ACTIVE]: ingredient[BdKeys.ACTIVE]
+    [ObjectKeys.ID]: ingredient[DbKeys.ID],
+    [ObjectKeys.NAME]: ingredient[DbKeys.NAME],
+    [ObjectKeys.DESCRIPTION]: ingredient[DbKeys.DESCRIPTION],
+    [ObjectKeys.ACTIVE]: ingredient[DbKeys.ACTIVE]
   };
   Object.entries(ingredientToSend).forEach(([key, value]) => {
     if (value === undefined) delete ingredientToSend[key];
@@ -44,17 +44,17 @@ const bdToIngredient = (ingredient = {}) => {
 
 const listIngredients = async () => {
   const ingredients = await select(TABLE);
-  return ingredients.map(bdToIngredient);
+  return ingredients.map(dbToIngredient);
 };
 
 const singleIngredientById = async id => {
   const [ingredient] = await selectSinge(TABLE, [{ prop: 'id', operator: '=', value: id } ]);
-  return bdToIngredient(ingredient);
+  return dbToIngredient(ingredient);
 };
 
-const createIngredient = async ingredient => await insert(TABLE, ingredientToBd(ingredient));
+const createIngredient = async ingredient => await insert(TABLE, ingredientToDb(ingredient));
 
-const updateIngredient = async (ingredient, id) => await update(TABLE, ingredientToBd(ingredient), id);
+const updateIngredient = async (ingredient, id) => await update(TABLE, ingredientToDb(ingredient), id);
 
 const deleteIngredient = async id => await remove(TABLE, id);
 

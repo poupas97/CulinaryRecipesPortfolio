@@ -2,7 +2,7 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'authors';
 
-const BdKeys = {
+const DbKeys = {
   ID: 'id',
   NAME: 'name',
   DESCRIPTION: 'description',
@@ -16,12 +16,12 @@ const ObjectKeys = {
   ACTIVE: 'active',
 };
 
-const authorToBd = author => {
+const authorToDb = author => {
   const authorToSend = {
-    [BdKeys.ID]: author[ObjectKeys.ID],
-    [BdKeys.NAME]: author[ObjectKeys.NAME],
-    [BdKeys.DESCRIPTION]: author[ObjectKeys.DESCRIPTION],
-    [BdKeys.ACTIVE]: author[ObjectKeys.ACTIVE]
+    [DbKeys.ID]: author[ObjectKeys.ID],
+    [DbKeys.NAME]: author[ObjectKeys.NAME],
+    [DbKeys.DESCRIPTION]: author[ObjectKeys.DESCRIPTION],
+    [DbKeys.ACTIVE]: author[ObjectKeys.ACTIVE]
   };
   Object.entries(authorToSend).forEach(([key, value]) => {
     if (value === undefined) delete authorToSend[key];
@@ -29,12 +29,12 @@ const authorToBd = author => {
   return authorToSend;
 };
 
-const bdToAuthor = (author = {}) => {
+const dbToAuthor = (author = {}) => {
   const authorToSend = {
-    [ObjectKeys.ID]: author[BdKeys.ID],
-    [ObjectKeys.NAME]: author[BdKeys.NAME],
-    [ObjectKeys.DESCRIPTION]: author[BdKeys.DESCRIPTION],
-    [ObjectKeys.ACTIVE]: author[BdKeys.ACTIVE]
+    [ObjectKeys.ID]: author[DbKeys.ID],
+    [ObjectKeys.NAME]: author[DbKeys.NAME],
+    [ObjectKeys.DESCRIPTION]: author[DbKeys.DESCRIPTION],
+    [ObjectKeys.ACTIVE]: author[DbKeys.ACTIVE]
   };
   Object.entries(authorToSend).forEach(([key, value]) => {
     if (value === undefined) delete authorToSend[key];
@@ -44,17 +44,17 @@ const bdToAuthor = (author = {}) => {
 
 const listAuthors = async () => {
   const authors = await select(TABLE);
-  return authors.map(bdToAuthor);
+  return authors.map(dbToAuthor);
 };
 
 const singleAuthorById = async id => {
-  const [author] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
-  return bdToAuthor(author);
+  const [author] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  return dbToAuthor(author);
 };
 
-const createAuthor = async author => await insert(TABLE, authorToBd(author));
+const createAuthor = async author => await insert(TABLE, authorToDb(author));
 
-const updateAuthor = async (author, id) => await update(TABLE, authorToBd(author), id);
+const updateAuthor = async (author, id) => await update(TABLE, authorToDb(author), id);
 
 const deleteAuthor = async id => await remove(TABLE, id);
 

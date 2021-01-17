@@ -57,7 +57,7 @@ export const saveRecipeAction = async (dispatch, recipe) => {
   }
 };
 
-export const deleteRecipeAction = async (dispatch, id) => {
+export const removeRecipeAction = async (dispatch, id) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
 

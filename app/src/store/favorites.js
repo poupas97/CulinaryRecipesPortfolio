@@ -23,11 +23,11 @@ export const listFavoritesAction = async dispatch => {
   }
 };
 
-export const addFavoriteAction = async (dispatch, recipeId) => {
+export const addFavoriteAction = async (dispatch, idRecipe) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
 
-    const { id } = await Api.Post('/favorites/', recipeId);
+    const { id } = await Api.Post('/favorites/', { idRecipe });
 
     ACTIONS_DISPATCH.Save(dispatch, id);
   } catch (error) {

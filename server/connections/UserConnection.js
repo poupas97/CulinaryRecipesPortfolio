@@ -4,7 +4,7 @@ const { select, selectSinge, insert, update, remove } = require('../config/conne
 
 const TABLE = 'users';
 
-const BdKeys = {
+const DbKeys = {
   ID: 'id',
   USERNAME: 'username',
   PASSWORD: 'password',
@@ -24,15 +24,15 @@ const ObjectKeys = {
   ACTIVE: 'active',
 };
 
-const userToBd = user => {
+const userToDb = user => {
   const userToSend = {
-    [BdKeys.ID]: get(user, ObjectKeys.ID),
-    [BdKeys.USERNAME]: get(user, ObjectKeys.USERNAME),
-    [BdKeys.PASSWORD]: get(user, ObjectKeys.PASSWORD),
-    [BdKeys.NAME]: get(user, ObjectKeys.NAME),
-    [BdKeys.ACCESS_TOKEN]: get(user, ObjectKeys.ACCESS_TOKEN),
-    [BdKeys.REFRESH_TOKEN]: get(user, ObjectKeys.REFRESH_TOKEN),
-    [BdKeys.ACTIVE]: get(user, ObjectKeys.ACTIVE)
+    [DbKeys.ID]: get(user, ObjectKeys.ID),
+    [DbKeys.USERNAME]: get(user, ObjectKeys.USERNAME),
+    [DbKeys.PASSWORD]: get(user, ObjectKeys.PASSWORD),
+    [DbKeys.NAME]: get(user, ObjectKeys.NAME),
+    [DbKeys.ACCESS_TOKEN]: get(user, ObjectKeys.ACCESS_TOKEN),
+    [DbKeys.REFRESH_TOKEN]: get(user, ObjectKeys.REFRESH_TOKEN),
+    [DbKeys.ACTIVE]: get(user, ObjectKeys.ACTIVE)
   };
   Object.entries(userToSend).forEach(([key, value]) => {
     if (value === undefined) delete userToSend[key];
@@ -40,15 +40,15 @@ const userToBd = user => {
   return userToSend;
 };
 
-const bdToUser = (user = {}) => {
+const dbToUser = (user = {}) => {
   const userToSend = {
-    [ObjectKeys.ID]: get(user, BdKeys.ID),
-    [ObjectKeys.USERNAME]: get(user, BdKeys.USERNAME),
-    [ObjectKeys.PASSWORD]: get(user, BdKeys.PASSWORD),
-    [ObjectKeys.NAME]: get(user, BdKeys.NAME),
-    [ObjectKeys.ACCESS_TOKEN]: get(user, BdKeys.ACCESS_TOKEN),
-    [ObjectKeys.REFRESH_TOKEN]: get(user, BdKeys.REFRESH_TOKEN),
-    [ObjectKeys.ACTIVE]: get(user, BdKeys.ACTIVE)
+    [ObjectKeys.ID]: get(user, DbKeys.ID),
+    [ObjectKeys.USERNAME]: get(user, DbKeys.USERNAME),
+    [ObjectKeys.PASSWORD]: get(user, DbKeys.PASSWORD),
+    [ObjectKeys.NAME]: get(user, DbKeys.NAME),
+    [ObjectKeys.ACCESS_TOKEN]: get(user, DbKeys.ACCESS_TOKEN),
+    [ObjectKeys.REFRESH_TOKEN]: get(user, DbKeys.REFRESH_TOKEN),
+    [ObjectKeys.ACTIVE]: get(user, DbKeys.ACTIVE)
   };
   Object.entries(userToSend).forEach(([key, value]) => {
     if (value === undefined) delete userToSend[key];
@@ -58,23 +58,23 @@ const bdToUser = (user = {}) => {
 
 const listUsers = async () => {
   const users = await select(TABLE);
-  return users.map(bdToUser);
+  return users.map(dbToUser);
 };
 
 const singleUserById = async id => {
-  const [user] = await selectSinge(TABLE, [{ prop: BdKeys.ID, operator: '=', value: id } ]);
-  return bdToUser(user);
+  const [user] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  return dbToUser(user);
 };
 
 const singleUserByUsername = async username => {
-  const [user] = await selectSinge(TABLE, [{ prop: BdKeys.USERNAME, operator: '=', value: username } ]);
+  const [user] = await selectSinge(TABLE, [{ prop: DbKeys.USERNAME, operator: '=', value: username } ]);
   if (!user) return null;
-  return bdToUser(user);
+  return dbToUser(user);
 };
 
-const createUser = async user => await insert(TABLE, userToBd(user));
+const createUser = async user => await insert(TABLE, userToDb(user));
 
-const updateUser = async (user, id) => await update(TABLE, userToBd(user), id);
+const updateUser = async (user, id) => await update(TABLE, userToDb(user), id);
 
 const deleteUser = async id => await remove(TABLE, id);
 
