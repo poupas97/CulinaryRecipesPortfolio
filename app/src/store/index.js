@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import { AUTHORS } from './authors';
+import { FAVORITES } from './favorites';
 import { INGREDIENTS } from './ingredients';
 import { LOGIN } from './login';
 import { REDUCER as NOTIFICATIONS } from './notifications';
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   RECIPE_TYPES,
   INGREDIENTS,
   AUTHORS,
+  FAVORITES,
 });
 
 const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));

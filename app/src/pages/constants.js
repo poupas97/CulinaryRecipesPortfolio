@@ -16,6 +16,7 @@ import IngredientsCreate, { INGREDIENTS_CREATE_ROUTE } from './Ingredient/Ingred
 import AuthorsDetails, { AUTHORS_DETAILS_ROUTE } from './Author/AuthorsDetails';
 import AuthorsEdit, { AUTHORS_EDIT_ROUTE } from './Author/AuthorsEdit';
 import AuthorsCreate, { AUTHORS_CREATE_ROUTE } from './Author/AuthorsCreate';
+import Favorites, { FAVORITES_LIST_ROUTE } from './Favorites';
 
 const ROUTES = {
   HOME: { component: Home, path: HOME_ROUTE, title: 'Home' },
@@ -35,6 +36,7 @@ const ROUTES = {
   AUTHORS_DETAILS: { component: AuthorsDetails, path: AUTHORS_DETAILS_ROUTE },
   AUTHORS_EDIT: { component: AuthorsEdit, path: AUTHORS_EDIT_ROUTE },
   AUTHORS_CREATE: { component: AuthorsCreate, path: AUTHORS_CREATE_ROUTE },
+  FAVORITES_LIST: { component: Favorites, path: FAVORITES_LIST_ROUTE, title: 'Favorites' },
 };
 
 export default ROUTES;
