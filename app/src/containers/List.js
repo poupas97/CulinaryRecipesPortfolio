@@ -22,7 +22,7 @@ const List = ({ headers, rows, title, canAdd, loading }) => {
         content = <Link to={resolveLink(link, row)}>{text || content}</Link>;
       }
       if (action) {
-        content = <span onClick={() => action(row.id)}>{text || content}</span>;
+        content = <Link onClick={() => action(row.id)}>{text || content}</Link>;
       }
     }
 
@@ -37,9 +37,14 @@ const List = ({ headers, rows, title, canAdd, loading }) => {
         content = renderContent(row, { value, link, action });
         break;
 
-      case ColumnType.CONTEXT:
-        content = (values || []).map(it => renderContent(row, it));
+      case ColumnType.CONTEXT: {
+        const length = values.length;
+        content = (values || []).map((it, index) => <>
+          {renderContent(row, it)}
+          {(index + 1) < length ? ' | ': null}
+        </>);
         break;
+      }
     }
 
     return content;

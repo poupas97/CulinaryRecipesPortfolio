@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Jan-2021 às 01:25
+-- Tempo de geração: 17-Jan-2021 às 23:12
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -30,31 +30,40 @@ SET time_zone = "+00:00";
 CREATE TABLE `authors` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `active` tinyint(1) DEFAULT 1
+  `description` varchar(1000) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `authors`
 --
 
-INSERT INTO `authors` (`id`, `name`, `description`, `active`) VALUES
-(2, 'aaaaww', 'testwww', 1),
-(3, 'novo', 'novo\\', 1),
-(4, 'Rúben Carreira', 'nvo', 1),
-(5, 'novo autorw', 'novo autor decricaoq', 1);
+INSERT INTO `authors` (`id`, `name`, `description`, `active`, `created`, `modified`) VALUES
+(1, 'Sá Pessoa', 'descricao de sa pessoa', 1, '2021-01-17 22:10:46', '2021-01-17 22:10:46');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `favorits`
+-- Estrutura da tabela `favorites`
 --
 
-CREATE TABLE `favorits` (
+CREATE TABLE `favorites` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_recipes` int(11) NOT NULL
+  `id_recipe` int(11) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `id_user`, `id_recipe`, `active`, `created`, `modified`) VALUES
+(2, 1, 1, 1, '2021-01-17 22:12:46', '2021-01-17 22:12:46');
 
 -- --------------------------------------------------------
 
@@ -65,19 +74,18 @@ CREATE TABLE `favorits` (
 CREATE TABLE `ingredients` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(200) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `description` varchar(1000) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `ingredients`
 --
 
-INSERT INTO `ingredients` (`id`, `name`, `description`, `active`) VALUES
-(5, 'ovos', 'ovos descricao22', 1),
-(8, 'chefe sa pessoa', 'chefe sa pessoa descricao', 1),
-(9, 'novo', 'novwwwww', 1),
-(10, 'novo ingrediente2', 'movo ingrediente escricao2', 1);
+INSERT INTO `ingredients` (`id`, `name`, `description`, `active`, `created`, `modified`) VALUES
+(1, 'Ovos', 'descricao de ovos', 1, '2021-01-17 22:11:10', '2021-01-17 22:11:10');
 
 -- --------------------------------------------------------
 
@@ -89,25 +97,20 @@ CREATE TABLE `recipes` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
   `id_user` int(11) NOT NULL,
   `id_recipe_type` int(11) NOT NULL,
-  `id_author` int(11) DEFAULT NULL
+  `id_author` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `recipes`
 --
 
-INSERT INTO `recipes` (`id`, `name`, `description`, `active`, `id_user`, `id_recipe_type`, `id_author`) VALUES
-(4, 'teste', 'test descricao', 1, 54, 1, 2),
-(24, 'Rúben Carreira', 'nvo', 1, 54, 1, 2),
-(27, 'Rúben Carreira', 'nvo', 1, 54, 1, 2),
-(28, 'Rúben Carreira', 'nvo', 1, 54, 1, 2),
-(29, 'Rúben Carreira', 'nvo', 1, 54, 1, 2),
-(30, 'ricardo', 'novo 2', 1, 54, 4, 4),
-(31, 'my-home', 'novwwww', 1, 54, 1, 2),
-(32, 'poupas97', 'novwwww', 1, 54, 1, 3);
+INSERT INTO `recipes` (`id`, `name`, `description`, `id_user`, `id_recipe_type`, `id_author`, `created`, `modified`, `active`) VALUES
+(1, 'Pastel', 'pastel de belem', 1, 1, 1, '2021-01-17 22:11:49', '2021-01-17 22:11:49', 1);
 
 -- --------------------------------------------------------
 
@@ -117,16 +120,19 @@ INSERT INTO `recipes` (`id`, `name`, `description`, `active`, `id_user`, `id_rec
 
 CREATE TABLE `recipes_ingredients` (
   `id` int(11) NOT NULL,
+  `id_ingredient` int(11) NOT NULL,
   `id_recipe` int(11) NOT NULL,
-  `id_ingredient` int(11) NOT NULL
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `recipes_ingredients`
 --
 
-INSERT INTO `recipes_ingredients` (`id`, `id_recipe`, `id_ingredient`) VALUES
-(1, 31, 5);
+INSERT INTO `recipes_ingredients` (`id`, `id_ingredient`, `id_recipe`, `active`, `created`, `modified`) VALUES
+(1, 1, 1, 1, '2021-01-17 22:11:49', '2021-01-17 22:11:49');
 
 -- --------------------------------------------------------
 
@@ -137,21 +143,18 @@ INSERT INTO `recipes_ingredients` (`id`, `id_recipe`, `id_ingredient`) VALUES
 CREATE TABLE `recipe_types` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(200) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `description` varchar(1000) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `recipe_types`
 --
 
-INSERT INTO `recipe_types` (`id`, `name`, `description`, `active`) VALUES
-(1, 'pastelaria2222', 'pastelaria descricao', 0),
-(4, 'cozinha chinesa', 'cozinha chinesa descricao', 1),
-(5, 'novo', 'nvo', 1),
-(6, 'nvo ', 'novo 2', 1),
-(7, 'ricardo', 'nvo', 1),
-(8, 'novo tipo de receita2', 'novo tipo de receita des2cricao', 1);
+INSERT INTO `recipe_types` (`id`, `name`, `description`, `active`, `created`, `modified`) VALUES
+(1, 'Cozinha', 'descricao de cozinha', 1, '2021-01-17 22:11:25', '2021-01-17 22:11:25');
 
 -- --------------------------------------------------------
 
@@ -161,21 +164,22 @@ INSERT INTO `recipe_types` (`id`, `name`, `description`, `active`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(300) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `access_token` varchar(300) DEFAULT NULL,
+  `access_token` varchar(400) DEFAULT NULL,
   `refresh_token` varchar(400) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `name`, `access_token`, `refresh_token`, `active`) VALUES
-(54, 'admin', '$2b$10$AMF6TFiWio4Xx44/F7LSb.1TvXnQ/rKEWkLKs5ZG90tFORktPJ3xO', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJuYW1lIjpudWxsLCJpYXQiOjE2MTA3NTM2MTIsImV4cCI6MTYxMDc1NzIxMn0.8rSutX2puNDn2llpooeb-6ejIjAPOGhAQnn21EH_vL4', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTQsInVzZXJuYW1lIjoiYWRtaW4iLCJuYW1lIjpudWxsLCJpYXQiOjE2MTA3NTM2MTIsImV4cCI6MTYxMDc2NDQxMn0.uvqfHKVJ8pYlsfUearNq1EWYmGVFDBTfbKYAW5ZGdLk', 1),
-(56, 'ruben', '$2b$10$ni83nueHKvpI.GXaFFKjeuPrr7toJGHhLHHeKHv4c65b.19uG10Gu', NULL, NULL, NULL, 0);
+INSERT INTO `users` (`id`, `username`, `password`, `name`, `access_token`, `refresh_token`, `active`, `created`, `modified`) VALUES
+(1, 'admin', '$2b$10$AMF6TFiWio4Xx44/F7LSb.1TvXnQ/rKEWkLKs5ZG90tFORktPJ3xO', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsIm5hbWUiOm51bGwsImlhdCI6MTYxMDkyMTQzMiwiZXhwIjoxNjEwOTI1MDMyfQ.KzYrQn2nhgtd6WbUQRMM5SYn8URCq-obWgj89rh0r_w', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsIm5hbWUiOm51bGwsImlhdCI6MTYxMDkyMTQzMiwiZXhwIjoxNjEwOTMyMjMyfQ.GBLZApP4dokW__yLEuZUB75GD93C_878eiWEjti7hwo', 1, '2021-01-17 22:09:00', '2021-01-17 22:09:00');
 
 --
 -- Índices para tabelas despejadas
@@ -188,19 +192,16 @@ ALTER TABLE `authors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `favorits`
+-- Índices para tabela `favorites`
 --
-ALTER TABLE `favorits`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_recipes` (`id_recipes`);
+ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `ingredients`
 --
 ALTER TABLE `ingredients`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `recipes`
@@ -212,9 +213,7 @@ ALTER TABLE `recipes`
 -- Índices para tabela `recipes_ingredients`
 --
 ALTER TABLE `recipes_ingredients`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `recipes_ingredients_ibfk_1` (`id_recipe`),
-  ADD KEY `recipes_ingredients_ibfk_2` (`id_ingredient`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `recipe_types`
@@ -226,7 +225,8 @@ ALTER TABLE `recipe_types`
 -- Índices para tabela `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -236,25 +236,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `favorits`
+-- AUTO_INCREMENT de tabela `favorites`
 --
-ALTER TABLE `favorits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `favorites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `recipes_ingredients`
@@ -266,31 +266,13 @@ ALTER TABLE `recipes_ingredients`
 -- AUTO_INCREMENT de tabela `recipe_types`
 --
 ALTER TABLE `recipe_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
-
---
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `favorits`
---
-ALTER TABLE `favorits`
-  ADD CONSTRAINT `favorits_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `favorits_ibfk_2` FOREIGN KEY (`id_recipes`) REFERENCES `recipes` (`id`) ON DELETE CASCADE;
-
---
--- Limitadores para a tabela `recipes_ingredients`
---
-ALTER TABLE `recipes_ingredients`
-  ADD CONSTRAINT `recipes_ingredients_ibfk_1` FOREIGN KEY (`id_recipe`) REFERENCES `recipes` (`id`),
-  ADD CONSTRAINT `recipes_ingredients_ibfk_2` FOREIGN KEY (`id_ingredient`) REFERENCES `ingredients` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

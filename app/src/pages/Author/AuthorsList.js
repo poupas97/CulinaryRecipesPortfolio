@@ -5,14 +5,14 @@ import { compose } from 'redux';
 
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, listAuthorsAction, resetAuthorsAction } from '../../store/authors';
+import { authorsSelectors, listAuthorsAction, removeAuthorAction, resetAuthorsAction } from '../../store/authors';
 import { AUTHORS_CREATE_ROUTE } from './AuthorsCreate';
 import { AUTHORS_DETAILS_ROUTE } from './AuthorsDetails';
 import { AUTHORS_EDIT_ROUTE } from './AuthorsEdit';
 
 export const AUTHORS_LIST_ROUTE = '/authors';
 
-const AuthorsList = ({ authors, listAuthors, loading, reset }) => {
+const AuthorsList = ({ authors, listAuthors, loading, reset, removeAuthor }) => {
 
   useEffect(() => {
     reset();
@@ -29,6 +29,7 @@ const AuthorsList = ({ authors, listAuthors, loading, reset }) => {
     { text: 'Options', type: ColumnType.CONTEXT, values: [
       { text: 'details', link: AUTHORS_DETAILS_ROUTE },
       { text: 'edit', link: AUTHORS_EDIT_ROUTE },
+      { text: 'remove', action: removeAuthor },
     ] },
   ];
 
@@ -47,6 +48,7 @@ AuthorsList.propTypes = {
   listAuthors: func,
   loading: bool,
   reset: func,
+  removeAuthor: func,
 };
 
 const mapStateToProps = state => {
@@ -58,8 +60,9 @@ const mapStateToProps = state => {
 };
 
 const mapActionsToProps = dispatch => ({
-  listAuthors: () => listAuthorsAction(dispatch),
   reset: () => resetAuthorsAction(dispatch),
+  listAuthors: () => listAuthorsAction(dispatch),
+  removeAuthor: id => removeAuthorAction(dispatch, id),
 });
 
 export default compose(

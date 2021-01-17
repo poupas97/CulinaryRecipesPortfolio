@@ -5,7 +5,7 @@ import { AUTHORS } from './authors';
 import { FAVORITES } from './favorites';
 import { INGREDIENTS } from './ingredients';
 import { LOGIN } from './login';
-import { REDUCER as NOTIFICATIONS } from './notifications';
+import { NOTIFICATIONS } from './notifications';
 import { RECIPES } from './recipes';
 import { RECIPE_TYPES } from './recipeTypes';
 import { USERS } from './user';

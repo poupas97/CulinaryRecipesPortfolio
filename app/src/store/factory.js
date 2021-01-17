@@ -1,8 +1,8 @@
 import get from 'lodash/get';
 
-const actions = ['RESET', 'LOADING', 'ERROR', 'SAVE', 'LIST', 'ITEM', 'DELETE'];
+const actions = ['RESET', 'LOADING', 'ERROR', 'SAVE', 'LIST', 'ITEM', 'REMOVE'];
 
-const initialState = {
+const defaultState = {
   loading: null,
   error: null,
   saved: null,
@@ -43,59 +43,60 @@ export const generatePowerActions = prefix => [
   generateActionsName(prefix)
 ];
 
-export const generateReducer = thisActions => (state = initialState, action) => {
-  switch (action.type) {
-    default: return state;
+export const generateReducer = (thisActions, initialState = defaultState) =>
+  (state = initialState, action) => {
+    switch (action.type) {
+      default: return state;
 
-    case thisActions.Reset: {
-      return initialState;
-    }
+      case thisActions.Reset: {
+        return initialState;
+      }
 
-    case thisActions.Loading: {
-      return { ...state, loading: true };
-    }
+      case thisActions.Loading: {
+        return { ...state, loading: true };
+      }
 
-    case thisActions.Error: {
-      return { ...state,
-        loading: false,
-        error: get(action.payload, 'response.data.error') || get(action.payload, 'message'),
-      };
-    }
+      case thisActions.Error: {
+        return { ...state,
+          loading: false,
+          error: get(action.payload, 'response.data.error') || get(action.payload, 'message'),
+        };
+      }
 
-    case thisActions.Save: {
-      return { ...state,
-        loading: false,
-        error: null,
-        list: null,
-        saved: action.payload,
-      };
-    }
+      case thisActions.Save: {
+        return { ...state,
+          loading: false,
+          error: null,
+          list: null,
+          saved: action.payload,
+        };
+      }
 
-    case thisActions.List: {
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        list: action.payload,
-      };
-    }
+      case thisActions.List: {
+        return {
+          ...state,
+          loading: false,
+          error: null,
+          list: action.payload,
+        };
+      }
 
-    case thisActions.Item: {
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        item: action.payload,
-      };
-    }
+      case thisActions.Item: {
+        return {
+          ...state,
+          loading: false,
+          error: null,
+          item: action.payload,
+        };
+      }
 
-    case thisActions.Delete: {
-      return { ...state,
-        loading: false,
-        error: null,
-        list: null,
-        deleted: action.payload,
-      };
+      case thisActions.Remove: {
+        return { ...state,
+          loading: false,
+          error: null,
+          list: null,
+          deleted: action.payload,
+        };
+      }
     }
-  }
-};
+  };
