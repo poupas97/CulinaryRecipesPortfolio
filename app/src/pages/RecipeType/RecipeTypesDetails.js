@@ -1,6 +1,7 @@
 import { bool, func, object } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 
 import Detail from '../../containers/Detail';
@@ -9,7 +10,8 @@ import { getRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction } fr
 
 export const RECIPE_TYPES_DETAILS_ROUTE = '/recipe-types/:id/details';
 
-const RecipeTypesDetails = ({ recipeType, getRecipeType, match: { params: { id } }, loading, reset }) => {
+const RecipeTypesDetails = ({ recipeType, getRecipeType, loading, reset }) => {
+  const { id } = useParams();
 
   useEffect(() => () => reset(), [reset]);
 
@@ -37,7 +39,6 @@ RecipeTypesDetails.propTypes = {
   getRecipeType: func,
   loading: bool,
   reset: func,
-  match: object
 };
 
 const mapStateToProps = state => {

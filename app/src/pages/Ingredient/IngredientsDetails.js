@@ -1,6 +1,7 @@
 import { bool, func, object } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 
 import Detail from '../../containers/Detail';
@@ -9,7 +10,8 @@ import { getIngredientAction, ingredientsSelectors, resetIngredientsAction } fro
 
 export const INGREDIENTS_DETAILS_ROUTE = '/ingredients/:id/details';
 
-const IngredientsDetails = ({ ingredient, getIngredient, match: { params: { id } }, loading, reset }) => {
+const IngredientsDetails = ({ ingredient, getIngredient, loading, reset }) => {
+  const { id } = useParams();
 
   useEffect(() => () => reset(), [reset]);
 
@@ -37,7 +39,6 @@ IngredientsDetails.propTypes = {
   getIngredient: func,
   loading: bool,
   reset: func,
-  match: object
 };
 
 const mapStateToProps = state => {

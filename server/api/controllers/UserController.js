@@ -77,4 +77,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = () => ({ listUsers, singleUserById, createUser, updateUser, availableUser, deleteUser });
+module.exports = () => ({
+  listUsers,
+  singleUserById,
+  createUser,
+  updateUser,
+  availableUser,
+  deleteUser,
+});

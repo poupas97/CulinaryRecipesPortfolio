@@ -24,7 +24,7 @@
     "semi-spacing": ["error", {"before": false, "after": true}],
     "quotes": ["error", "single"],
     "indent": ["error", 2, { "SwitchCase": 1}],
-    "max-len": ["error", { "code": 110, "ignorePattern": "^import.*/|className=" }],
+    "max-len": ["error", { "code": 100, "ignorePattern": "^import.*/|className=" }],
     "no-trailing-spaces": ["error", { "ignoreComments": true }],
     "arrow-parens": ["error", "as-needed"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

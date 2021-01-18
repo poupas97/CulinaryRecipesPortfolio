@@ -59,5 +59,9 @@ const deleteRecipeType = async (req, res) => {
   }
 };
 
-module.exports = () => ({ listRecipeTypes, singleRecipeTypeById, createRecipeType, updateRecipeType,
+module.exports = () => ({
+  listRecipeTypes,
+  singleRecipeTypeById,
+  createRecipeType,
+  updateRecipeType,
   deleteRecipeType });

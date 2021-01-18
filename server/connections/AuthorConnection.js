@@ -1,4 +1,5 @@
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
+const { Operators } = require('../config/constants');
 
 const TABLE = 'authors';
 
@@ -48,7 +49,9 @@ const listAuthors = async () => {
 };
 
 const singleAuthorById = async id => {
-  const [author] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  const [author] = await selectSinge(TABLE,
+    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+
   return dbToAuthor(author);
 };
 
@@ -56,6 +59,7 @@ const createAuthor = async author => await insert(TABLE, authorToDb(author));
 
 const updateAuthor = async (author, id) => await update(TABLE, authorToDb(author), id);
 
-const deleteAuthor = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
+const deleteAuthor = async id =>
+  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
 
 module.exports = ({ listAuthors, singleAuthorById, createAuthor, updateAuthor, deleteAuthor });

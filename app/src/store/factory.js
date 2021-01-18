@@ -17,12 +17,18 @@ const capitalize = value =>
 
 export const generateActions = prefix =>
   actions.reduce((acc, current) =>
-    ({ ...acc, [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}` })
+    ({
+      ...acc,
+      [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}`,
+    })
   , {});
 
 const generateActionsName = prefix =>
   actions.reduce((acc, current) =>
-    ({ ...acc, [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}` })
+    ({
+      ...acc,
+      [capitalize(current)]: `${String(prefix).replace('-', '_').toUpperCase()}__${current}`,
+    })
   , {});
 
 const generateActionsDispatch = prefix =>

@@ -43,19 +43,44 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
       default: break;
 
       case FormInputType.TEXT:
-        content = <InputText key={`InputText-${index}`} prop={input.value} onChange={update} data={data} />;
+        content = (
+          <InputText
+            key={`InputText-${index}`}
+            prop={input.value}
+            onChange={update}
+            data={data}
+          />
+        );
         break;
 
       case FormInputType.EMAIL:
-        content = <InputEmail key={`InputEmail-${index}`} prop={input.value} onChange={update} />;
+        content = (
+          <InputEmail
+            key={`InputEmail-${index}`}
+            prop={input.value}
+            onChange={update}
+          />
+        );
         break;
 
       case FormInputType.NUMBER:
-        content = <InputNumber key={`InputNumber-${index}`} prop={input.value} onChange={update} />;
+        content = (
+          <InputNumber
+            key={`InputNumber-${index}`}
+            prop={input.value}
+            onChange={update}
+          />
+        );
         break;
 
       case FormInputType.DATE:
-        content = <InputDate key={`InputDate-${index}`} prop={input.value} onChange={update} />;
+        content =(
+          <InputDate
+            key={`InputDate-${index}`}
+            prop={input.value}
+            onChange={update}
+          />
+        );
         break;
 
       case FormInputType.SELECT:
@@ -66,15 +91,28 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
             onChange={update}
             options={input.options}
             data={data}
-          />);
+          />
+        );
         break;
 
       case FormInputType.TEXTAREA:
-        content = <InputTextArea key={`InputTextArea-${index}`} prop={input.value} onChange={update} />;
+        content = (
+          <InputTextArea
+            key={`InputTextArea-${index}`}
+            prop={input.value}
+            onChange={update}
+          />
+        );
         break;
 
       case FormInputType.CHIPPER:
-        content = <InputChipper key={`InputChipper-${index}`} prop={input.value} onChange={update} />;
+        content = (
+          <InputChipper
+            key={`InputChipper-${index}`}
+            prop={input.value}
+            onChange={update}
+          />
+        );
         break;
 
       case FormInputType.MULTI_SELECT:
@@ -85,7 +123,8 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
             onChange={update}
             options={input.options}
             data={data}
-          />);
+          />
+        );
         break;
     }
 

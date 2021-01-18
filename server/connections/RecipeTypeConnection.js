@@ -1,4 +1,5 @@
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
+const { Operators } = require('../config/constants');
 
 const TABLE = 'recipe_types';
 
@@ -48,7 +49,9 @@ const listRecipeTypes = async () => {
 };
 
 const singleRecipeTypeById = async id => {
-  const [type] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  const [type] = await selectSinge(TABLE,
+    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+
   return dbToType(type);
 };
 
@@ -56,7 +59,8 @@ const createRecipeType = async type => await insert(TABLE, typeToDb(type));
 
 const updateRecipeType = async (type, id) => await update(TABLE, typeToDb(type), id);
 
-const deleteRecipeType = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
+const deleteRecipeType = async id =>
+  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
 
 module.exports = ({
   listRecipeTypes,

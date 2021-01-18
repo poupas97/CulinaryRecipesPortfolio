@@ -37,7 +37,12 @@ const createRecipe = async (req, res) => {
     const idAuthor = newRecipe.author.id;
     delete newRecipe.author;
 
-    const result = await RecipeConnection.createRecipe({ ...newRecipe, idRecipeType, idAuthor, idUser });
+    const result = await RecipeConnection.createRecipe({
+      ...newRecipe,
+      idRecipeType,
+      idAuthor,
+      idUser,
+    });
 
     // FIXME:
     // const resultNewRelations = 
@@ -108,4 +113,10 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
-module.exports = () => ({ listRecipes, singleRecipeById, createRecipe, updateRecipe, deleteRecipe });
+module.exports = () => ({
+  listRecipes,
+  singleRecipeById,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+});

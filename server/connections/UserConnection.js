@@ -1,4 +1,5 @@
-const get = require('lodash/get');
+const get = require('lodash/get'); // eslint-disable-line node/no-extraneous-require
+const { Operators } = require('../config/constants');
 
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
 
@@ -62,12 +63,16 @@ const listUsers = async () => {
 };
 
 const singleUserById = async id => {
-  const [user] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  const [user] = await selectSinge(TABLE,
+    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+
   return dbToUser(user);
 };
 
 const singleUserByUsername = async username => {
-  const [user] = await selectSinge(TABLE, [{ prop: DbKeys.USERNAME, operator: '=', value: username } ]);
+  const [user] = await selectSinge(TABLE,
+    [{ prop: DbKeys.USERNAME, operator: Operators.EQUAL, value: username } ]);
+
   if (!user) return null;
   return dbToUser(user);
 };
@@ -76,6 +81,14 @@ const createUser = async user => await insert(TABLE, userToDb(user));
 
 const updateUser = async (user, id) => await update(TABLE, userToDb(user), id);
 
-const deleteUser = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
+const deleteUser = async id =>
+  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
 
-module.exports = ({ listUsers, singleUserById, singleUserByUsername, createUser, updateUser, deleteUser });
+module.exports = ({
+  listUsers,
+  singleUserById,
+  singleUserByUsername,
+  createUser,
+  updateUser,
+  deleteUser,
+});

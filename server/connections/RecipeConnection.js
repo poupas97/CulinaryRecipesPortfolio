@@ -3,6 +3,7 @@ const AuthorConnection = require('./AuthorConnection');
 const RecipeIngredientConnection = require('./RecipeIngredientConnection');
 const RecipeTypeConnection = require('./RecipeTypeConnection');
 const UserConnection = require('./UserConnection');
+const { Operators } = require('../config/constants');
 
 const TABLE = 'recipes';
 
@@ -64,7 +65,8 @@ const listRecipes = async () => {
 };
 
 const singleRecipeById = async id => {
-  const [recipe] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  const [recipe] = await selectSinge(TABLE,
+    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
 
   const ingredients = await RecipeIngredientConnection.listIngredientsByRecipe(id);
   const author = await AuthorConnection.singleAuthorById(recipe[DbKeys.ID_AUTHOR]);
@@ -78,6 +80,7 @@ const createRecipe = async recipe => await insert(TABLE, recipeToDb(recipe));
 
 const updateRecipe = async (recipe, id) => await update(TABLE, recipeToDb(recipe), id);
 
-const deleteRecipe = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
+const deleteRecipe = async id =>
+  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
 
 module.exports = ({ listRecipes, singleRecipeById, createRecipe, updateRecipe, deleteRecipe });

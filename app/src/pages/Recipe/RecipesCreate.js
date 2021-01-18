@@ -46,7 +46,12 @@ const RecipesCreate = ({
   const inputs = [
     { text: 'Name', value: 'name', type: FormInputType.TEXT },
     { text: 'Description', value: 'description', type: FormInputType.TEXT },
-    { text: 'Ingredients', value: 'ingredients', options: ingredients, type: FormInputType.MULTI_SELECT },
+    {
+      text: 'Ingredients',
+      value: 'ingredients',
+      options: ingredients,
+      type: FormInputType.MULTI_SELECT,
+    },
     { text: 'Author', value: 'author', options: authors, type: FormInputType.SELECT },
     { text: 'Recipe Type', value: 'recipeType', options: recipeTypes, type: FormInputType.SELECT },
   ];

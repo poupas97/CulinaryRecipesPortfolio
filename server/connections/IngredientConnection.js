@@ -1,4 +1,5 @@
 const { select, selectSinge, insert, update, remove } = require('../config/connection');
+const { Operators } = require('../config/constants');
 
 const TABLE = 'ingredients';
 
@@ -48,14 +49,24 @@ const listIngredients = async () => {
 };
 
 const singleIngredientById = async id => {
-  const [ingredient] = await selectSinge(TABLE, [{ prop: 'id', operator: '=', value: id } ]);
+  const [ingredient] = await selectSinge(TABLE,
+    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+
   return dbToIngredient(ingredient);
 };
 
 const createIngredient = async ingredient => await insert(TABLE, ingredientToDb(ingredient));
 
-const updateIngredient = async (ingredient, id) => await update(TABLE, ingredientToDb(ingredient), id);
+const updateIngredient = async (ingredient, id) =>
+  await update(TABLE, ingredientToDb(ingredient), id);
 
-const deleteIngredient = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
+const deleteIngredient = async id =>
+  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
 
-module.exports = ({ listIngredients, singleIngredientById, createIngredient, updateIngredient, deleteIngredient });
+module.exports = ({
+  listIngredients,
+  singleIngredientById,
+  createIngredient,
+  updateIngredient,
+  deleteIngredient,
+});

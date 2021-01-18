@@ -1,6 +1,7 @@
 import { bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 
 import Form, { FormInputType } from '../../containers/Form';
@@ -11,7 +12,9 @@ import { RECIPE_TYPES_LIST_ROUTE } from './RecipeTypesList';
 export const RECIPE_TYPES_EDIT_ROUTE = '/recipe-types/:id/edit';
 
 const RecipeTypesEdit = ({
-  history, getRecipeType, recipeType, updateRecipeType, saved, loading, match: { params: { id } } }) => {
+  history, getRecipeType, recipeType, updateRecipeType, saved, loading,
+}) => {
+  const { id } = useParams();
 
   useEffect(() => {
     if (!recipeType) getRecipeType(id);
@@ -50,7 +53,6 @@ RecipeTypesEdit.propTypes = {
   updateRecipeType: func,
   saved: bool,
   loading: bool,
-  match: object, // eslint-disable-line key-spacing
 };
 
 const mapStateToProps = state => {
