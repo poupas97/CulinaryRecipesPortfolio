@@ -1,4 +1,5 @@
 import { getToken } from '../tools';
+import { responseInterceptor } from './Interceptor';
 
 const baseUrl = 'http://localhost:8000/api';
 
@@ -12,8 +13,7 @@ const Get = async url => {
       'Content-Type': 'application/json',
     }
   });
-  const data = await result.json();
-  return data || null;
+  return responseInterceptor(result);
 };
 
 const Post = async (url, body) => {
@@ -27,8 +27,7 @@ const Post = async (url, body) => {
     },
     body: JSON.stringify(body)
   });
-  const data = await result.json();
-  return data || null;
+  return responseInterceptor(result);
 };
 
 const Put = async (url, body) => {
@@ -42,8 +41,7 @@ const Put = async (url, body) => {
     },
     body: JSON.stringify(body)
   });
-  const data = await result.json();
-  return data || null;
+  return responseInterceptor(result);
 };
 
 const Delete = async url => {
@@ -56,8 +54,7 @@ const Delete = async url => {
       'Content-Type': 'application/json',
     },
   });
-  const data = await result.json();
-  return data || null;
+  return responseInterceptor(result);
 };
 
 const PostNoAuth = async (url, body) => {
@@ -69,8 +66,7 @@ const PostNoAuth = async (url, body) => {
     },
     body: JSON.stringify(body)
   });
-  const data = await result.json();
-  return data || null;
+  return responseInterceptor(result);
 };
 
 export default { Get, Post, PostNoAuth, Put, Delete };

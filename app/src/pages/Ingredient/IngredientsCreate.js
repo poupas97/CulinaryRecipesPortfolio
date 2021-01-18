@@ -46,10 +46,11 @@ IngredientsCreate.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { loading, saved } = ingredientsSelectors(state);
+  const { loading, saved, error } = ingredientsSelectors(state);
   return ({
     loading,
     saved,
+    error,
   });
 };
 

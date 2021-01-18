@@ -46,10 +46,11 @@ AuthorsCreate.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { loading, saved } = authorsSelectors(state);
+  const { loading, saved, error } = authorsSelectors(state);
   return ({
     loading,
     saved,
+    error,
   });
 };
 

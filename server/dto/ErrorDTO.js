@@ -10,6 +10,11 @@ const ErrorMapper = {
   ER_BAD_FIELD_ERROR: 'Invalid Field',
 };
 
+const MessageMapper = {
+  'Cannot read property \'join\' of undefined': ErrorMapper.NO_PARAMETERS,
+  'Cannot read property \'id\' of undefined': ErrorMapper.NO_PARAMETERS,
+};
+
 const errorDtoSimple = errorReceived => {
   let errorToSend = null;
 
@@ -17,7 +22,7 @@ const errorDtoSimple = errorReceived => {
     errorToSend = { error: errorReceived };
   } else if (typeof errorReceived === 'object') {
     const { code, message } = errorReceived || {};
-    errorToSend = { error: ErrorMapper[code] || code, message };
+    errorToSend = { error: ErrorMapper[code] || code, message: MessageMapper[message] || message };
   }
   return errorToSend;
 };

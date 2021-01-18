@@ -46,10 +46,11 @@ RecipeTypesCreate.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { loading, saved } = recipeTypesSelectors(state);
+  const { loading, saved, error } = recipeTypesSelectors(state);
   return ({
     loading,
     saved,
+    error,
   });
 };
 

@@ -12,6 +12,8 @@ import InputTextArea from '../components/InputTextArea';
 import Label from '../components/Label';
 import LabelError from '../components/LabelError';
 
+import './form.scss';
+
 export const FormInputType = {
   TEXT: 'text',
   NUMBER: 'number',
@@ -99,11 +101,11 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
 
   return (
     <div>
-      {loading && <div />}
-      <h2>{title ? title : null}</h2>
+      {loading && <div className="loader" />}
+      {!!title && <h2>{title}</h2>}
       {inputs.map(renderContent)}
       <br />
-      {error && <span>{error}</span>}
+      {!!error && <p className="error">{error}</p>}
       {!!onCancel && <button onClick={onCancel}>Cancel</button>}
       <button onClick={() => onSubmit(nextItem)}>Submit</button>
     </div>
