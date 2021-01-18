@@ -3,8 +3,6 @@ const UserConnection = require('../../connections/UserConnection');
 const { userDtoSimple } = require('../../dto/UserDTO');
 const { ErrorMapper, errorDtoSimple } = require('../../dto/ErrorDTO');
 
-// console.log(req.userAuthenticated)
-
 const listUsers = async (req, res) => {
   try {
     const result = (await UserConnection.listUsers()).map(userDtoSimple);

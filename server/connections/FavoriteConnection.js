@@ -51,7 +51,7 @@ const listFavorites = async () => {
 };
 
 const singleFavoriteById = async id => {
-  const [favorite] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id } ]);
+  const [favorite] = await selectSinge(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
   return favorite;
 };
 
@@ -59,6 +59,17 @@ const createFavorite = async favorite => await insert(TABLE, favoriteToDb(favori
 
 const updateFavorite = async (favorite, id) => await update(TABLE, favorite, id);
 
-const deleteFavorite = async id => await remove(TABLE, id);
+const deleteFavorite = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
 
-module.exports = ({ listFavorites, singleFavoriteById, createFavorite, updateFavorite, deleteFavorite });
+const deleteFavoritesByRecipe = async idRecipe =>
+  await remove(TABLE, [{ prop: DbKeys.ID_RECIPE, operator: '=', value: idRecipe } ]);
+
+module.exports = ({
+  listFavorites,
+  singleFavoriteById,
+  createFavorite,
+  updateFavorite,
+  deleteFavorite,
+  deleteFavoritesByRecipe,
+});
+

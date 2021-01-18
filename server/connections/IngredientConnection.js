@@ -56,6 +56,6 @@ const createIngredient = async ingredient => await insert(TABLE, ingredientToDb(
 
 const updateIngredient = async (ingredient, id) => await update(TABLE, ingredientToDb(ingredient), id);
 
-const deleteIngredient = async id => await remove(TABLE, id);
+const deleteIngredient = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
 
 module.exports = ({ listIngredients, singleIngredientById, createIngredient, updateIngredient, deleteIngredient });

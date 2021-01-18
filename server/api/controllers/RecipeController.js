@@ -1,3 +1,4 @@
+const FavoriteConnection = require('../../connections/FavoriteConnection');
 const RecipeConnection = require('../../connections/RecipeConnection');
 const RecipeIngredientConnection = require('../../connections/RecipeIngredientConnection');
 const { ErrorMapper, errorDtoSimple } = require('../../dto/ErrorDTO');
@@ -97,6 +98,8 @@ const deleteRecipe = async (req, res) => {
     const { params: { id } } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
+
+    await FavoriteConnection.deleteFavoritesByRecipe(id);
 
     const result = await RecipeConnection.deleteRecipe(id);
     return res.status(200).json(result);

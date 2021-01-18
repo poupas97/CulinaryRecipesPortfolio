@@ -76,6 +76,6 @@ const createUser = async user => await insert(TABLE, userToDb(user));
 
 const updateUser = async (user, id) => await update(TABLE, userToDb(user), id);
 
-const deleteUser = async id => await remove(TABLE, id);
+const deleteUser = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
 
 module.exports = ({ listUsers, singleUserById, singleUserByUsername, createUser, updateUser, deleteUser });

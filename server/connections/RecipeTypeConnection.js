@@ -56,7 +56,7 @@ const createRecipeType = async type => await insert(TABLE, typeToDb(type));
 
 const updateRecipeType = async (type, id) => await update(TABLE, typeToDb(type), id);
 
-const deleteRecipeType = async id => await remove(TABLE, id);
+const deleteRecipeType = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
 
 module.exports = ({
   listRecipeTypes,

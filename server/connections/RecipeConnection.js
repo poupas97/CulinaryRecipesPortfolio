@@ -78,6 +78,6 @@ const createRecipe = async recipe => await insert(TABLE, recipeToDb(recipe));
 
 const updateRecipe = async (recipe, id) => await update(TABLE, recipeToDb(recipe), id);
 
-const deleteRecipe = async id => await remove(TABLE, id);
+const deleteRecipe = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
 
 module.exports = ({ listRecipes, singleRecipeById, createRecipe, updateRecipe, deleteRecipe });

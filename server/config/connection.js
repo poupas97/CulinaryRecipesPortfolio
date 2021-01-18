@@ -157,7 +157,7 @@ async function update(table, value, id) {
   }
 }
 
-async function remove(table, id) {
+async function remove(table, where) {
   console.log(`\n\nDELETE, creating connection to: ${table}`);
   const connection = await pool.getConnection();
 
@@ -166,10 +166,15 @@ async function remove(table, id) {
     await connection.beginTransaction();
 
     console.log('DELETE, running query');
-    const query = `DELETE FROM ${table} WHERE id = ?`;
+    const elements = where.reduce((acc, { prop, operator, value }) => ({
+      ...acc,
+      columns: [...(acc.columns || []), `${prop} ${operator} ? `],
+      values: [...(acc.values || []), value]
+    }), {});
+    const query = `DELETE FROM ${table} WHERE ${elements.columns.join(' AND ')}`;
 
     console.log(`DELETE, query: ${query}`);
-    const [result] = await connection.query(query, [id]);
+    const [result] = await connection.query(query, elements.values);
 
     console.log('DELETE, committing transaction');
     await connection.commit();

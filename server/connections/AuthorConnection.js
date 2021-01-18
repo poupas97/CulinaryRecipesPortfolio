@@ -56,6 +56,6 @@ const createAuthor = async author => await insert(TABLE, authorToDb(author));
 
 const updateAuthor = async (author, id) => await update(TABLE, authorToDb(author), id);
 
-const deleteAuthor = async id => await remove(TABLE, id);
+const deleteAuthor = async id => await remove(TABLE, [{ prop: DbKeys.ID, operator: '=', value: id }]);
 
 module.exports = ({ listAuthors, singleAuthorById, createAuthor, updateAuthor, deleteAuthor });
