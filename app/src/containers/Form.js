@@ -1,6 +1,5 @@
 import { array, bool, func, object, string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
-
 import InputChipper from '../components/InputChipper';
 import InputDate from '../components/InputDate';
 import InputEmail from '../components/InputEmail';
@@ -11,7 +10,6 @@ import InputText from '../components/InputText';
 import InputTextArea from '../components/InputTextArea';
 import Label from '../components/Label';
 import LabelError from '../components/LabelError';
-
 import './form.scss';
 
 export const FormInputType = {
@@ -25,7 +23,15 @@ export const FormInputType = {
   MULTI_SELECT: 'multiSelect',
 };
 
-const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) => {
+const Form = ({
+  data,
+  inputs = [],
+  onSubmit,
+  onCancel,
+  title,
+  error,
+  loading,
+}) => {
   const [nextItem, setNextItem] = useState();
 
   useEffect(() => {
@@ -40,7 +46,8 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
     let content;
 
     switch (input.type) {
-      default: break;
+      default:
+        break;
 
       case FormInputType.TEXT:
         content = (
@@ -74,7 +81,7 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
         break;
 
       case FormInputType.DATE:
-        content =(
+        content = (
           <InputDate
             key={`InputDate-${index}`}
             prop={input.value}
@@ -140,11 +147,11 @@ const Form = ({ data, inputs = [], onSubmit, onCancel, title, error, loading }) 
 
   return (
     <div>
-      {loading && <div className="loader" />}
+      {loading && <div className='loader' />}
       {!!title && <h2>{title}</h2>}
       {inputs.map(renderContent)}
       <br />
-      {!!error && <p className="error">{error}</p>}
+      {!!error && <p className='error'>{error}</p>}
       {!!onCancel && <button onClick={onCancel}>Cancel</button>}
       <button onClick={() => onSubmit(nextItem)}>Submit</button>
     </div>
@@ -158,7 +165,7 @@ Form.propTypes = {
   onCancel: func,
   title: string,
   error: object,
-  loading: bool
+  loading: bool,
 };
 
 export default Form;

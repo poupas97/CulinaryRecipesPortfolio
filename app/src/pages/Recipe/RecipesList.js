@@ -2,19 +2,29 @@ import { array, bool, func } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
 import { addFavoriteAction } from '../../store/favorites';
-import { listRecipesAction, recipesSelectors, removeRecipeAction, resetRecipesAction } from '../../store/recipes';
+import {
+  listRecipesAction,
+  recipesSelectors,
+  removeRecipeAction,
+  resetRecipesAction,
+} from '../../store/recipes';
 import { RECIPES_CREATE_ROUTE } from './RecipesCreate';
 import { RECIPES_DETAILS_ROUTE } from './RecipesDetails';
 import { RECIPES_EDIT_ROUTE } from './RecipesEdit';
 
 export const RECIPES_LIST_ROUTE = '/recipes';
 
-const RecipesList = ({ recipes, listRecipes, loading, reset, removeRecipe, addFavorite }) => {
-
+const RecipesList = ({
+  recipes,
+  listRecipes,
+  loading,
+  reset,
+  removeRecipe,
+  addFavorite,
+}) => {
   useEffect(() => {
     reset();
     return () => reset();
@@ -27,12 +37,16 @@ const RecipesList = ({ recipes, listRecipes, loading, reset, removeRecipe, addFa
   const headers = [
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
-    { text: 'Options', type: ColumnType.CONTEXT, values: [
-      { text: 'details', link: RECIPES_DETAILS_ROUTE },
-      { text: 'edit', link: RECIPES_EDIT_ROUTE },
-      { text: 'remove', action: removeRecipe },
-      { text: 'favorite', action: addFavorite },
-    ] },
+    {
+      text: 'Options',
+      type: ColumnType.CONTEXT,
+      values: [
+        { text: 'details', link: RECIPES_DETAILS_ROUTE },
+        { text: 'edit', link: RECIPES_EDIT_ROUTE },
+        { text: 'remove', action: removeRecipe },
+        { text: 'favorite', action: addFavorite },
+      ],
+    },
   ];
 
   return (
@@ -54,20 +68,20 @@ RecipesList.propTypes = {
   addFavorite: func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const data = recipesSelectors(state);
-  return ({
+  return {
     recipes: data.list,
     loading: data.loading,
-  });
+  };
 };
 
-const mapActionsToProps = dispatch => ({
+const mapActionsToProps = (dispatch) => ({
   reset: () => resetRecipesAction(dispatch),
   listRecipes: () => listRecipesAction(dispatch),
-  removeRecipe: id => removeRecipeAction(dispatch, id),
+  removeRecipe: (id) => removeRecipeAction(dispatch, id),
 
-  addFavorite: id => addFavoriteAction(dispatch, id),
+  addFavorite: (id) => addFavoriteAction(dispatch, id),
 });
 
 export default compose(

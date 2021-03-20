@@ -2,15 +2,25 @@ import { bool, func, object } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Detail from '../../containers/Detail';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, getAuthorAction, resetAuthorsAction } from '../../store/authors';
+import {
+  authorsSelectors,
+  getAuthorAction,
+  resetAuthorsAction,
+} from '../../store/authors';
 
 export const AUTHORS_DETAILS_ROUTE = '/authors/:id/details';
 
-const AuthorsDetails = ({ author, getAuthor, match: { params: { id } }, loading, reset }) => {
-
+const AuthorsDetails = ({
+  author,
+  getAuthor,
+  match: {
+    params: { id },
+  },
+  loading,
+  reset,
+}) => {
   useEffect(() => () => reset(), [reset]);
 
   useEffect(() => {
@@ -26,7 +36,7 @@ const AuthorsDetails = ({ author, getAuthor, match: { params: { id } }, loading,
     <Detail
       labels={labels}
       item={author}
-      title="Author Details"
+      title='Author Details'
       loading={loading}
     />
   );
@@ -37,23 +47,23 @@ AuthorsDetails.propTypes = {
   getAuthor: func,
   loading: bool,
   reset: func,
-  match: object
+  match: object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { item, loading } = authorsSelectors(state);
-  return ({
+  return {
     author: item,
     loading,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetAuthorsAction(dispatch),
-  getAuthor: id => getAuthorAction(dispatch, id),
+  getAuthor: (id) => getAuthorAction(dispatch, id),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(AUTHORS_DETAILS_ROUTE),
+  withPage(AUTHORS_DETAILS_ROUTE)
 )(AuthorsDetails);

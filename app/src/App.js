@@ -15,8 +15,14 @@ function App() {
         <Route key={LOGIN_ROUTE} exact path={LOGIN_ROUTE} component={Login} />
         <ToastProvider>
           <Notifications />
-          {Object.values(ROUTES).map(it =>
-            <Protected key={it.route} exact path={it.path} component={it.component} />)}
+          {Object.values(ROUTES).map((it) => (
+            <Protected
+              key={it.route}
+              exact
+              path={it.path}
+              component={it.component}
+            />
+          ))}
         </ToastProvider>
         <Protected key='/not-found' component={NotFound} />
       </Switch>

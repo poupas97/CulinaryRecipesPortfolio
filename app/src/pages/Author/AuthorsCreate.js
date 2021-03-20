@@ -2,16 +2,18 @@ import { bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, resetAuthorsAction, saveAuthorAction } from '../../store/authors';
+import {
+  authorsSelectors,
+  resetAuthorsAction,
+  saveAuthorAction,
+} from '../../store/authors';
 import { AUTHORS_LIST_ROUTE } from './AuthorsList';
 
 export const AUTHORS_CREATE_ROUTE = '/authors/create';
 
 const AuthorsCreate = ({ history, createAuthor, saved, error, loading }) => {
-
   const goBack = useCallback(() => {
     history.push(AUTHORS_LIST_ROUTE);
   }, [history]);
@@ -29,7 +31,7 @@ const AuthorsCreate = ({ history, createAuthor, saved, error, loading }) => {
     <Form
       inputs={inputs}
       onSubmit={createAuthor}
-      title="Create an Author"
+      title='Create an Author'
       onCancel={goBack}
       error={error}
       loading={loading}
@@ -45,21 +47,21 @@ AuthorsCreate.propTypes = {
   loading: bool,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { loading, saved, error } = authorsSelectors(state);
-  return ({
+  return {
     loading,
     saved,
     error,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetAuthorsAction(dispatch),
-  createAuthor: author => saveAuthorAction(dispatch, author),
+  createAuthor: (author) => saveAuthorAction(dispatch, author),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(AUTHORS_CREATE_ROUTE),
+  withPage(AUTHORS_CREATE_ROUTE)
 )(AuthorsCreate);

@@ -6,18 +6,20 @@ const InputChipper = ({ prop, onChange = () => {} }) => {
 
   if (!prop) return null;
 
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
     const nextValue = e.target.value;
     setValue(nextValue);
     onChange(prop, nextValue);
   };
 
-  return <input type="password" id={prop} onChange={handleOnChange} value={value} />;
+  return (
+    <input type='password' id={prop} onChange={handleOnChange} value={value} />
+  );
 };
 
 InputChipper.propTypes = {
   prop: string,
-  onChange: func
+  onChange: func,
 };
 
 export default InputChipper;

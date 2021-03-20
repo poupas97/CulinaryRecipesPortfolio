@@ -3,7 +3,6 @@ import React, { useContext, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
-
 import { PageContext } from '../contexts/Page';
 import ROUTES from '../pages/constants';
 import { LOGIN_ROUTE } from '../pages/Login';
@@ -20,17 +19,22 @@ const Navbar = ({ logout }) => {
     setRenderLogin(true);
   };
 
-  if (renderLogin)
-    return <Redirect to={LOGIN_ROUTE} />;
+  if (renderLogin) return <Redirect to={LOGIN_ROUTE} />;
 
   return (
-    <div className="navbar">
-      <div className="routes">
-        {Object.values(ROUTES).filter(it => !!it.title).map(it =>
-          <Link key={it.path} className={it.path === url ? 'active' : null} to={it.path}>
-            {it.title}
-          </Link>)
-        }
+    <div className='navbar'>
+      <div className='routes'>
+        {Object.values(ROUTES)
+          .filter((it) => !!it.title)
+          .map((it) => (
+            <Link
+              key={it.path}
+              className={it.path === url ? 'active' : null}
+              to={it.path}
+            >
+              {it.title}
+            </Link>
+          ))}
       </div>
       <button onClick={handleLogout}>Logout</button>
     </div>
@@ -41,10 +45,8 @@ Navbar.propTypes = {
   logout: func,
 };
 
-const mapActionsToProps = dispatch => ({
+const mapActionsToProps = (dispatch) => ({
   logout: () => logoutAction(dispatch),
 });
 
-export default compose(
-  connect(null, mapActionsToProps),
-)(Navbar);
+export default compose(connect(null, mapActionsToProps))(Navbar);

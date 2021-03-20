@@ -2,7 +2,7 @@ import { generatePowerActions } from './factory';
 
 const TypeNotification = {
   SUCCESS: 'success',
-  ERROR: 'error'
+  ERROR: 'error',
 };
 
 const initialState = {
@@ -11,9 +11,9 @@ const initialState = {
 
 const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('notifications');
 
-export const notificationsSelectors = state => state.NOTIFICATIONS;
+export const notificationsSelectors = (state) => state.NOTIFICATIONS;
 
-export const resetNotificationsAction = async dispatch => {
+export const resetNotificationsAction = async (dispatch) => {
   ACTIONS_DISPATCH.Reset(dispatch);
 };
 
@@ -31,7 +31,8 @@ export const removeNotificationAction = async (dispatch, index = -1) => {
 
 export const NOTIFICATIONS = (state = initialState, action) => {
   switch (action.type) {
-    default: return state;
+    default:
+      return state;
 
     case ACTIONS_NAMES.Reset: {
       return initialState;
@@ -41,10 +42,13 @@ export const NOTIFICATIONS = (state = initialState, action) => {
       const currentList = state.list || [];
       return {
         ...state,
-        list: [...currentList, {
-          notification: action.payload.text,
-          type: action.payload.type,
-        }],
+        list: [
+          ...currentList,
+          {
+            notification: action.payload.text,
+            type: action.payload.type,
+          },
+        ],
       };
     }
 

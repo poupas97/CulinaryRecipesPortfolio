@@ -12,7 +12,9 @@ const listAuthors = async (req, res) => {
 
 const singleAuthorById = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -25,7 +27,9 @@ const singleAuthorById = async (req, res) => {
 
 const createAuthor = async (req, res) => {
   try {
-    const { body: { name, description } } = req;
+    const {
+      body: { name, description },
+    } = req;
     const result = await AuthorConnection.createAuthor({ name, description });
     return res.status(200).json(result);
   } catch (error) {
@@ -35,11 +39,17 @@ const createAuthor = async (req, res) => {
 
 const updateAuthor = async (req, res) => {
   try {
-    const { body: { name, description, active }, params: { id } } = req;
+    const {
+      body: { name, description, active },
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await AuthorConnection.updateAuthor({ name, description, active }, id);
+    const result = await AuthorConnection.updateAuthor(
+      { name, description, active },
+      id
+    );
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -48,7 +58,9 @@ const updateAuthor = async (req, res) => {
 
 const deleteAuthor = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -59,5 +71,10 @@ const deleteAuthor = async (req, res) => {
   }
 };
 
-module.exports = () => ({ listAuthors, singleAuthorById, createAuthor, updateAuthor,
-  deleteAuthor });
+module.exports = () => ({
+  listAuthors,
+  singleAuthorById,
+  createAuthor,
+  updateAuthor,
+  deleteAuthor,
+});

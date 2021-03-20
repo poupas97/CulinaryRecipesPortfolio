@@ -16,10 +16,7 @@ module.exports = () => {
   app.use(AuthController.authenticateToken);
 
   // ENDPOINTS
-  consign({ cwd: 'api' })
-    .then('controllers')
-    .then('routes')
-    .into(app);
+  consign({ cwd: 'api' }).then('controllers').then('routes').into(app);
 
   return app;
 };

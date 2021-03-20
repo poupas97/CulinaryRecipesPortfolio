@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
-
 import Api from '../api/Api';
 import { generatePowerActions, generateReducer } from './factory';
 
@@ -8,13 +7,13 @@ const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('recipes');
 
 export const RECIPES = generateReducer(ACTIONS_NAMES);
 
-export const recipesSelectors = state => state.RECIPES;
+export const recipesSelectors = (state) => state.RECIPES;
 
-export const resetRecipesAction = async dispatch => {
+export const resetRecipesAction = async (dispatch) => {
   ACTIONS_DISPATCH.Reset(dispatch);
 };
 
-export const listRecipesAction = async dispatch => {
+export const listRecipesAction = async (dispatch) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
 
@@ -44,7 +43,10 @@ export const saveRecipeAction = async (dispatch, recipe) => {
 
     let saved;
     if (has(recipe, 'id')) {
-      const { updated } = await Api.Put(`/recipes/${get(recipe, 'id')}/`, recipe);
+      const { updated } = await Api.Put(
+        `/recipes/${get(recipe, 'id')}/`,
+        recipe
+      );
       saved = updated;
     } else {
       const { id } = await Api.Post('/recipes/', recipe);

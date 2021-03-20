@@ -9,9 +9,9 @@ const SectionItem = ({ data, headers, link }) => {
 
   return (
     <Link to={resolveLink(link, data)}>
-      {(headers||[]).map((it, index) =>
+      {(headers || []).map((it, index) => (
         <p key={index}>{getValue(it.value, data)}</p>
-      )}
+      ))}
       <hr />
     </Link>
   );

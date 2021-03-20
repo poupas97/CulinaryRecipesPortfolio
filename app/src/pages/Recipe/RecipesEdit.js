@@ -2,25 +2,53 @@ import { array, bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, listAuthorsAction, resetAuthorsAction } from '../../store/authors';
-import { ingredientsSelectors, listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
-import { getRecipeAction, recipesSelectors, saveRecipeAction } from '../../store/recipes';
-import { listRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction } from '../../store/recipeTypes';
+import {
+  authorsSelectors,
+  listAuthorsAction,
+  resetAuthorsAction,
+} from '../../store/authors';
+import {
+  ingredientsSelectors,
+  listIngredientsAction,
+  resetIngredientsAction,
+} from '../../store/ingredients';
+import {
+  getRecipeAction,
+  recipesSelectors,
+  saveRecipeAction,
+} from '../../store/recipes';
+import {
+  listRecipeTypesAction,
+  recipeTypesSelectors,
+  resetRecipeTypesAction,
+} from '../../store/recipeTypes';
 import { RECIPES_LIST_ROUTE } from './RecipesList';
 
 export const RECIPES_EDIT_ROUTE = '/recipes/:id/edit';
 
 const RecipesEdit = ({
-  history, match: { params: { id } },
-  recipe, getRecipe, updateRecipe, saved, error, loading,
-  ingredients, listIngredients, resetIngredients,
-  authors, listAuthors, resetAuthors,
-  recipeTypes, listRecipeTypes, resetRecipeTypes,
+  history,
+  match: {
+    params: { id },
+  },
+  recipe,
+  getRecipe,
+  updateRecipe,
+  saved,
+  error,
+  loading,
+  ingredients,
+  listIngredients,
+  resetIngredients,
+  authors,
+  listAuthors,
+  resetAuthors,
+  recipeTypes,
+  listRecipeTypes,
+  resetRecipeTypes,
 }) => {
-
   useEffect(() => {
     if (!recipe) getRecipe(id);
   }, [recipe, getRecipe, id]);
@@ -57,8 +85,18 @@ const RecipesEdit = ({
       options: ingredients,
       type: FormInputType.MULTI_SELECT,
     },
-    { text: 'Author', value: 'author', options: authors, type: FormInputType.SELECT },
-    { text: 'Recipe Type', value: 'recipeType', options: recipeTypes, type: FormInputType.SELECT },
+    {
+      text: 'Author',
+      value: 'author',
+      options: authors,
+      type: FormInputType.SELECT,
+    },
+    {
+      text: 'Recipe Type',
+      value: 'recipeType',
+      options: recipeTypes,
+      type: FormInputType.SELECT,
+    },
   ];
 
   return (
@@ -66,7 +104,7 @@ const RecipesEdit = ({
       data={recipe}
       inputs={inputs}
       onSubmit={updateRecipe}
-      title="Update a Recipe"
+      title='Update a Recipe'
       onCancel={goBack}
       loading={loading}
       error={error}
@@ -98,24 +136,24 @@ RecipesEdit.propTypes = {
   resetRecipeTypes: func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { item: recipe, loading, saved } = recipesSelectors(state);
   const { list: authors } = authorsSelectors(state);
   const { list: ingredients } = ingredientsSelectors(state);
   const { list: recipeTypes } = recipeTypesSelectors(state);
-  return ({
+  return {
     recipe,
     loading,
     saved,
     authors,
     ingredients,
     recipeTypes,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
-  getRecipe: id => getRecipeAction(dispatch, id),
-  updateRecipe: recipe => saveRecipeAction(dispatch, recipe),
+const mapDispatchToProps = (dispatch) => ({
+  getRecipe: (id) => getRecipeAction(dispatch, id),
+  updateRecipe: (recipe) => saveRecipeAction(dispatch, recipe),
 
   listIngredients: () => listIngredientsAction(dispatch),
   resetIngredients: () => resetIngredientsAction(dispatch),

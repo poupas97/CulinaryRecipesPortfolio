@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../containers/Form';
 import { loginAction, resetLoginAction } from '../store/login';
 import { HOME_ROUTE } from './Home';
@@ -11,7 +10,6 @@ import { HOME_ROUTE } from './Home';
 export const LOGIN_ROUTE = '/login';
 
 const Login = ({ loading, error, login, reset, token }) => {
-
   useEffect(() => {
     reset();
   }, [reset]);
@@ -27,7 +25,7 @@ const Login = ({ loading, error, login, reset, token }) => {
     <Form
       inputs={inputs}
       onSubmit={login}
-      title="Login"
+      title='Login'
       loading={loading}
       error={error}
     />
@@ -39,20 +37,18 @@ Login.propTypes = {
   error: string,
   login: func,
   reset: func,
-  token: object
+  token: object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.LOGIN.loading,
   error: state.LOGIN.error,
   token: state.LOGIN.saved,
 });
 
-const mapActionsToProps = dispatch => ({
-  login: user => loginAction(dispatch, user),
+const mapActionsToProps = (dispatch) => ({
+  login: (user) => loginAction(dispatch, user),
   reset: () => resetLoginAction(dispatch),
 });
 
-export default compose(
-  connect(mapStateToProps, mapActionsToProps),
-)(Login);
+export default compose(connect(mapStateToProps, mapActionsToProps))(Login);

@@ -12,7 +12,9 @@ const listFavorites = async (req, res) => {
 
 const singleFavoriteById = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -25,7 +27,10 @@ const singleFavoriteById = async (req, res) => {
 
 const createFavorite = async (req, res) => {
   try {
-    const { body, userAuthenticated: { id: idUser } } = req;
+    const {
+      body,
+      userAuthenticated: { id: idUser },
+    } = req;
 
     const result = await FavoriteConnection.createFavorite({ ...body, idUser });
     return res.status(200).json(result);
@@ -36,11 +41,17 @@ const createFavorite = async (req, res) => {
 
 const updateFavorite = async (req, res) => {
   try {
-    const { body: { name, description, active }, params: { id } } = req;
+    const {
+      body: { name, description, active },
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await FavoriteConnection.updateFavorite({ name, description, active }, id);
+    const result = await FavoriteConnection.updateFavorite(
+      { name, description, active },
+      id
+    );
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -49,7 +60,9 @@ const updateFavorite = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -60,5 +73,10 @@ const deleteFavorite = async (req, res) => {
   }
 };
 
-module.exports = () => ({ listFavorites, singleFavoriteById, createFavorite, updateFavorite,
-  deleteFavorite });
+module.exports = () => ({
+  listFavorites,
+  singleFavoriteById,
+  createFavorite,
+  updateFavorite,
+  deleteFavorite,
+});

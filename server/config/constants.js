@@ -1,7 +1,7 @@
 const Operators = {
-  EQUAL: '='
+  EQUAL: '=',
 };
 
-module.exports = ({
+module.exports = {
   Operators,
-});
+};

@@ -13,18 +13,16 @@ const Page = ({ nextUrl, children }) => {
   }, [url, setUrl, nextUrl]);
 
   return (
-    <PageContext.Provider value={{ url }}>
-      {children}
-    </PageContext.Provider>
+    <PageContext.Provider value={{ url }}>{children}</PageContext.Provider>
   );
 };
 
 Page.propTypes = {
   nextUrl: string,
-  children: node
+  children: node,
 };
 
-export const withPage = nextUrl => Wrapper => props => (
+export const withPage = (nextUrl) => (Wrapper) => (props) => (
   <Page nextUrl={nextUrl}>
     <>
       <Navbar />

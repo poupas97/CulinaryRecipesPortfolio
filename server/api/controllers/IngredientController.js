@@ -12,7 +12,9 @@ const listIngredients = async (req, res) => {
 
 const singleIngredientById = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -25,8 +27,13 @@ const singleIngredientById = async (req, res) => {
 
 const createIngredient = async (req, res) => {
   try {
-    const { body: { name, description } } = req;
-    const result = await IngredientConnection.createIngredient({ name, description });
+    const {
+      body: { name, description },
+    } = req;
+    const result = await IngredientConnection.createIngredient({
+      name,
+      description,
+    });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -35,11 +42,17 @@ const createIngredient = async (req, res) => {
 
 const updateIngredient = async (req, res) => {
   try {
-    const { body: { name, description, active }, params: { id } } = req;
+    const {
+      body: { name, description, active },
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await IngredientConnection.updateIngredient({ name, description, active }, id);
+    const result = await IngredientConnection.updateIngredient(
+      { name, description, active },
+      id
+    );
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -48,7 +61,9 @@ const updateIngredient = async (req, res) => {
 
 const deleteIngredient = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -59,5 +74,10 @@ const deleteIngredient = async (req, res) => {
   }
 };
 
-module.exports = () => ({ listIngredients, singleIngredientById, createIngredient, updateIngredient,
-  deleteIngredient });
+module.exports = () => ({
+  listIngredients,
+  singleIngredientById,
+  createIngredient,
+  updateIngredient,
+  deleteIngredient,
+});

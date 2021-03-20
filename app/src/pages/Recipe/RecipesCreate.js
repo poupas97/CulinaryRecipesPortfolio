@@ -2,24 +2,44 @@ import { array, bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, listAuthorsAction, resetAuthorsAction } from '../../store/authors';
-import { ingredientsSelectors, listIngredientsAction, resetIngredientsAction } from '../../store/ingredients';
+import {
+  authorsSelectors,
+  listAuthorsAction,
+  resetAuthorsAction,
+} from '../../store/authors';
+import {
+  ingredientsSelectors,
+  listIngredientsAction,
+  resetIngredientsAction,
+} from '../../store/ingredients';
 import { recipesSelectors, saveRecipeAction } from '../../store/recipes';
-import { listRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction } from '../../store/recipeTypes';
+import {
+  listRecipeTypesAction,
+  recipeTypesSelectors,
+  resetRecipeTypesAction,
+} from '../../store/recipeTypes';
 import { RECIPES_LIST_ROUTE } from './RecipesList';
 
 export const RECIPES_CREATE_ROUTE = '/recipes/create';
 
 const RecipesCreate = ({
-  history, createRecipe, saved, error, loading,
-  ingredients, listIngredients, resetIngredients,
-  authors, listAuthors, resetAuthors,
-  recipeTypes, listRecipeTypes, resetRecipeTypes
+  history,
+  createRecipe,
+  saved,
+  error,
+  loading,
+  ingredients,
+  listIngredients,
+  resetIngredients,
+  authors,
+  listAuthors,
+  resetAuthors,
+  recipeTypes,
+  listRecipeTypes,
+  resetRecipeTypes,
 }) => {
-
   const goBack = useCallback(() => {
     history.push(RECIPES_LIST_ROUTE);
   }, [history]);
@@ -52,15 +72,25 @@ const RecipesCreate = ({
       options: ingredients,
       type: FormInputType.MULTI_SELECT,
     },
-    { text: 'Author', value: 'author', options: authors, type: FormInputType.SELECT },
-    { text: 'Recipe Type', value: 'recipeType', options: recipeTypes, type: FormInputType.SELECT },
+    {
+      text: 'Author',
+      value: 'author',
+      options: authors,
+      type: FormInputType.SELECT,
+    },
+    {
+      text: 'Recipe Type',
+      value: 'recipeType',
+      options: recipeTypes,
+      type: FormInputType.SELECT,
+    },
   ];
 
   return (
     <Form
       inputs={inputs}
       onSubmit={createRecipe}
-      title="Create a Recipe"
+      title='Create a Recipe'
       onCancel={goBack}
       error={error}
       loading={loading}
@@ -88,23 +118,23 @@ RecipesCreate.propTypes = {
   resetRecipeTypes: func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { loading, saved, error } = recipesSelectors(state);
   const { list: authors } = authorsSelectors(state);
   const { list: ingredients } = ingredientsSelectors(state);
   const { list: recipeTypes } = recipeTypesSelectors(state);
-  return ({
+  return {
     loading,
     saved,
     error,
     authors,
     ingredients,
     recipeTypes,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
-  createRecipe: recipe => saveRecipeAction(dispatch, recipe),
+const mapDispatchToProps = (dispatch) => ({
+  createRecipe: (recipe) => saveRecipeAction(dispatch, recipe),
 
   listIngredients: () => listIngredientsAction(dispatch),
   resetIngredients: () => resetIngredientsAction(dispatch),
@@ -118,5 +148,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(RECIPES_CREATE_ROUTE),
+  withPage(RECIPES_CREATE_ROUTE)
 )(RecipesCreate);

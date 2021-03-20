@@ -12,7 +12,9 @@ const listRecipeTypes = async (req, res) => {
 
 const singleRecipeTypeById = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -25,8 +27,13 @@ const singleRecipeTypeById = async (req, res) => {
 
 const createRecipeType = async (req, res) => {
   try {
-    const { body: { name, description } } = req;
-    const result = await RecipeTypeConnection.createRecipeType({ name, description });
+    const {
+      body: { name, description },
+    } = req;
+    const result = await RecipeTypeConnection.createRecipeType({
+      name,
+      description,
+    });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -35,11 +42,17 @@ const createRecipeType = async (req, res) => {
 
 const updateRecipeType = async (req, res) => {
   try {
-    const { body: { name, description, active }, params: { id } } = req;
+    const {
+      body: { name, description, active },
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
-    const result = await RecipeTypeConnection.updateRecipeType({ name, description, active }, id);
+    const result = await RecipeTypeConnection.updateRecipeType(
+      { name, description, active },
+      id
+    );
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -48,7 +61,9 @@ const updateRecipeType = async (req, res) => {
 
 const deleteRecipeType = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -64,4 +79,5 @@ module.exports = () => ({
   singleRecipeTypeById,
   createRecipeType,
   updateRecipeType,
-  deleteRecipeType });
+  deleteRecipeType,
+});

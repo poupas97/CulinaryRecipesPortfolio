@@ -2,7 +2,7 @@ const Methods = {
   GET: 'GET',
   POST: 'POST',
   PUT: 'PUT',
-  DELETE: 'DELETE'
+  DELETE: 'DELETE',
 };
 
-module.exports = ({ Methods });
+module.exports = { Methods };

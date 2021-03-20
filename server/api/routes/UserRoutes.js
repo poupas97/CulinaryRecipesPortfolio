@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = (app) => {
   const controller = require('../controllers/UserController')();
 
   app.route('/api/users').get(controller.listUsers);

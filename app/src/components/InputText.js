@@ -9,14 +9,21 @@ const InputText = ({ prop, onChange = () => {}, data }) => {
     setValue(get(data, prop));
   }, [prop, data]);
 
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
     const nextValue = e.target.value;
     setValue(nextValue);
     onChange(prop, nextValue);
   };
 
   if (!prop) return null;
-  return <input type="text" id={prop} onChange={handleOnChange} value={value || ''} />;
+  return (
+    <input
+      type='text'
+      id={prop}
+      onChange={handleOnChange}
+      value={value || ''}
+    />
+  );
 };
 
 InputText.propTypes = {

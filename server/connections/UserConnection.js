@@ -1,7 +1,13 @@
 const get = require('lodash/get'); // eslint-disable-line node/no-extraneous-require
 const { Operators } = require('../config/constants');
 
-const { select, selectSinge, insert, update, remove } = require('../config/connection');
+const {
+  select,
+  selectSinge,
+  insert,
+  update,
+  remove,
+} = require('../config/connection');
 
 const TABLE = 'users';
 
@@ -25,7 +31,7 @@ const ObjectKeys = {
   ACTIVE: 'active',
 };
 
-const userToDb = user => {
+const userToDb = (user) => {
   const userToSend = {
     [DbKeys.ID]: get(user, ObjectKeys.ID),
     [DbKeys.USERNAME]: get(user, ObjectKeys.USERNAME),
@@ -33,7 +39,7 @@ const userToDb = user => {
     [DbKeys.NAME]: get(user, ObjectKeys.NAME),
     [DbKeys.ACCESS_TOKEN]: get(user, ObjectKeys.ACCESS_TOKEN),
     [DbKeys.REFRESH_TOKEN]: get(user, ObjectKeys.REFRESH_TOKEN),
-    [DbKeys.ACTIVE]: get(user, ObjectKeys.ACTIVE)
+    [DbKeys.ACTIVE]: get(user, ObjectKeys.ACTIVE),
   };
   Object.entries(userToSend).forEach(([key, value]) => {
     if (value === undefined) delete userToSend[key];
@@ -49,7 +55,7 @@ const dbToUser = (user = {}) => {
     [ObjectKeys.NAME]: get(user, DbKeys.NAME),
     [ObjectKeys.ACCESS_TOKEN]: get(user, DbKeys.ACCESS_TOKEN),
     [ObjectKeys.REFRESH_TOKEN]: get(user, DbKeys.REFRESH_TOKEN),
-    [ObjectKeys.ACTIVE]: get(user, DbKeys.ACTIVE)
+    [ObjectKeys.ACTIVE]: get(user, DbKeys.ACTIVE),
   };
   Object.entries(userToSend).forEach(([key, value]) => {
     if (value === undefined) delete userToSend[key];
@@ -62,33 +68,37 @@ const listUsers = async () => {
   return users.map(dbToUser);
 };
 
-const singleUserById = async id => {
-  const [user] = await selectSinge(TABLE,
-    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+const singleUserById = async (id) => {
+  const [user] = await selectSinge(TABLE, [
+    { prop: DbKeys.ID, operator: Operators.EQUAL, value: id },
+  ]);
 
   return dbToUser(user);
 };
 
-const singleUserByUsername = async username => {
-  const [user] = await selectSinge(TABLE,
-    [{ prop: DbKeys.USERNAME, operator: Operators.EQUAL, value: username } ]);
+const singleUserByUsername = async (username) => {
+  const [user] = await selectSinge(TABLE, [
+    { prop: DbKeys.USERNAME, operator: Operators.EQUAL, value: username },
+  ]);
 
   if (!user) return null;
   return dbToUser(user);
 };
 
-const createUser = async user => await insert(TABLE, userToDb(user));
+const createUser = async (user) => await insert(TABLE, userToDb(user));
 
 const updateUser = async (user, id) => await update(TABLE, userToDb(user), id);
 
-const deleteUser = async id =>
-  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+const deleteUser = async (id) =>
+  await remove(TABLE, [
+    { prop: DbKeys.ID, operator: Operators.EQUAL, value: id },
+  ]);
 
-module.exports = ({
+module.exports = {
   listUsers,
   singleUserById,
   singleUserByUsername,
   createUser,
   updateUser,
   deleteUser,
-});
+};

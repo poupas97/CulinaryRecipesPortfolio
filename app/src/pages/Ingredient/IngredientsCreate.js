@@ -2,16 +2,24 @@ import { bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { ingredientsSelectors, resetIngredientsAction, saveIngredientAction } from '../../store/ingredients';
+import {
+  ingredientsSelectors,
+  resetIngredientsAction,
+  saveIngredientAction,
+} from '../../store/ingredients';
 import { INGREDIENTS_LIST_ROUTE } from './IngredientsList';
 
 export const INGREDIENTS_CREATE_ROUTE = '/ingredients/create';
 
-const IngredientsCreate = ({ history, createIngredient, saved, error, loading }) => {
-
+const IngredientsCreate = ({
+  history,
+  createIngredient,
+  saved,
+  error,
+  loading,
+}) => {
   const goBack = useCallback(() => {
     history.push(INGREDIENTS_LIST_ROUTE);
   }, [history]);
@@ -29,7 +37,7 @@ const IngredientsCreate = ({ history, createIngredient, saved, error, loading })
     <Form
       inputs={inputs}
       onSubmit={createIngredient}
-      title="Create an Ingredient"
+      title='Create an Ingredient'
       onCancel={goBack}
       error={error}
       loading={loading}
@@ -45,21 +53,21 @@ IngredientsCreate.propTypes = {
   loading: bool,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { loading, saved, error } = ingredientsSelectors(state);
-  return ({
+  return {
     loading,
     saved,
     error,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetIngredientsAction(dispatch),
-  createIngredient: ingredient => saveIngredientAction(dispatch, ingredient),
+  createIngredient: (ingredient) => saveIngredientAction(dispatch, ingredient),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(INGREDIENTS_CREATE_ROUTE),
+  withPage(INGREDIENTS_CREATE_ROUTE)
 )(IngredientsCreate);

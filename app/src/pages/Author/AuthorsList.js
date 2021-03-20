@@ -2,18 +2,27 @@ import { array, bool, func } from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import List, { ColumnType } from '../../containers/List';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, listAuthorsAction, removeAuthorAction, resetAuthorsAction } from '../../store/authors';
+import {
+  authorsSelectors,
+  listAuthorsAction,
+  removeAuthorAction,
+  resetAuthorsAction,
+} from '../../store/authors';
 import { AUTHORS_CREATE_ROUTE } from './AuthorsCreate';
 import { AUTHORS_DETAILS_ROUTE } from './AuthorsDetails';
 import { AUTHORS_EDIT_ROUTE } from './AuthorsEdit';
 
 export const AUTHORS_LIST_ROUTE = '/authors';
 
-const AuthorsList = ({ authors, listAuthors, loading, reset, removeAuthor }) => {
-
+const AuthorsList = ({
+  authors,
+  listAuthors,
+  loading,
+  reset,
+  removeAuthor,
+}) => {
   useEffect(() => {
     reset();
     return () => reset();
@@ -26,11 +35,15 @@ const AuthorsList = ({ authors, listAuthors, loading, reset, removeAuthor }) => 
   const headers = [
     { text: 'Name', value: 'name' },
     { text: 'Description', value: 'description' },
-    { text: 'Options', type: ColumnType.CONTEXT, values: [
-      { text: 'details', link: AUTHORS_DETAILS_ROUTE },
-      { text: 'edit', link: AUTHORS_EDIT_ROUTE },
-      { text: 'remove', action: removeAuthor },
-    ] },
+    {
+      text: 'Options',
+      type: ColumnType.CONTEXT,
+      values: [
+        { text: 'details', link: AUTHORS_DETAILS_ROUTE },
+        { text: 'edit', link: AUTHORS_EDIT_ROUTE },
+        { text: 'remove', action: removeAuthor },
+      ],
+    },
   ];
 
   return (
@@ -51,18 +64,18 @@ AuthorsList.propTypes = {
   removeAuthor: func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const data = authorsSelectors(state);
-  return ({
+  return {
     authors: data.list,
     loading: data.loading,
-  });
+  };
 };
 
-const mapActionsToProps = dispatch => ({
+const mapActionsToProps = (dispatch) => ({
   reset: () => resetAuthorsAction(dispatch),
   listAuthors: () => listAuthorsAction(dispatch),
-  removeAuthor: id => removeAuthorAction(dispatch, id),
+  removeAuthor: (id) => removeAuthorAction(dispatch, id),
 });
 
 export default compose(

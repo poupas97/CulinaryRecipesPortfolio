@@ -2,16 +2,24 @@ import { bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { recipeTypesSelectors, resetRecipeTypesAction, saveRecipeTypeAction } from '../../store/recipeTypes';
+import {
+  recipeTypesSelectors,
+  resetRecipeTypesAction,
+  saveRecipeTypeAction,
+} from '../../store/recipeTypes';
 import { RECIPE_TYPES_LIST_ROUTE } from './RecipeTypesList';
 
 export const RECIPE_TYPES_CREATE_ROUTE = '/recipe-types/create';
 
-const RecipeTypesCreate = ({ history, createRecipeType, saved, error, loading }) => {
-
+const RecipeTypesCreate = ({
+  history,
+  createRecipeType,
+  saved,
+  error,
+  loading,
+}) => {
   const goBack = useCallback(() => {
     history.push(RECIPE_TYPES_LIST_ROUTE);
   }, [history]);
@@ -29,7 +37,7 @@ const RecipeTypesCreate = ({ history, createRecipeType, saved, error, loading })
     <Form
       inputs={inputs}
       onSubmit={createRecipeType}
-      title="Create a Recipe Type"
+      title='Create a Recipe Type'
       onCancel={goBack}
       error={error}
       loading={loading}
@@ -45,21 +53,21 @@ RecipeTypesCreate.propTypes = {
   loading: bool,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { loading, saved, error } = recipeTypesSelectors(state);
-  return ({
+  return {
     loading,
     saved,
     error,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetRecipeTypesAction(dispatch),
-  createRecipeType: recipeType => saveRecipeTypeAction(dispatch, recipeType),
+  createRecipeType: (recipeType) => saveRecipeTypeAction(dispatch, recipeType),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(RECIPE_TYPES_CREATE_ROUTE),
+  withPage(RECIPE_TYPES_CREATE_ROUTE)
 )(RecipeTypesCreate);

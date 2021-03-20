@@ -1,4 +1,10 @@
-const { select, selectSinge, insert, update, remove } = require('../config/connection');
+const {
+  select,
+  selectSinge,
+  insert,
+  update,
+  remove,
+} = require('../config/connection');
 const AuthorConnection = require('./AuthorConnection');
 const RecipeIngredientConnection = require('./RecipeIngredientConnection');
 const RecipeTypeConnection = require('./RecipeTypeConnection');
@@ -27,7 +33,7 @@ const ObjectKeys = {
   ID_AUTHOR: 'idAuthor',
 };
 
-const recipeToDb = author => {
+const recipeToDb = (author) => {
   const recipeToSend = {
     [DbKeys.ID]: author[ObjectKeys.ID],
     [DbKeys.NAME]: author[ObjectKeys.NAME],
@@ -64,23 +70,39 @@ const listRecipes = async () => {
   return recipes.map(dbToRecipe);
 };
 
-const singleRecipeById = async id => {
-  const [recipe] = await selectSinge(TABLE,
-    [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+const singleRecipeById = async (id) => {
+  const [recipe] = await selectSinge(TABLE, [
+    { prop: DbKeys.ID, operator: Operators.EQUAL, value: id },
+  ]);
 
-  const ingredients = await RecipeIngredientConnection.listIngredientsByRecipe(id);
-  const author = await AuthorConnection.singleAuthorById(recipe[DbKeys.ID_AUTHOR]);
-  const recipeType = await RecipeTypeConnection.singleRecipeTypeById(recipe[DbKeys.ID_RECIPE_TYPE]);
+  const ingredients = await RecipeIngredientConnection.listIngredientsByRecipe(
+    id
+  );
+  const author = await AuthorConnection.singleAuthorById(
+    recipe[DbKeys.ID_AUTHOR]
+  );
+  const recipeType = await RecipeTypeConnection.singleRecipeTypeById(
+    recipe[DbKeys.ID_RECIPE_TYPE]
+  );
   const user = await UserConnection.singleUserById(recipe[DbKeys.ID_USER]);
 
   return { ...dbToRecipe(recipe), ingredients, author, recipeType, user };
 };
 
-const createRecipe = async recipe => await insert(TABLE, recipeToDb(recipe));
+const createRecipe = async (recipe) => await insert(TABLE, recipeToDb(recipe));
 
-const updateRecipe = async (recipe, id) => await update(TABLE, recipeToDb(recipe), id);
+const updateRecipe = async (recipe, id) =>
+  await update(TABLE, recipeToDb(recipe), id);
 
-const deleteRecipe = async id =>
-  await remove(TABLE, [{ prop: DbKeys.ID, operator: Operators.EQUAL, value: id }]);
+const deleteRecipe = async (id) =>
+  await remove(TABLE, [
+    { prop: DbKeys.ID, operator: Operators.EQUAL, value: id },
+  ]);
 
-module.exports = ({ listRecipes, singleRecipeById, createRecipe, updateRecipe, deleteRecipe });
+module.exports = {
+  listRecipes,
+  singleRecipeById,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+};

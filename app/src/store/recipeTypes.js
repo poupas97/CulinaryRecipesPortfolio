@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
-
 import Api from '../api/Api';
 import { generatePowerActions, generateReducer } from './factory';
 import { createSuccessNotificationAction } from './notifications';
@@ -9,13 +8,13 @@ const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('recipe-types');
 
 export const RECIPE_TYPES = generateReducer(ACTIONS_NAMES);
 
-export const recipeTypesSelectors = state => state.RECIPE_TYPES;
+export const recipeTypesSelectors = (state) => state.RECIPE_TYPES;
 
-export const resetRecipeTypesAction = async dispatch => {
+export const resetRecipeTypesAction = async (dispatch) => {
   ACTIONS_DISPATCH.Reset(dispatch);
 };
 
-export const listRecipeTypesAction = async dispatch => {
+export const listRecipeTypesAction = async (dispatch) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
 
@@ -45,7 +44,10 @@ export const saveRecipeTypeAction = async (dispatch, recipeType) => {
 
     let saved;
     if (has(recipeType, 'id')) {
-      const { updated } = await Api.Put(`/recipeTypes/${get(recipeType, 'id')}/`, recipeType);
+      const { updated } = await Api.Put(
+        `/recipeTypes/${get(recipeType, 'id')}/`,
+        recipeType
+      );
       saved = updated;
       createSuccessNotificationAction(dispatch, 'Recipe Type was updated.');
     } else {

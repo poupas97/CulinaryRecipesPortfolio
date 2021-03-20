@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 import { compose } from 'redux';
-
 import { getUserAction, usersSelectors } from '../store/user';
 import { getDecodedToken } from '../tools';
 import { LOGIN_ROUTE } from './Login';
@@ -23,8 +22,7 @@ const Protected = ({ path, component, user, getUser, exact }) => {
   if (render)
     return <Route key={path} exact={exact} path={path} component={component} />;
 
-  if (renderLogin)
-    return <Redirect to={LOGIN_ROUTE} />;
+  if (renderLogin) return <Redirect to={LOGIN_ROUTE} />;
 
   return null;
 };
@@ -37,17 +35,15 @@ Protected.propTypes = {
   exact: bool,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { item } = usersSelectors(state);
-  return ({
+  return {
     user: item,
-  });
+  };
 };
 
-const mapActionsToProps = dispatch => ({
+const mapActionsToProps = (dispatch) => ({
   getUser: () => getUserAction(dispatch),
 });
 
-export default compose(
-  connect(mapStateToProps, mapActionsToProps),
-)(Protected);
+export default compose(connect(mapStateToProps, mapActionsToProps))(Protected);

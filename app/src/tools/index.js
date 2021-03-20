@@ -5,21 +5,22 @@ const TOKEN_KEY = 'TOKEN_KEY';
 
 export const getToken = () => {
   const result = window.sessionStorage.getItem(TOKEN_KEY);
-  return result ? JSON.parse(result): null;
+  return result ? JSON.parse(result) : null;
 };
 
 export const getDecodedToken = () => {
   const result = getToken();
-  return result ? jwtDecode(result.accessToken): null;
+  return result ? jwtDecode(result.accessToken) : null;
 };
 
-export const setToken = data => window.sessionStorage.setItem(TOKEN_KEY, JSON.stringify(data));
+export const setToken = (data) =>
+  window.sessionStorage.setItem(TOKEN_KEY, JSON.stringify(data));
 
 export const removeToken = () => window.sessionStorage.removeItem(TOKEN_KEY);
 
 export const getValue = (value, data) => {
   if (Array.isArray(value)) {
-    const result = value.map(it => get(data, it, ''));
+    const result = value.map((it) => get(data, it, ''));
     return result.join(' ').trim();
   }
 
@@ -28,20 +29,24 @@ export const getValue = (value, data) => {
 };
 
 export const resolveLink = (link, data) => {
-  const result = String(link).split('/').map(it => {
-    if (it.startsWith(':')) {
-      const propToSearch = it.replace(':', '');
-      return get(data, propToSearch, propToSearch);
-    }
-    return it;
-  }).join('/');
+  const result = String(link)
+    .split('/')
+    .map((it) => {
+      if (it.startsWith(':')) {
+        const propToSearch = it.replace(':', '');
+        return get(data, propToSearch, propToSearch);
+      }
+      return it;
+    })
+    .join('/');
 
   return result;
 };
 
-const isIsoDate = isoDate => /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(isoDate);
+const isIsoDate = (isoDate) =>
+  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(isoDate);
 
-const formatDate = date => {
+const formatDate = (date) => {
   const nextDate = new Date(date);
   let month = nextDate.getMonth() + 1;
   let day = nextDate.getDate();
@@ -61,10 +66,10 @@ const formatDate = date => {
   return `${[year, month, day].join('-')} ${[hour, minute, second].join(':')}`;
 };
 
-export const getOption = it => {
+export const getOption = (it) => {
   if (!it) return null;
-  return ({
+  return {
     value: it,
     label: it.name || it.description,
-  });
+  };
 };

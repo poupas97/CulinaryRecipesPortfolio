@@ -2,17 +2,29 @@ import { bool, func, object } from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { authorsSelectors, getAuthorAction, resetAuthorsAction, saveAuthorAction } from '../../store/authors';
+import {
+  authorsSelectors,
+  getAuthorAction,
+  resetAuthorsAction,
+  saveAuthorAction,
+} from '../../store/authors';
 import { AUTHORS_LIST_ROUTE } from './AuthorsList';
 
 export const AUTHORS_EDIT_ROUTE = '/authors/:id/edit';
 
 const AuthorsEdit = ({
-  history, getAuthor, author, updateAuthor, saved, loading, match: { params: { id } } }) => {
-
+  history,
+  getAuthor,
+  author,
+  updateAuthor,
+  saved,
+  loading,
+  match: {
+    params: { id },
+  },
+}) => {
   useEffect(() => {
     if (!author) getAuthor(id);
   }, [author, getAuthor, id]);
@@ -35,7 +47,7 @@ const AuthorsEdit = ({
       data={author}
       inputs={inputs}
       onSubmit={updateAuthor}
-      title="Update a Recipe"
+      title='Update a Recipe'
       onCancel={goBack}
       loading={loading}
     />
@@ -53,19 +65,19 @@ AuthorsEdit.propTypes = {
   match: object, // eslint-disable-line key-spacing
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { item, loading, saved } = authorsSelectors(state);
-  return ({
+  return {
     author: item,
     loading,
     saved,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetAuthorsAction(dispatch),
-  getAuthor: id => getAuthorAction(dispatch, id),
-  updateAuthor: recipe => saveAuthorAction(dispatch, recipe),
+  getAuthor: (id) => getAuthorAction(dispatch, id),
+  updateAuthor: (recipe) => saveAuthorAction(dispatch, recipe),
 });
 
 export default compose(

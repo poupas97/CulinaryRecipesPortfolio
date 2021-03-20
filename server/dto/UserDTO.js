@@ -1,10 +1,10 @@
-const userDtoSimple = user => {
+const userDtoSimple = (user) => {
   if (!user) return null;
   const { id, username, name } = user;
   return { id, username, name };
 };
 
-const userDtoComplex = user => {
+const userDtoComplex = (user) => {
   if (!user) return null;
   const { id, username, password, name } = user;
   return { id, username, password, name };
@@ -22,4 +22,7 @@ const userDtoComplex = user => {
 //   return { accessToken: access_token, refreshToken: refresh_token };
 // };
 
-module.exports = ({ userDtoSimple, userDtoComplex, /*userTokenToDb, userTokenFromBd*/ });
+module.exports = {
+  userDtoSimple,
+  userDtoComplex /*userTokenToDb, userTokenFromBd*/,
+};

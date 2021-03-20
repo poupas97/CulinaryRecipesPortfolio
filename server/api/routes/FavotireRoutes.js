@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = (app) => {
   const controller = require('../controllers/FavoriteController')();
 
   app.route('/api/favorites').get(controller.listFavorites);

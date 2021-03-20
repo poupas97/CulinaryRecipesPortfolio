@@ -24,6 +24,9 @@ const reducers = combineReducers({
   FAVORITES,
 });
 
-const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+const store = createStore(
+  reducers,
+  composeEnhancers(applyMiddleware(...middleware))
+);
 
 export default store;

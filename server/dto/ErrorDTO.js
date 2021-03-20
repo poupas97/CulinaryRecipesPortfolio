@@ -11,20 +11,23 @@ const ErrorMapper = {
 };
 
 const MessageMapper = {
-  'Cannot read property \'join\' of undefined': ErrorMapper.NO_PARAMETERS,
-  'Cannot read property \'id\' of undefined': ErrorMapper.NO_PARAMETERS,
+  "Cannot read property 'join' of undefined": ErrorMapper.NO_PARAMETERS,
+  "Cannot read property 'id' of undefined": ErrorMapper.NO_PARAMETERS,
 };
 
-const errorDtoSimple = errorReceived => {
+const errorDtoSimple = (errorReceived) => {
   let errorToSend = null;
 
   if (typeof errorReceived === 'string') {
     errorToSend = { error: errorReceived };
   } else if (typeof errorReceived === 'object') {
     const { code, message } = errorReceived || {};
-    errorToSend = { error: ErrorMapper[code] || code, message: MessageMapper[message] || message };
+    errorToSend = {
+      error: ErrorMapper[code] || code,
+      message: MessageMapper[message] || message,
+    };
   }
   return errorToSend;
 };
 
-module.exports = ({ ErrorMapper, errorDtoSimple });
+module.exports = { ErrorMapper, errorDtoSimple };

@@ -3,7 +3,7 @@ import { responseInterceptor } from './Interceptor';
 
 const baseUrl = 'http://localhost:8000/api';
 
-const Get = async url => {
+const Get = async (url) => {
   const token = getToken();
   const result = await fetch(baseUrl + url, {
     method: 'GET',
@@ -11,7 +11,7 @@ const Get = async url => {
       Accept: 'application/json',
       Authorization: `Bearer ${token.accessToken}`,
       'Content-Type': 'application/json',
-    }
+    },
   });
   return responseInterceptor(result);
 };
@@ -25,7 +25,7 @@ const Post = async (url, body) => {
       Authorization: `Bearer ${token.accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
   return responseInterceptor(result);
 };
@@ -39,12 +39,12 @@ const Put = async (url, body) => {
       Authorization: `Bearer ${token.accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
   return responseInterceptor(result);
 };
 
-const Delete = async url => {
+const Delete = async (url) => {
   const token = getToken();
   const result = await fetch(baseUrl + url, {
     method: 'DELETE',
@@ -62,12 +62,11 @@ const PostNoAuth = async (url, body) => {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
   return responseInterceptor(result);
 };
 
 export default { Get, Post, PostNoAuth, Put, Delete };
-

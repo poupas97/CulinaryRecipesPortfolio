@@ -8,7 +8,7 @@ const settings = {
   database: 'culinary_recipes_portfolio',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
 };
 
 const pool = mysql.createPool(settings);
@@ -24,12 +24,17 @@ async function select(table, where) {
     console.log('SELECT, running query');
     let result = [];
     if (where) {
-      const elements = where.reduce((acc, { prop, operator, value }) => ({
-        ...acc,
-        columns: [...(acc.columns || []), `${prop} ${operator} ? `],
-        values: [...(acc.values || []), value]
-      }), {});
-      const query = `SELECT * from ${table} WHERE ${elements.columns.join(' AND ')}`;
+      const elements = where.reduce(
+        (acc, { prop, operator, value }) => ({
+          ...acc,
+          columns: [...(acc.columns || []), `${prop} ${operator} ? `],
+          values: [...(acc.values || []), value],
+        }),
+        {}
+      );
+      const query = `SELECT * from ${table} WHERE ${elements.columns.join(
+        ' AND '
+      )}`;
 
       [result] = await connection.query(query, elements.values);
     } else {
@@ -63,12 +68,17 @@ async function selectSinge(table, where) {
     await connection.beginTransaction();
 
     console.log('SELECT SINGLE, running query');
-    const elements = where.reduce((acc, { prop, operator, value }) => ({
-      ...acc,
-      columns: [...(acc.columns || []), `${prop} ${operator} ? `],
-      values: [...(acc.values || []), value]
-    }), {});
-    const query = `SELECT * from ${table} WHERE ${elements.columns.join(' AND ')}`;
+    const elements = where.reduce(
+      (acc, { prop, operator, value }) => ({
+        ...acc,
+        columns: [...(acc.columns || []), `${prop} ${operator} ? `],
+        values: [...(acc.values || []), value],
+      }),
+      {}
+    );
+    const query = `SELECT * from ${table} WHERE ${elements.columns.join(
+      ' AND '
+    )}`;
 
     // const [rows, fields] = await connection.query(query);
     console.log(`SELECT SINGLE, query: ${query}`);
@@ -97,14 +107,18 @@ async function insert(table, value) {
     await connection.beginTransaction();
 
     console.log('INSERT, running query');
-    const elements = Object.entries(value).reduce((acc, [key, value]) => ({
-      ...acc,
-      columns: [...(acc.columns || []), key],
-      values: [...(acc.values || []), value]
-    }), {});
+    const elements = Object.entries(value).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        columns: [...(acc.columns || []), key],
+        values: [...(acc.values || []), value],
+      }),
+      {}
+    );
 
-    const query = `INSERT INTO ${table} (${elements.columns.join(', ')}) VALUES (${
-      Array(elements.columns.length).fill('?').join(', ')})`;
+    const query = `INSERT INTO ${table} (${elements.columns.join(
+      ', '
+    )}) VALUES (${Array(elements.columns.length).fill('?').join(', ')})`;
 
     console.log(`INSERT, query: ${query}`);
     const [result] = await connection.query(query, elements.values);
@@ -132,13 +146,18 @@ async function update(table, value, id) {
     await connection.beginTransaction();
 
     console.log('UPDATE, running query');
-    const elements = Object.entries(value).reduce((acc, [key, value]) => ({
-      ...acc,
-      columns: [...(acc.columns || []), `${key} = ?`],
-      values: [...(acc.values || []), value]
-    }), {});
+    const elements = Object.entries(value).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        columns: [...(acc.columns || []), `${key} = ?`],
+        values: [...(acc.values || []), value],
+      }),
+      {}
+    );
 
-    const query = `UPDATE ${table} SET ${elements.columns.join(', ')} WHERE id = ?`;
+    const query = `UPDATE ${table} SET ${elements.columns.join(
+      ', '
+    )} WHERE id = ?`;
 
     console.log(`UPDATE, query: ${query}`);
     const [result] = await connection.query(query, [...elements.values, id]);
@@ -166,12 +185,17 @@ async function remove(table, where) {
     await connection.beginTransaction();
 
     console.log('DELETE, running query');
-    const elements = where.reduce((acc, { prop, operator, value }) => ({
-      ...acc,
-      columns: [...(acc.columns || []), `${prop} ${operator} ? `],
-      values: [...(acc.values || []), value]
-    }), {});
-    const query = `DELETE FROM ${table} WHERE ${elements.columns.join(' AND ')}`;
+    const elements = where.reduce(
+      (acc, { prop, operator, value }) => ({
+        ...acc,
+        columns: [...(acc.columns || []), `${prop} ${operator} ? `],
+        values: [...(acc.values || []), value],
+      }),
+      {}
+    );
+    const query = `DELETE FROM ${table} WHERE ${elements.columns.join(
+      ' AND '
+    )}`;
 
     console.log(`DELETE, query: ${query}`);
     const [result] = await connection.query(query, elements.values);

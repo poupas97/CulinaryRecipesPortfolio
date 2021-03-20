@@ -14,7 +14,9 @@ const listUsers = async (req, res) => {
 
 const singleUserById = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -27,9 +29,14 @@ const singleUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { body: { username, password } } = req;
+    const {
+      body: { username, password },
+    } = req;
     const hash = await getHashPassword(password);
-    const result = await UserConnection.createUser({ username, password: hash });
+    const result = await UserConnection.createUser({
+      username,
+      password: hash,
+    });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -38,12 +45,18 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { body: { username, password, name }, params: { id } } = req;
+    const {
+      body: { username, password, name },
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
     const hash = await getHashPassword(password);
-    const result = await UserConnection.updateUser({ username, password: hash, name }, id);
+    const result = await UserConnection.updateUser(
+      { username, password: hash, name },
+      id
+    );
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(errorDtoSimple(error));
@@ -52,7 +65,10 @@ const updateUser = async (req, res) => {
 
 const availableUser = async (req, res) => {
   try {
-    const { body: { active }, params: { id } } = req;
+    const {
+      body: { active },
+      params: { id },
+    } = req;
 
     if (!id || active === null || active === undefined)
       return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
@@ -66,7 +82,9 @@ const availableUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 

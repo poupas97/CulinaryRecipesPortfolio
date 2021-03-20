@@ -14,7 +14,7 @@ const InputSelect = ({ prop, onChange = () => {}, options, data }) => {
 
   if (!prop) return null;
 
-  const handleChange = selected => {
+  const handleChange = (selected) => {
     setValue(selected.value);
     onChange(prop, selected.value);
   };

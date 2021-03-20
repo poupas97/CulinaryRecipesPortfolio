@@ -3,16 +3,25 @@ import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
-
 import Form, { FormInputType } from '../../containers/Form';
 import { withPage } from '../../contexts/Page';
-import { getRecipeTypesAction, recipeTypesSelectors, resetRecipeTypesAction, saveRecipeTypeAction } from '../../store/recipeTypes';
+import {
+  getRecipeTypesAction,
+  recipeTypesSelectors,
+  resetRecipeTypesAction,
+  saveRecipeTypeAction,
+} from '../../store/recipeTypes';
 import { RECIPE_TYPES_LIST_ROUTE } from './RecipeTypesList';
 
 export const RECIPE_TYPES_EDIT_ROUTE = '/recipe-types/:id/edit';
 
 const RecipeTypesEdit = ({
-  history, getRecipeType, recipeType, updateRecipeType, saved, loading,
+  history,
+  getRecipeType,
+  recipeType,
+  updateRecipeType,
+  saved,
+  loading,
 }) => {
   const { id } = useParams();
 
@@ -38,7 +47,7 @@ const RecipeTypesEdit = ({
       data={recipeType}
       inputs={inputs}
       onSubmit={updateRecipeType}
-      title="Update a Recipe Type"
+      title='Update a Recipe Type'
       onCancel={goBack}
       loading={loading}
     />
@@ -55,19 +64,19 @@ RecipeTypesEdit.propTypes = {
   loading: bool,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { item, loading, saved } = recipeTypesSelectors(state);
-  return ({
+  return {
     recipeType: item,
     loading,
     saved,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetRecipeTypesAction(dispatch),
-  getRecipeType: id => getRecipeTypesAction(dispatch, id),
-  updateRecipeType: recipeType => saveRecipeTypeAction(dispatch, recipeType),
+  getRecipeType: (id) => getRecipeTypesAction(dispatch, id),
+  updateRecipeType: (recipeType) => saveRecipeTypeAction(dispatch, recipeType),
 });
 
 export default compose(

@@ -14,7 +14,9 @@ const listRecipes = async (req, res) => {
 
 const singleRecipeById = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -27,7 +29,10 @@ const singleRecipeById = async (req, res) => {
 
 const createRecipe = async (req, res) => {
   try {
-    const { body, userAuthenticated: { id: idUser } } = req;
+    const {
+      body,
+      userAuthenticated: { id: idUser },
+    } = req;
 
     const newRecipe = { ...body };
 
@@ -45,9 +50,13 @@ const createRecipe = async (req, res) => {
     });
 
     // FIXME:
-    // const resultNewRelations = 
+    // const resultNewRelations =
     await RecipeIngredientConnection.createRecipeIngredient(
-      newRecipe.ingredients.map(it => ({ id_recipe: result.id, id_ingredient: it.id })));
+      newRecipe.ingredients.map((it) => ({
+        id_recipe: result.id,
+        id_ingredient: it.id,
+      }))
+    );
 
     return res.status(200).json(result);
   } catch (error) {
@@ -57,7 +66,10 @@ const createRecipe = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
   try {
-    const { body, params: { id } } = req;
+    const {
+      body,
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 
@@ -75,20 +87,33 @@ const updateRecipe = async (req, res) => {
     }
 
     // TODO: ingredientsList
-    const ingredientsRelation = await RecipeIngredientConnection.listIngredientsByRecipe(id, true);
+    const ingredientsRelation = await RecipeIngredientConnection.listIngredientsByRecipe(
+      id,
+      true
+    );
     const newIngredients = newRecipe.ingredients || [];
 
-    const relationsToDelete = ingredientsRelation.filter(relation =>
-      !newIngredients.find(newIngredient => newIngredient.id === relation.id_ingredient));
-    // const resultDeleteRelations = 
+    const relationsToDelete = ingredientsRelation.filter(
+      (relation) =>
+        !newIngredients.find(
+          (newIngredient) => newIngredient.id === relation.id_ingredient
+        )
+    );
+    // const resultDeleteRelations =
     await RecipeIngredientConnection.deleteRecipeIngredient(
-      relationsToDelete.map(it => it.id));
+      relationsToDelete.map((it) => it.id)
+    );
 
-    const relationsToCreate = newIngredients.filter(newIngredient =>
-      !ingredientsRelation.find(relation => newIngredient.id === relation.id_ingredient));
-    // const resultNewRelations = 
+    const relationsToCreate = newIngredients.filter(
+      (newIngredient) =>
+        !ingredientsRelation.find(
+          (relation) => newIngredient.id === relation.id_ingredient
+        )
+    );
+    // const resultNewRelations =
     await RecipeIngredientConnection.createRecipeIngredient(
-      relationsToCreate.map(it => ({ id_recipe: id, id_ingredient: it.id })));
+      relationsToCreate.map((it) => ({ id_recipe: id, id_ingredient: it.id }))
+    );
 
     const result = await RecipeConnection.updateRecipe(newRecipe, id);
 
@@ -100,7 +125,9 @@ const updateRecipe = async (req, res) => {
 
 const deleteRecipe = async (req, res) => {
   try {
-    const { params: { id } } = req;
+    const {
+      params: { id },
+    } = req;
 
     if (!id) return res.status(500).json(errorDtoSimple(ErrorMapper.MISS_ID));
 

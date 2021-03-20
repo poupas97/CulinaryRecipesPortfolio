@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = (app) => {
   const controller = require('../controllers/RecipeTypeController')();
 
   app.route('/api/recipeTypes').get(controller.listRecipeTypes);

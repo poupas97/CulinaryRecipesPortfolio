@@ -3,10 +3,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
-
 import Detail from '../../containers/Detail';
 import { withPage } from '../../contexts/Page';
-import { getIngredientAction, ingredientsSelectors, resetIngredientsAction } from '../../store/ingredients';
+import {
+  getIngredientAction,
+  ingredientsSelectors,
+  resetIngredientsAction,
+} from '../../store/ingredients';
 
 export const INGREDIENTS_DETAILS_ROUTE = '/ingredients/:id/details';
 
@@ -28,7 +31,7 @@ const IngredientsDetails = ({ ingredient, getIngredient, loading, reset }) => {
     <Detail
       labels={labels}
       item={ingredient}
-      title="Ingredient Details"
+      title='Ingredient Details'
       loading={loading}
     />
   );
@@ -41,20 +44,20 @@ IngredientsDetails.propTypes = {
   reset: func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { item, loading } = ingredientsSelectors(state);
-  return ({
+  return {
     ingredient: item,
     loading,
-  });
+  };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => resetIngredientsAction(dispatch),
-  getIngredient: id => getIngredientAction(dispatch, id),
+  getIngredient: (id) => getIngredientAction(dispatch, id),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withPage(INGREDIENTS_DETAILS_ROUTE),
+  withPage(INGREDIENTS_DETAILS_ROUTE)
 )(IngredientsDetails);

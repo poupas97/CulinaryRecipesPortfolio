@@ -6,13 +6,13 @@ const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('favorites');
 
 export const FAVORITES = generateReducer(ACTIONS_NAMES);
 
-export const favoritesSelectors = state => state.FAVORITES;
+export const favoritesSelectors = (state) => state.FAVORITES;
 
-export const resetFavoritesAction = async dispatch => {
+export const resetFavoritesAction = async (dispatch) => {
   ACTIONS_DISPATCH.Reset(dispatch);
 };
 
-export const listFavoritesAction = async dispatch => {
+export const listFavoritesAction = async (dispatch) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
 

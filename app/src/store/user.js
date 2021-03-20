@@ -6,13 +6,13 @@ const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('users');
 
 export const USERS = generateReducer(ACTIONS_NAMES);
 
-export const usersSelectors = state => state.USERS;
+export const usersSelectors = (state) => state.USERS;
 
-export const resetUserAction = async dispatch => {
+export const resetUserAction = async (dispatch) => {
   ACTIONS_DISPATCH.Reset(dispatch);
 };
 
-export const getUserAction = async dispatch => {
+export const getUserAction = async (dispatch) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
     const token = getDecodedToken();

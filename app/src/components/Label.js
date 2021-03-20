@@ -3,11 +3,11 @@ import React from 'react';
 
 const Label = ({ text }) => {
   if (!text) return '';
-  return (<span>{text}: </span>);
+  return <span>{text}: </span>;
 };
 
 Label.propTypes = {
-  text: string
+  text: string,
 };
 
 export default Label;

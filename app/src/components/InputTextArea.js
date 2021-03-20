@@ -8,7 +8,7 @@ const InputTextArea = ({ prop, onChange = () => {} }) => {
 
 InputTextArea.propTypes = {
   prop: string,
-  onChange: func
+  onChange: func,
 };
 
 export default InputTextArea;

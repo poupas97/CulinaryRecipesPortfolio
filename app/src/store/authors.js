@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
-
 import Api from '../api/Api';
 import { generatePowerActions, generateReducer } from './factory';
 import { createSuccessNotificationAction } from './notifications';
@@ -9,13 +8,13 @@ const [ACTIONS_DISPATCH, ACTIONS_NAMES] = generatePowerActions('authors');
 
 export const AUTHORS = generateReducer(ACTIONS_NAMES);
 
-export const authorsSelectors = state => state.AUTHORS;
+export const authorsSelectors = (state) => state.AUTHORS;
 
-export const resetAuthorsAction = async dispatch => {
+export const resetAuthorsAction = async (dispatch) => {
   ACTIONS_DISPATCH.Reset(dispatch);
 };
 
-export const listAuthorsAction = async dispatch => {
+export const listAuthorsAction = async (dispatch) => {
   try {
     ACTIONS_DISPATCH.Loading(dispatch);
 
@@ -45,7 +44,10 @@ export const saveAuthorAction = async (dispatch, author) => {
 
     let saved;
     if (has(author, 'id')) {
-      const { updated } = await Api.Put(`/authors/${get(author, 'id')}/`, author);
+      const { updated } = await Api.Put(
+        `/authors/${get(author, 'id')}/`,
+        author
+      );
       saved = updated;
       createSuccessNotificationAction(dispatch, 'Author was updated.');
     } else {
